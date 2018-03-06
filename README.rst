@@ -286,6 +286,8 @@ Additional Documentation
 ========================
 - `More details about the multiple RPi video streaming example <docs/more-details.rst>`_
 - `Using imagezmq in distributed computer vision projects <docs/imagezmq-uses.rst>`_
+- `API and Usage Examples <docs/api-examples.rst>`_
+
 
 Contributing
 ============
