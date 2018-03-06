@@ -5,7 +5,11 @@ API and Usage Examples
 The API for **imagezmq** consists of 2 classes with 2 methods each. The
 ImageSender class has 2 methods: one for sending an OpenCV image and one for
 sending a jpg compressed OpenCV image. The ImageHub class has 2 methods: one for
-receiving an OpenCV image and one for receiving a jpg compressed OpenCV image.::
+receiving an OpenCV image and one for receiving a jpg compressed OpenCV image.
+**imagezmq** is in early development as part of a larger system. There are
+currently separate methods for sending and receiving images vs. jpg compressed
+images. Further development will refactor these into single methods for sending
+and receiving. ::
 
   class ImageSender(connect_to='tcp://127.0.0.1:5555'):
       Opens a zmq REQ socket on the image sending computer, typically a
@@ -37,7 +41,7 @@ receiving an OpenCV image and one for receiving a jpg compressed OpenCV image.::
             A text reply from hub.
 
   class ImageHub(open_port='tcp://:5555'):
-      Opens a zmq REP socket on the hub compuer, for example,
+      Opens a zmq REP socket on the hub computer, for example,
       a Mac, that will be receiving and displaying or processing OpenCV images
       and related text messages. Provides methods to receive images or receive
       jpg compressed images.

@@ -153,6 +153,11 @@ program sends images and the other program displays images. Because of the
 REQ/REP pattern that is being used, it is important that the receiving program
 be started before the sending program.
 
+**imagezmq** is in early development as part of a larger system. There are
+currently separate methods for sending and receiving images vs. jpg compressed
+images. Further development will refactor these into single methods for sending
+and receiving. ::
+
 Test 1: Simple generated images sent and displayed on Mac
 ---------------------------------------------------------
 **The first test** runs both the sending program and the receiving program on
