@@ -80,7 +80,7 @@ The programs ``timing_send_images.py`` and ``timing_receive_images.py`` provide
 examples of how to use the **imagezmq** API to send and receive OpenCV
 images.  The programs show a simple **imagezmq** use case.
 Additional image processing in the sending program would typically be placed
-between the picam.read() and the sender.send_image() lines. Such processing
+between the ``picam.read()`` and the ``sender.send_image()`` lines. Such processing
 would be done with calls to methods for image rotation, resizing,
 dilation, etc. from an application specific image processing class.
 
