@@ -38,19 +38,19 @@ Let's look at the Python code in the Raspberry Pi sending program:
 .. code-block:: python
 
     # run this program on each RPi to send a labelled image stream
-    import socket
-    import time
-    from imutils.video import VideoStream
-    import imagezmq
-
+    import socket                                           #  2  <--Line #
+    import time                                             #  3
+    from imutils.video import VideoStream                   #  4
+    import imagezmq                                         #  5
+                                                            #  6
     sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
-
+                                                            #  8
     rpi_name = socket.gethostname() # send unique RPi hostname with each image
-    picam = VideoStream(usePiCamera=True).start()
-    time.sleep(2.0)  # allow camera sensor to warm up
-    while True:  # send images as stream until Ctrl-C
-        image = picam.read()
-        sender.send_image(rpi_name, image)
+    picam = VideoStream(usePiCamera=True).start()           # 10
+    time.sleep(2.0)  # allow camera sensor to warm up       # 11
+    while True:  # send images as stream until Ctrl-C       # 12
+        image = picam.read()                                # 13
+        sender.send_image(rpi_name, image)                  # 14
 
 
 Lines 2 to 5 import the Python packages we will be using. Line 7 instantiates
@@ -75,15 +75,15 @@ Now, lets look at the Python code on the Mac (or other display computer):
 .. code-block:: python
 
     # run this program on the Mac to display image streams from multiple RPis
-    import cv2
-    import imagezmq
-
-    image_hub = imagezmq.ImageHub()
-    while True:  # show streamed images until Ctrl-C
-        rpi_name, image = image_hub.recv_image()
-        cv2.imshow(rpi_name, image) # 1 window for each RPi
-        cv2.waitKey(1)
-        image_hub.send_reply(b'OK')
+    import cv2                                               #  2  <--Line #
+    import imagezmq                                          #  3
+                                                             #  4
+    image_hub = imagezmq.ImageHub()                          #  5
+    while True:  # show streamed images until Ctrl-C         #  6
+        rpi_name, image = image_hub.recv_image()             #  7
+        cv2.imshow(rpi_name, image) # 1 window for each RPi  #  8
+        cv2.waitKey(1)                                       #  9
+        image_hub.send_reply(b'OK')                          # 10
 
 Lines 2 and 3 import the Python packages we will be using: cv2 (OpenCV) and
 **imagezmq**.  Line 5 instantiates an **ImageHub** class from **imagezmq**.
