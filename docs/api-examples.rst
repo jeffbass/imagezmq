@@ -95,3 +95,5 @@ format to a jpg bytestring be done by the application program. This will likely
 change in the future. The 2 example programs show how to
 perform the conversion using OpenCV's ``cv2.imencode()`` and ``cv2.imdecode()``
 methods.
+
+`Return to main documentation page README.rst <../README.rst>`_
