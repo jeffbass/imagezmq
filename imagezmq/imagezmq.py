@@ -17,7 +17,7 @@ import cv2
 class ImageSender():
     """Opens zmq REQ socket and sends images.
 
-    Opens a zmq REQ socket on the image sending computer, typically a
+    Opens a zmq REQ socket on the image sending computer, often a
     Raspberry Pi, that will be sending OpenCV images and
     related text messages to the hub computer. Provides methods to
     send images or send jpg compressed images.
