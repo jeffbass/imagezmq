@@ -313,7 +313,9 @@ Acknowledgments
   tutorials, code examples, blogs
   and books at `PyImageSearch.com <https://www.pyimagesearch.com/>`_. Installing
   OpenCV on my Raspberry Pi computers, Macs and Linux boxes went from
-  frustrating to easy thanks to his tutorials.
+  frustrating to easy thanks to his tutorials. I also learned a **LOT** about
+  computer vision methods and techniques by taking his PyImageSearch Gurus
+  course. Highly recommended.
 - **imutils** is a collection of Python classes and methods that allows computer
   vision programs using OpenCV to be cleaner and more compact. It has a very
   helpful threaded image reader for Raspberry PiCamera modules or webcams. It
