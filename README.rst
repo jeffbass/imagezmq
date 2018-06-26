@@ -298,10 +298,10 @@ Contributing
 ============
 **imagezmq** is in early development and testing. I welcome open issues and
 pull requests, but because the programs are still evolving, it is best to
-open a pull request with some discussion before submitting code changes.
+open an issue with some discussion before submitting pull requests.
 
-Acknowledgments
-===============
+Acknowledgments and Thank Yous
+==============================
 - **ZeroMQ** is a great messaging library with great documentation
   at `ZeroMQ.org <http://zeromq.org/>`_.
 - **PyZMQ** serialization examples provided a starting point for **imagezmq**. See the
