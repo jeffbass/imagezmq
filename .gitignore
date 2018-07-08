@@ -60,4 +60,4 @@ Icon
 *.npy
 *.swp
 *.log*
-*stdout
+*stdout*

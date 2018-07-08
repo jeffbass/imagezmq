@@ -123,9 +123,9 @@ cloning the GitHub repository::
     git clone https://github.com/jeffbass/imagezmq.git
 
 Once you have cloned the imagezmq directory to a directory on your local machine,
-you can run the tests per the instructions below. You can use imagezmq in your own
-code by copying ``imagezmq.py`` to one of your project directories and importing
-it (``import imagezmq``).
+you can run the tests per the instructions below. You can use imagezmq in your
+own code by copying ``imagezmq.py`` to one of your project directories and
+importing it (``import imagezmq``).
 
 **imagezmq** and all of the software dependencies must be installed on the
 display computer that will be receiving the images AND it must all be installed

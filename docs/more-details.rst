@@ -54,10 +54,10 @@ Let's look at the Python code in the Raspberry Pi sending program:
 
 
 Lines 2 to 5 import the Python packages we will be using. Line 7 instantiates
-an **ImageSender** class from **imagezmq**. Line 9 sets **rpi_name** to the hostname
-of the Raspberry Pi. This will keep each Raspberry Pi's image stream in a separate
-window on the Mac (provided that each Raspberry Pi has a unique hostname).
-Line 10 starts a VideoSteam from the PiCamera. Line 11 allows
+an **ImageSender** class from **imagezmq**. Line 9 sets **rpi_name** to the
+hostname of the Raspberry Pi. This will keep each Raspberry Pi's image stream in
+a separate window on the Mac (provided that each Raspberry Pi has a unique
+hostname). Line 10 starts a VideoSteam from the PiCamera. Line 11 allows
 the PiCamera sensor to warm up (if we grab the first frame from the PiCamera without
 this warmup time, it will fail with an error). Line 12 begins a forever loop of
 2 lines: Line 13 reads a frame from the PiCamera into the **image** variable.
