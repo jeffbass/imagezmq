@@ -25,9 +25,9 @@ sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
 rpi_name = socket.gethostname()  # send RPi hostname with each image
 picam = VideoStream(usePiCamera=True).start()
 time.sleep(2.0)  # allow camera sensor to warm up
+jpeg_quality = 95  # 0 to 100, higher is better quality, 95 is cv2 default
 while True:  # send images as stream until Ctrl-C
     image = picam.read()
-    jpeg_quality = 95  # 0 to 100, higher is better quality, 95 is cv2 default
     ret_code, jpg_buffer = cv2.imencode(
         ".jpg", image, [int(cv2.IMWRITE_JPEG_QUALITY), jpeg_quality])
     sender.send_jpg(rpi_name, jpg_buffer)
