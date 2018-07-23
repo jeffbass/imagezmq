@@ -36,6 +36,7 @@ images from each Raspberry Pi in a different window.
 Let's look at the Python code in the Raspberry Pi sending program:
 
 .. code-block:: python
+  :number-lines:
 
     # run this program on each RPi to send a labelled image stream
     import socket                                           #  2  <--Line #
@@ -73,6 +74,7 @@ sent with each image.
 Now, lets look at the Python code on the Mac (or other display computer):
 
 .. code-block:: python
+  :number-lines:
 
     # run this program on the Mac to display image streams from multiple RPis
     import cv2                                               #  2  <--Line #
