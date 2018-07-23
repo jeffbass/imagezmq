@@ -9,7 +9,9 @@ receiving an OpenCV image and one for receiving a jpg compressed OpenCV image.
 **imagezmq** is in early development as part of a larger system. There are
 currently separate methods for sending and receiving images vs. jpg compressed
 images. Further development will refactor these into single methods for sending
-and receiving. ::
+and receiving.
+
+.. code-block:: python
 
   class ImageSender(connect_to='tcp://127.0.0.1:5555'):
       Opens a zmq REQ socket on the image sending computer, typically a
