@@ -12,6 +12,7 @@ images. Further development will refactor these into single methods for sending
 and receiving.
 
 .. code-block:: python
+  :number-lines:
 
   class ImageSender(connect_to='tcp://127.0.0.1:5555'):
       Opens a zmq REQ socket on the image sending computer, typically a
