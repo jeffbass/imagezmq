@@ -111,18 +111,22 @@ environment is named **py3cv3**.
 
 Install PyZMQ using pip:
 
-..code-block:: bash
+.. code-block:: bash
 
     workon py3cv3  # use your virtual environment name
     pip install pyzmq
 
-Install imutils using pip::
+Install imutils using pip:
+
+.. code-block:: bash
 
     workon py3cv3  # use your virtual environment name
     pip install imutils
 
 **imagezmq** is still in early development, so it is not yet in PyPI. Get it by
-cloning the GitHub repository::
+cloning the GitHub repository
+
+.. code-block:: bash
 
     git clone https://github.com/jeffbass/imagezmq.git
 
