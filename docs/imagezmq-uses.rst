@@ -106,6 +106,7 @@ image streams.
 
 The code for the Raspberry Pi water meter program and the Mac image hub program
 will be placed in GitHub repositories at ``(coming soon)``. A description of
-the farm automation software and hardware can be found at ``(coming soon)``.
+the farm automation software and hardware can be found at
+`Yin Yang Ranch on GitHub <https://github.com/jeffbass/yin-yang-ranch>`_.
 
 `Return to main documentation page README.rst <../README.rst>`_
