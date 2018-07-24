@@ -17,6 +17,7 @@ sys.path.insert(0, '../imagezmq')  # imagezmq.py is in ../imagezmq
 
 import socket
 import time
+import traceback
 import cv2
 from imutils.video import VideoStream
 import imagezmq
@@ -52,7 +53,8 @@ except (KeyboardInterrupt, SystemExit):
     pass  # Ctrl-C was pressed to end program
 except Exception as ex:
     print('Python error with no Exception handler:')
-    print(ex)
+    print('Traceback error:', ex)
+    traceback.print_exc()
 finally:
     if use_led:
         GPIO.output(18, False)  # turn off LEDs

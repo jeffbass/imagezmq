@@ -25,6 +25,7 @@ import sys
 sys.path.insert(0, '../imagezmq')  # imagezmq.py is in ../imagezmq
 
 import time
+import traceback
 import cv2
 from collections import defaultdict
 from imutils.video import FPS
@@ -53,7 +54,8 @@ except (KeyboardInterrupt, SystemExit):
     pass  # Ctrl-C was pressed to end program; FPS stats computed below
 except Exception as ex:
     print('Python error with no Exception handler:')
-    print(ex)
+    print('Traceback error:', ex)
+    traceback.print_exc()
 finally:
     # stop the timer and display FPS information
     print()
