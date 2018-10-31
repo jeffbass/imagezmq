@@ -76,7 +76,9 @@ finally:
     print('Size of last jpg buffer received: {:,g} bytes'.format(compressed_size))
     image_size = image.shape
     print('Size of last image received: ', image_size)
-    uncompressed_size = image_size[0] * image_size[1] * image_size[2]
+    uncompressed_size = 1
+    for dimension in image_size:
+        uncompressed_size *= dimension
     print('    = {:,g} bytes'.format(uncompressed_size))
     print('Compression ratio: {:.2f}'.format(compressed_size / uncompressed_size))
     print('Elasped time: {:,.2f} seconds'.format(fps.elapsed()))
