@@ -104,12 +104,13 @@ processing, motion detection and sending a subset of gathered images. The Mac
 has enough processing power to do further image processing for all 8 Raspberry Pi
 image streams.
 
-The GitHub code for the Raspberry Pi water meter **imagenode** program can be found at
+The code for the Raspberry Pi water meter **imagenode** program can be found on
+GitHub at
 `imagenode: Capture and Send Images and Sensor Data. <https://github.com/jeffbass/imagenode>`_
 The Mac (or other Linux computer) **imagehub** program can be found on GitHub at
 `imagehub: Receive and Store Images and Event Logs. <https://github.com/jeffbass/imagehub>`_
 A overall project description of the farm automation software and hardware can
 be found on GitHub at
-`Yin Yang Ranch on GitHub <https://github.com/jeffbass/yin-yang-ranch>`_.
+`Yin Yang Ranch. <https://github.com/jeffbass/yin-yang-ranch>`_
 
 `Return to main documentation page README.rst <../README.rst>`_
