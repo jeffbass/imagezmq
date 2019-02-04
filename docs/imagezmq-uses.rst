@@ -109,7 +109,7 @@ GitHub at
 `imagenode: Capture and Send Images and Sensor Data. <https://github.com/jeffbass/imagenode>`_
 The Mac (or other Linux computer) **imagehub** program can be found on GitHub at
 `imagehub: Receive and Store Images and Event Logs. <https://github.com/jeffbass/imagehub>`_
-A overall project description of the farm automation software and hardware can
+The overall project description of the farm automation software and hardware can
 be found on GitHub at
 `Yin Yang Ranch. <https://github.com/jeffbass/yin-yang-ranch>`_
 
