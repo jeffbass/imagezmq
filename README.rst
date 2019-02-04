@@ -300,7 +300,13 @@ Additional Documentation
 - `More details about the multiple RPi video streaming example <docs/more-details.rst>`_
 - `Using imagezmq in distributed computer vision projects <docs/imagezmq-uses.rst>`_
 - `API and Usage Examples <docs/api-examples.rst>`_
+- How **imagezmq** is used in my own projects connecting multiple
+  Raspberry Pi **imagenodes** to an **imagehub**:
 
+    - My Yin Yang Ranch project to manage a small urban permaculture farm.
+      `Yin Yang Ranch project overview <https://github.com/jeffbass/yin-yang-ranch>`_
+    - `imagenode: Capture and Send Images and Sensor Data. <https://github.com/jeffbass/imagenode>`_
+    - `imagehub: Receive and Store Images and Event Logs. <https://github.com/jeffbass/imagehub>`_
 
 Contributing
 ============
