@@ -26,7 +26,7 @@ class ImageSender():
       connect_to: the tcp address:port of the hub computer.
     """
 
-    def __init__(self, connect_to='tcp://127.0.0.1:5555'):
+    def __init__(self, connect_to='tcp://127.0.0.1:5555', send_timeout=0):
         """Initializes zmq socket for sending images to the hub.
 
         Expects an open socket at the connect_to tcp address; it will
@@ -36,6 +36,8 @@ class ImageSender():
 
         self.zmq_context = SerializingContext()
         self.zmq_socket = self.zmq_context.socket(zmq.REQ)
+        if send_timeout > 0:
+            self.zmq_socket.setsockopt(zmq.SNDTIMEO, send_timeout*1000)
         self.zmq_socket.connect(connect_to)
 
     def send_image(self, msg, image):
