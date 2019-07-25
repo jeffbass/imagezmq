@@ -15,31 +15,52 @@ import cv2
 
 
 class ImageSender():
-    """Opens zmq REQ socket and sends images.
+    """In blocking mode (block = True, default setting) opens zmq REQ socket
+       and sends images.
 
     Opens a zmq REQ socket on the image sending computer, often a
     Raspberry Pi, that will be sending OpenCV images and
     related text messages to the hub computer. Provides methods to
     send images or send jpg compressed images.
 
+    In a non-blocking mode (block = False) creates a PUB socket 
+
     Arguments:
       connect_to: the tcp address:port of the hub computer.
+      block:      defines if the sender is intialized in blocking or 
+                  non-blocking mode
     """
 
-    def __init__(self, connect_to='tcp://127.0.0.1:5555'):
+    def __init__(self, connect_to='tcp://127.0.0.1:5555', block = True):
         """Initializes zmq socket for sending images to the hub.
 
         Expects an open socket at the connect_to tcp address; it will
         connect to that remote socket after setting up the REQ
         socket on this computer.
-        """
 
-        self.zmq_context = SerializingContext()
-        self.zmq_socket = self.zmq_context.socket(zmq.REQ)
-        self.zmq_socket.connect(connect_to)
+        By default, creates sender for REQ/REP (blocking mode) 
+        
+        If block = False, creates a publisher (PUB socket).
+        """
+        self.block = block
+        if block == True:
+             # REQ/REP mode, this is a blocking scenario
+             socketType = zmq.REQ
+             self.zmq_context = SerializingContext()
+             self.zmq_socket = self.zmq_context.socket(socketType)
+             self.zmq_socket.connect(connect_to)
+        else:
+             #PUB/SUB mode, non-blocking scenario
+             socketType = zmq.PUB
+             self.zmq_context = SerializingContext()
+             self.zmq_socket = self.zmq_context.socket(socketType)
+             self.zmq_socket.bind(connect_to)
 
     def send_image(self, msg, image):
-        """Sends OpenCV image and msg to hub computer.
+        """Sends OpenCV image and msg to hub computer (REQ/REP mode)
+        or publishes image and msg to PUB socket in PUB/SUB mode. If
+        there is no subscriptions to this socket image and msg are
+        discarded.
 
         Arguments:
           msg: text message or image name.
@@ -48,7 +69,6 @@ class ImageSender():
         Returns:
           A text reply from hub.
         """
-
         if image.flags['C_CONTIGUOUS']:
             # if image is already contiguous in memory just send it
             self.zmq_socket.send_array(image, msg, copy=False)
@@ -56,6 +76,9 @@ class ImageSender():
             # else make it contiguous before sending
             image = np.ascontiguousarray(image)
             self.zmq_socket.send_array(image, msg, copy=False)
+        if self.block == False:
+            #In case of PUB/SUB mode just return, we do not expect anything from a subscriber
+            return
         hub_reply = self.zmq_socket.recv()  # receive the reply message
         return hub_reply
 
@@ -70,12 +93,16 @@ class ImageSender():
         """
 
         self.zmq_socket.send_jpg(msg, jpg_buffer, copy=False)
+        if self.block == False:
+            #In PUB/SUB mode just return, we do not expext anything from a subscriber
+            return
         hub_reply = self.zmq_socket.recv()  # receive the reply message
         return hub_reply
 
 
 class ImageHub():
-    """Opens zmq REP socket and receives images.
+    """If created in blocking mode, opens zmq REP socket and receives images.
+    If created in non-blocking mode, tries to subscribe to a PUB socket.
 
     Opens a zmq REP socket on the hub compuer, for example,
     a Mac, that will be receiving and displaying or processing OpenCV images
@@ -83,16 +110,50 @@ class ImageHub():
     jpg compressed images.
 
     Arguments:
-      open_port: (optional) the socket to open for receiving REQ requests.
+      open_port: (optional) the socket to open for receiving REQ requests or 
+                 socket to connect to for SUB requests.
+      block:     if set to True (default) the hub will connect to REP socket, 
+                 will wait for messages and will send acknowlegements upon
+                 successful message reception.
+                 If set to False the hub will try to subscribe to PUB socket
+                 and will wait for images. No acknowlegements will be sent 
+                 back to sender upon successful reception.
     """
 
-    def __init__(self, open_port='tcp://*:5555'):
-        """Initializes zmq REP socket to receive images and text.
+    def __init__(self, open_port='tcp://*:5555', block = True):
+        """Initializes zmq REP or connects to PUB  socket to receive images and text.
         """
+        self.block = block
+        if block ==True:
+            #Init REP socket for blocking mode
+            socketType = zmq.REP
+            self.zmq_context = SerializingContext()
+            self.zmq_socket = self.zmq_context.socket(socketType)
+            self.zmq_socket.bind(open_port)
+        else:
+            #Connect to PUB socket for non-blocking mode
+            socketType = zmq.SUB
+            self.zmq_context = SerializingContext()
+            self.zmq_socket = self.zmq_context.socket(socketType)
+            self.zmq_socket.setsockopt(zmq.SUBSCRIBE, b'')
+            r = self.zmq_socket.connect(open_port)
 
-        self.zmq_context = SerializingContext()
-        self.zmq_socket = self.zmq_context.socket(zmq.REP)
-        self.zmq_socket.bind(open_port)
+    """In PUB/SUB mode one hub can connect to multiple senders at the same time
+       Use this method to connect (and subscribe) to senders
+      
+       Arguments:
+         open_port: the PUB socket to connect to.
+    """
+    def connect(self, open_port):
+        """Connect to another PUB socket to receive images (one subscriver
+           can connect/subsribe to multiple publishers) 
+        """
+        if self.block == False:
+            #This makes sense only in PUB/SUB mode
+            self.zmq_socket.setsockopt(zmq.SUBSCRIBE, b'')
+            self.zmq_socket.connect(open_port)
+            self.zmq_socket.subscribe(b'')
+        return
 
     def recv_image(self, copy=False):
         """Receives OpenCV image and text msg.
