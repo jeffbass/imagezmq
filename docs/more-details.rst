@@ -24,8 +24,13 @@ by the Mac message is an "OK" that tells the Raspberry Pi that it can send
 another image.
 
 ZMQ is a powerful messaging library that allows many patterns for sending and
-receiving messages. The ZMQ pattern used by **imagezmq** is the REQ/REP pattern.
-That means that every time a Raspberry Pi sends an image, it waits for an "OK"
+receiving messages. **imagezmq** provides access to  REQ/REP and PUB/SUP ZMQ 
+messaging patterns. 
+
+REQ/REP messaging pattern
+=========================
+
+When using REQ/REP pattern every time a Raspberry Pi sends an image, it waits for an "OK"
 from the Mac before sending another image. It also means that there can be multiple
 Raspberry Pi computers sending messages to the Mac at the same time, since
 the ZMQ REQ/REP pattern allows many clients to send REQ messages to a single
@@ -106,5 +111,120 @@ streams in separate windows. To create the picture at the top of this page, 8
 Raspberry Pi computers were sending images to a single Mac. The picture is a
 screenshot of the Mac's display with the 8 ``cv2.imshow()`` windows arranged
 in 2 rows.
+
+PUB/SUB messaging pattern
+=========================
+
+Imagine following setup: camera is sending video frames to the server. The server 
+processes frames (performs motion or object detection, for example) and records a 
+stream to a file. We want to be able to occasionaly connect to the server and
+check video stream that is processed at the moment.
+
+How would we do that? 
+
+Obvious solution is to run a script that will be 1) receiving video frames and
+2) listening on specific port for external connections and 3) in case of 
+active incoming connection send those video frames to browser.
+
+The ZMQ REQ/REP pattern cannot be used here: it expects that all messages are
+received and confirmed. At the same time, web server script stops if there is no
+incoming connections. This means, that the whole system will freeze until
+web browser  makes a connection to read a stream.
+
+The solution to this is a ZMQ PUB/SUB pattern. 
+
+When using PUB/SUB mode image sender creates a ZMQ PUB socket, but images are pushed
+to the socket only if at least one subscriber is connected to this socket. If
+there is no subscribers images are discarded immediatelly and execution continues.
+This allows to create nonintrusive monitoring points in your application when the
+main execution flow does not depend on image receivers.
+
+The PUB/SUB pattern does not expect reception acknowlegments and the execution 
+is not paused if there is no recepient connected.
+
+Lets check a simple example (the code of sender is pretty similar to the previous 
+example):
+
+.. code:: python
+  :number-lines:
+
+    # run this program on each RPi to send a labelled image stream
+    import socket
+    import time
+    from imutils.video import VideoStream
+    import imagezmq
+
+    # Accept connections on all interfaces, port 5555
+    sender = imagezmq.ImageSender(connect_to='tcp://*:5555', block=False)
+
+    rpi_name = socket.gethostname() # send RPi hostname with each image
+    picam = VideoStream(usePiCamera=True).start()
+    time.sleep(2.0)  # allow camera sensor to warm up
+    while True:  # send images as stream until Ctrl-C
+        image = picam.read()
+        sender.send_image(rpi_name, image)
+        # The execution will continue even if nobody connected to us
+        do_something_else()
+    
+Mind the different pattern for ``connect_to`` argument and a new ``block=False`` 
+argument in line 8.
+
+Stream server code
+
+.. code-block:: python
+  :number-lines:
+
+    # run this program on a server that will handle HTTP requests and will
+    # stream frames received from the camera to the browser
+    import cv2
+    import imagezmq
+    from werkzeug.wrappers import Request, Response
+    from werkzeug.serving import run_simple
+
+    def receive():
+        # When there is a request from the web browser, create a subscriber
+        image_hub = imagezmq.ImageHub(open_port='tcp://192.168.0.101:5555', block=False)
+        while True:  # show streamed images
+            rpi_name, image = image_hub.recv_image()
+            # push a frame to web browser
+            yield b'--frame\r\nContent-Type:image/jpeg\r\n\r\n'+image.tostring()+b'\r\n'
+
+    # This code is triggered every time there is a connection to our web server
+    @Request.application
+    def application(request):
+        return Response(receive(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+    # This will start a web server that is listening on local interface and port 4000
+    if __name__ == '__main__':
+        run_simple('192.168.0.100', 4000, application)
+
+The reciever part is a little bit more complex. 
+
+Lets start from the bottom (lines 22 - 23): ``__main__`` method starts a simple webserver
+that waits for incoming connection on a network interface that has IP 192.168.0.100, 
+port 4000. (More info about the **werkzeug** library that we use for building HTTP server 
+you can find here: `Werkzeug <https://werkzeug.palletsprojects.com/en/0.15.x/>`_
+
+The ``receive()`` method is implementing a generator: simply said this is the function you
+can iterate over like over any data structure (using ``for`` loop or ``next()``). More info
+about how generators work you can find `here: generators in Python <https://realpython.com/introduction-to-python-generators/>`_
+
+When this server receives incomming connection it starts pulling data from receive() function
+using it as generator. This is the mail loop of the application:
+
+- until the web client is connected ``Response()`` method of web secrver is iterating over 
+  our ``receive()`` function (line 19):
+
+  - image_hub object is created in PUB/SUB mode and it connects to the camera (line 10; when
+    the connection is established);
+  - image is pulled from the message queue (line 12);
+  - the image is wrapped into a HTTP Multipart data structure (line 14);
+  - the code stops at the yield command until web server is ready to send it (line 14);
+  - after web server gets this multipart data chunk the loop repeats from the step 2 (goes to
+    line 11);
+
+Now if you run sender code on a camera, server code on a server and type 
+``http://192.168.0.100:4000`` in your browser you should be able to see the live translation
+from your RPi camera in your browser.
 
 `Return to main documentation page README.rst <../README.rst>`_
