@@ -14,7 +14,7 @@ sys.path.insert(0, '../imagezmq')  # imagezmq.py is in ../imagezmq
 import imagezmq
 
 # Create an image sender in PUB/SUB (non-blocking) mode
-sender = imagezmq.ImageSender(connect_to='tcp://*:5555', block=False)
+sender = imagezmq.ImageSender(connect_to='tcp://*:5555', REQ_REP=False)
 
 image_window_name = 'From Sender'
 i = 0

@@ -32,7 +32,7 @@ import cv2
 sys.path.insert(0, '../imagezmq')  # imagezmq.py is in ../imagezmq
 import imagezmq
 
-image_hub = imagezmq.ImageHub(open_port='tcp://127.0.0.1:5555', block=False)
+image_hub = imagezmq.ImageHub(open_port='tcp://127.0.0.1:5555', REQ_REP=False)
 while True:  # press Ctrl-C to stop image display program
     image_name, image = image_hub.recv_image()
     cv2.imshow(image_name, image)
