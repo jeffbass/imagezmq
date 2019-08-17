@@ -13,7 +13,7 @@ and receiving.
 
 ImageSender/ImageHub pair can work in one of following modes: REQ/REP or PUB/SUB.
 The mode is selected when ImageSender and ImageHub are instantiated by setting
-REQ_REP parameter in constructor to True or False. REQ/REP mode is a default one.
+REQ_REP parameter in constructor to *True* or *False*. REQ/REP mode is a default one.
 
 Two messaging patterns: REQ/REP and PUB/SUB
 ========================================== 
@@ -22,7 +22,7 @@ These two modes (or to be more precise,  messaging patterns) are very similar:
 both are used to send images from sender to receiver. But the behaviour of the 
 sender and receiver is pretty different.
 
-REQ/REP pattern guarantees image delivery from sender to recipient: sender
+**REQ/REP** pattern guarantees image delivery from sender to recipient: sender
 reception confirmation from recipient before next image is sent. This feature
 makes the code blocking. This means that if a recipient for some reason does not
 reply sender will stop execution (it will be blocked).
@@ -34,7 +34,7 @@ when you know address of the hub (computer where ImageHub runs), but addresses o
 senders (computers or RPIs on which ImageSender runs) can change dynamically (for
 example, you use DHCP and RPIs tend to reboot time to time). 
 
-PUB/SUB in contrast is a non-blocking pattern with a not guaranteed delivery.
+**PUB/SUB** in contrast is a non-blocking pattern with a not guaranteed delivery.
 Sender does not expect confirmation from recipient, even more, sender will continue
 sending images event if there is no recipients at all (images will be discaded 
 right away by underlying library, so you should not worry about memory leaks).
@@ -153,10 +153,11 @@ examples from tests folder: ``test_1_send_image.py``/``test_1_receive_image.py``
 for a REQ/REP pattern and ``test_1_pub.py``/``test_1_sub.py`` for a PUB/SUB pattern.
 
 If you run ``test_1_send_image.py`` and ``test_1_receive_image.py`` scripts in a
-separate console windows you should see incremental output on the sender window:
+separate console windows you should see incremental output on the sender window::
 
-Sending 1
-Sending 2
+   Sending 1
+   Sending 2
+   ...
 etc
 
 And the receiver should open a window and display an incrementing number that should
