@@ -155,7 +155,7 @@ example):
     import imagezmq
 
     # Accept connections on all interfaces, port 5555
-    sender = imagezmq.ImageSender(connect_to='tcp://*:5555', block=False)
+    sender = imagezmq.ImageSender(connect_to='tcp://*:5555', REQ_REP=False)
 
     rpi_name = socket.gethostname() # send RPi hostname with each image
     picam = VideoStream(usePiCamera=True).start()
@@ -166,7 +166,7 @@ example):
         # The execution will continue even if nobody connected to us
         do_something_else()
     
-Mind the different pattern for ``connect_to`` argument and a new ``block=False`` 
+Mind the different pattern for ``connect_to`` argument and a new ``REQ_REP=False`` 
 argument in line 8.
 
 Stream server code
@@ -174,16 +174,14 @@ Stream server code
 .. code-block:: python
   :number-lines:
 
-    # run this program on a server that will handle HTTP requests and will
+    # run this program to receive and display frames
     # stream frames received from the camera to the browser
     import cv2
     import imagezmq
-    from werkzeug.wrappers import Request, Response
-    from werkzeug.serving import run_simple
 
     def receive():
         # When there is a request from the web browser, create a subscriber
-        image_hub = imagezmq.ImageHub(open_port='tcp://192.168.0.101:5555', block=False)
+        image_hub = imagezmq.ImageHub(open_port='tcp://192.168.0.101:5555', REQ_REP=False)
         while True:  # show streamed images
             rpi_name, image = image_hub.recv_image()
             # push a frame to web browser
