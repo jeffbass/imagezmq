@@ -24,8 +24,13 @@ by the Mac message is an "OK" that tells the Raspberry Pi that it can send
 another image.
 
 ZMQ is a powerful messaging library that allows many patterns for sending and
-receiving messages. The ZMQ pattern used by **imagezmq** is the REQ/REP pattern.
-That means that every time a Raspberry Pi sends an image, it waits for an "OK"
+receiving messages. **imagezmq** provides access to  **REQ/REP** and **PUB/SUP** ZMQ 
+messaging patterns. 
+
+REQ/REP messaging pattern
+=========================
+
+When using **REQ/REP** (request/reply) pattern every time a Raspberry Pi sends an image, it waits for an "OK"
 from the Mac before sending another image. It also means that there can be multiple
 Raspberry Pi computers sending messages to the Mac at the same time, since
 the ZMQ REQ/REP pattern allows many clients to send REQ messages to a single
@@ -106,5 +111,67 @@ streams in separate windows. To create the picture at the top of this page, 8
 Raspberry Pi computers were sending images to a single Mac. The picture is a
 screenshot of the Mac's display with the 8 ``cv2.imshow()`` windows arranged
 in 2 rows.
+
+PUB/SUB messaging pattern
+=========================
+
+The shown example that uses REQ/REP pattern has one important feature that can be a huge disadvantage at certain scenarios: sending images in this pattern is a blocking operation. 
+
+This means that if a recipient stops responding or simply disconnects the sender will stop at the *send_image()* method until recipient reconnects. 
+
+If this is unacceptabe in your application, you can use **PUB/SUB** (publish/subscribe) pattern. Subscribers can connects and disconnect to publisher (sender) at any time.
+
+When using PUB/SUB mode image sender creates a ZMQ PUB socket, but images are pushed
+to the socket only if at least one subscriber is connected to this socket. If
+there is no subscribers images are discarded immediatelly and execution continues.
+
+Lets check a simple example (the code of sender is pretty similar to the previous 
+example):
+
+.. code:: python
+  :number-lines:
+
+    # run this program on each RPi to send a labelled image stream
+    import socket
+    import time
+    from imutils.video import VideoStream
+    import imagezmq
+
+    # Accept connections on all interfaces, port 5555
+    sender = imagezmq.ImageSender(connect_to='tcp://*:5555', REQ_REP=False)
+
+    rpi_name = socket.gethostname() # send RPi hostname with each image
+    picam = VideoStream(usePiCamera=True).start()
+    time.sleep(2.0)  # allow camera sensor to warm up
+    while True:  # send images as stream until Ctrl-C
+        image = picam.read()
+        sender.send_image(rpi_name, image)
+        # The execution will continue even if nobody is connected to us
+    
+Mind different pattern for the ``connect_to`` argument and a new ``REQ_REP=False`` 
+argument in line 8.
+
+Server code
+
+.. code-block:: python
+  :number-lines:
+
+    # run this program to receive and display frames
+    # stream frames received from the camera to the browser
+    import cv2
+    import imagezmq
+
+    # When there is a request from the web browser, create a subscriber 
+    image_hub = imagezmq.ImageHub(open_port='tcp://192.168.0.100:5555', REQ_REP=False)
+    while True:  # show streamed images
+        rpi_name, image = image_hub.recv_image()
+        cv2.imshow(rpi_name, image) # 1 window for each RPi 
+        cv2.waitKey(1)
+
+The reciever part is very similar to **REQ/REP** example, however there are defferences:
+
+* Line 7: We have to know IP address of the sender to connect to it. In REQ/REP case the direction of connection was opposite - the sender had to know address of the recipient. Also, we use *REQ_REP=False* parameter here.
+* Line 12: There is no one as we don't have to send reply to sender :)
+
 
 `Return to main documentation page README.rst <../README.rst>`_

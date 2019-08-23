@@ -54,7 +54,7 @@ Then, on each Raspberry Pi, run:
 Wow! A video surveillance system with 8 (or more!) Raspberry Pi cameras in
 19 lines of Python.
 
-See `About the multiple RPi video streaming example <docs/more-details.rst>`_
+See `About the multiple RPi video streaming examples (REQ/REP and PUB/SUB patterns) <docs/more-details.rst>`_
 for more details about this example.
 
 .. contents::
@@ -77,8 +77,9 @@ Features
 - Sends OpenCV images from one computer to another using ZMQ.
 - Can send jpeg compressed OpenCV images, to lighten network loads.
 - Uses the powerful ZMQ messaging library through PyZMQ bindings.
-- Uses the ZMQ Request / Reply pattern, to allow the receiving computer
-  to reliably receive and process images from multiple sources simultaneously.
+- Allows to use one of the ZMQ patterns (Request / Reply or Publish / Subscribe) to satisfy 
+  application needs, to allow the receiving computer to reliably receive and process images
+  from multiple sources simultaneously.
 
 Dependencies and Installation
 =============================
