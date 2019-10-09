@@ -85,7 +85,7 @@ setup(
     download_url='https://github.com/WeLikeCode/imagezmq',
     author=imagezmq.__author__,
     author_email='jeff@yin-yang-ranch.com',
-    license=imagezmq.__licence__,
+    license=imagezmq.__license__,
     packages=find_packages(),
     entry_points={
         'console_scripts': [
