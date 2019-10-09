@@ -54,10 +54,12 @@ docs/source
 .Trash-*
 
 # Mac Icon file that appears in every folder
-Icon
+Icon
+
 
 # Various data files that don't need to be in the git repository
 *.npy
 *.swp
 *.log*
 *stdout*
+/venv/
