@@ -15,6 +15,7 @@ from setuptools.command.test import test as TestCommand
 
 import imagezmq
 
+###TODO write some tests, for example two processes that send some pics over TCP etc.
 
 # class PyTest(TestCommand):
 #     # `$ python setup.py test' simply installs minimal requirements
