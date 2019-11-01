@@ -77,9 +77,27 @@ Features
 - Sends OpenCV images from one computer to another using ZMQ.
 - Can send jpeg compressed OpenCV images, to lighten network loads.
 - Uses the powerful ZMQ messaging library through PyZMQ bindings.
-- Allows to use one of the ZMQ patterns (Request / Reply or Publish / Subscribe) to satisfy
-  application needs, to allow the receiving computer to reliably receive and process images
-  from multiple sources simultaneously.
+- Allows a choice of 2 different ZMQ messaging patterns (REQ/REP or PUB/SUB).
+- Enables the image hub to receive and process images from multiple image senders
+  simultaneously.
+
+Messaging Patterns: REQ/REP versus PUB/SUB
+==========================================
+
+ZMQ allows many different messaging patterns. Two are implemented in **imagezmq**:
+
+- REQ/REP: Each RPi sends an image and waits for a REPLY from the central image
+  hub. The RPi sends a new image only when the REPLY is received. In the REQ/REP
+  messaging pattern, each image sender must await a REPLY before continuing. It is a
+  "blocking" pattern for the sender.
+- PUB/SUB: Each RPi sends an image, but does not expect a REPLY from the central
+  image hub. It can continue sending images without awaiting any acknowledgement
+  from the image hub. The image hub provides no REPLY. It is a "non-blocking"
+  pattern for the sender.
+
+There are advantages and disadvantages for each pattern. For further details,
+see: (reference to be added). REQ/REP is the default.
+
 
 Dependencies and Installation
 =============================
@@ -325,13 +343,13 @@ Thanks for all contributions big and small. Some significant ones:
 +------------------------+---------------+--------------------------------------------------+
 | Initial code & docs    | Jeff Bass     | `@jeffbass <https://github.com/jeffbass>`_       |
 +------------------------+---------------+--------------------------------------------------+
-| Added PUB / SUB mode   | Maksym        | `@bigdaddymax <https://github.com/bigdaddymax>`_ |
+| Added PUB / SUB option | Maksym        | `@bigdaddymax <https://github.com/bigdaddymax>`_ |
 +------------------------+---------------+--------------------------------------------------+
 | HTTP Streaming example | Maksym        | `@bigdaddymax <https://github.com/bigdaddymax>`_ |
 +------------------------+---------------+--------------------------------------------------+
 
-Acknowledgments and Thank Yous
-==============================
+Acknowledgements and Thank Yous
+===============================
 - **ZeroMQ** is a great messaging library with great documentation
   at `ZeroMQ.org <http://zeromq.org/>`_.
 - **PyZMQ** serialization examples provided a starting point for **imagezmq**. See the
