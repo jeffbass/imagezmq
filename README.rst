@@ -77,7 +77,7 @@ Features
 - Sends OpenCV images from one computer to another using ZMQ.
 - Can send jpeg compressed OpenCV images, to lighten network loads.
 - Uses the powerful ZMQ messaging library through PyZMQ bindings.
-- Allows to use one of the ZMQ patterns (Request / Reply or Publish / Subscribe) to satisfy 
+- Allows to use one of the ZMQ patterns (Request / Reply or Publish / Subscribe) to satisfy
   application needs, to allow the receiving computer to reliably receive and process images
   from multiple sources simultaneously.
 
@@ -315,6 +315,20 @@ Contributing
 **imagezmq** is in early development and testing. I welcome open issues and
 pull requests, but because the programs are still evolving, it is best to
 open an issue with some discussion before submitting pull requests.
+
+Contributors
+============
+Thanks for all contributions big and small. Some significant ones:
+
++------------------------+---------------+--------------------------------------------------+
+| **Contribution**       | **Name**      | **GitHub**                                       |
++------------------------+---------------+--------------------------------------------------+
+| Initial code & docs    | Jeff Bass     | `@jeffbass <https://github.com/jeffbass>`_       |
++------------------------+---------------+--------------------------------------------------+
+| Added PUB / SUB mode   | Maksym        | `@bigdaddymax <https://github.com/bigdaddymax>`_ |
++------------------------+---------------+--------------------------------------------------+
+| HTTP Streaming example | Maksym        | `@bigdaddymax <https://github.com/bigdaddymax>`_ |
++------------------------+---------------+--------------------------------------------------+
 
 Acknowledgments and Thank Yous
 ==============================
