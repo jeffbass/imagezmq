@@ -47,7 +47,7 @@ try:
         if first_image:
             fps = FPS().start()  # start FPS timer after first image is received
             first_image = False
-        image = cv2.imdecode(np.fromstring(jpg_buffer, dtype='uint8'), -1)
+        image = cv2.imdecode(np.frombuffer(jpg_buffer, dtype='uint8'), -1)
         # see opencv docs for info on -1 parameter
         fps.update()
         image_count += 1  # global count of all images received
