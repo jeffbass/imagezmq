@@ -1,7 +1,7 @@
 """test_1_sub.py -- basic receive images test in PUB/SUB mode.
 
 A simple test program that uses imagezmq to receive images from a program that
-is sending images.
+is sending images. This test pair uses the PUB/SUB messaging pattern.
 
 1. Run this program in its own terminal window:
 python test_1_sub.py
@@ -17,10 +17,10 @@ program sends images with an incrementing counter so you can see what is sent
 and what is received.
 
 If you terminate receiving script pay attention to the fact that sending script
-will continue to increment and send images. 
+will continue to increment and send images.
 
 If you start receiving script again it will start picking images from the
-current position. 
+current position.
 
 To end the programs, press Ctrl-C in the terminal window of the sending program
 first. Then press Ctrl-C in the terminal window of the receiving proram. You
