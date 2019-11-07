@@ -15,33 +15,38 @@ import cv2
 
 
 class ImageSender():
-    """In blocking mode (REQ_REP = True, default setting) opens zmq REQ socket
-       and sends images.
+    """Opens a zmq socket and sends images
 
-    Opens a zmq REQ socket on the image sending computer, often a
+    Opens a zmq (REQ or PUB) socket on the image sending computer, often a
     Raspberry Pi, that will be sending OpenCV images and
     related text messages to the hub computer. Provides methods to
     send images or send jpg compressed images.
 
-    In a non-blocking mode (REQ_REP = False) creates a PUB socket
+    Two kinds of ZMQ message patterns are possible in imagezmq:
+    REQ/REP: an image is sent and the sender waits for a reply ("blocking").
+    PUB/SUB: an images is sent and no reply is sent or expected ("non-blocking").
+
+    There are advantabes and disadvantages for each message pattern.
+    See the documentation for a full description of REQ/REP and PUB/SUB.
+    The default is REQ/REP for the ImageSender class and the ImageHub class.
 
     Arguments:
       connect_to: the tcp address:port of the hub computer.
-      block:      defines if the sender is intialized in blocking or
-                  non-blocking mode
+      REQ_REP: (optional) if True (the default), a REQ socket will be created
+                          if False, a PUB socket will be created
     """
 
     def __init__(self, connect_to='tcp://127.0.0.1:5555', REQ_REP = True):
         """Initializes zmq socket for sending images to the hub.
 
-        Expects an open socket at the connect_to tcp address; it will
-        connect to that remote socket after setting up the REQ
-        socket on this computer.
+        Expects an appropriate ZMQ socket at the connect_to tcp:port address:
+        If REQ_REP is True (the default), then a REQ socket is created. It
+        must connect to a matching REP socket on the ImageHub().
 
-        By default, creates sender for REQ/REP (blocking mode)
-
-        If REQ_REP = False, creates a publisher (PUB socket).
+        If REQ_REP = False, then a PUB socket is created. It must connect to
+        a matching SUB socket on the ImageHub().
         """
+
         if REQ_REP == True:
              # REQ/REP mode, this is a blocking scenario
              self.init_reqrep(connect_to)
@@ -52,6 +57,7 @@ class ImageSender():
     def init_reqrep(self, address):
         """ Creates and inits a socket in REQ/REP mode
         """
+
         socketType = zmq.REQ
         self.zmq_context = SerializingContext()
         self.zmq_socket = self.zmq_context.socket(socketType)
@@ -64,6 +70,7 @@ class ImageSender():
     def init_pubsub(self, address):
         """Creates and inits a socket in PUB/SUB mode
         """
+
         socketType = zmq.PUB
         self.zmq_context = SerializingContext()
         self.zmq_socket = self.zmq_context.socket(socketType)
@@ -74,17 +81,18 @@ class ImageSender():
         self.send_jpg   = self.send_jpg_pubsub
 
     def send_image(self, msg, image):
-        """ Depending on the mode used to create a hub/sender
-            this method is bind to a correcponding send_image_reqrep
-            or send_image_pubsub
+        """ This is a placeholder. This method will be set to either a REQ/REP
+        or PUB/SUB sending method, depending on REQ_REP option value.
 
         Arguments:
           msg: text message or image name.
           image: OpenCV image to send to hub.
 
         Returns:
-          A text reply from hub.
+          A text reply from hub in REQ/REP mode or nothing in PUB/SUB mode.
+
         """
+        pass
 
     def send_image_reqrep(self, msg, image):
         """Sends OpenCV image and msg to hub computer in REQ/REP mode
@@ -96,6 +104,7 @@ class ImageSender():
         Returns:
           A text reply from hub.
         """
+
         if image.flags['C_CONTIGUOUS']:
             # if image is already contiguous in memory just send it
             self.zmq_socket.send_array(image, msg, copy=False)
@@ -107,17 +116,18 @@ class ImageSender():
         return hub_reply
 
     def send_image_pubsub(self, msg, image):
-        """Publishes image and msg to PUB socket in PUB/SUB mode. If
-        there is no subscriptions to this socket image and msg are
-        discarded.
+        """Sends OpenCV image and msg hub computer in PUB/SUB mode. If
+        there is no hub computer subscribed to this socket, then image and msg
+        are discarded.
 
         Arguments:
           msg: text message or image name.
           image: OpenCV image to send to hub.
 
         Returns:
-          A text reply from hub.
+          Nothing; there is no reply from hub computer in PUB/SUB mode
         """
+
         if image.flags['C_CONTIGUOUS']:
             # if image is already contiguous in memory just send it
             self.zmq_socket.send_array(image, msg, copy=False)
@@ -126,69 +136,84 @@ class ImageSender():
             image = np.ascontiguousarray(image)
             self.zmq_socket.send_array(image, msg, copy=False)
 
+    def send_jpg(self, msg, jpg_buffer):
+        """This is a placeholder. This method will be set to either a REQ/REP
+        or PUB/SUB sending method, depending on REQ_REP option value.
+
+        Arguments:
+          msg: image name or message text.
+          jpg_buffer: bytestring containing the jpg image to send to hub.
+
+        Returns:
+          A text reply from hub in REQ/REP mode or nothing in PUB/SUB mode.
+        """
+
     def send_jpg_reqrep(self, msg, jpg_buffer):
         """Sends msg text and jpg buffer to hub computer in REQ/REP mode.
 
         Arguments:
           msg: image name or message text.
           jpg_buffer: bytestring containing the jpg image to send to hub.
+
         Returns:
           A text reply from hub.
         """
+
         self.zmq_socket.send_jpg(msg, jpg_buffer, copy=False)
         hub_reply = self.zmq_socket.recv()  # receive the reply message
-        return hub_reply        
+        return hub_reply
 
     def send_jpg_pubsub(self, msg, jpg_buffer):
-        """Sends msg text and jpg buffer to hub computer in PUB?SUB mode.
+        """Sends msg text and jpg buffer to hub computer in PUB/SUB mode. If
+        there is no hub computer subscribed to this socket, then image and msg
+        are discarded.
 
         Arguments:
           msg: image name or message text.
           jpg_buffer: bytestring containing the jpg image to send to hub.
+
         Returns:
-          There is nothing to return in this mode.
+          Nothing; there is no reply from the hub computer in PUB/SUB mode.
         """
 
         self.zmq_socket.send_jpg(msg, jpg_buffer, copy=False)
-
-    def send_jpg(self, msg, jpg_buffer):
-        """Sends msg text and jpg buffer to hub computer.
-           The actual method to be used here is defined by the selected mode
-           during init (send_jpg_reqrep for REQ/REP mode or send_jpg_pubsub for
-           PUB/SUB mode)
-
-        Arguments:
-          msg: image name or message text.
-          jpg_buffer: bytestring containing the jpg image to send to hub.
-        Returns:
-          A text reply from hub in REQ/REP mode or nothing in PUB/SUB.
-        """
-
 
 
 class ImageHub():
-    """If created in blocking mode, opens zmq REP socket and receives images.
-    If created in non-blocking mode, tries to subscribe to a PUB socket.
+    """Opens a zmq socket and receives images
 
-    Opens a zmq REP socket on the hub compuer, for example,
+    Opens a zmq (REP or SUB) socket on the hub computer, for example,
     a Mac, that will be receiving and displaying or processing OpenCV images
     and related text messages. Provides methods to receive images or receive
     jpg compressed images.
 
+    Two kinds of ZMQ message patterns are possible in imagezmq:
+    REQ/REP: an image is sent and the sender waits for a reply ("blocking").
+    PUB/SUB: an images is sent and no reply is sent or expected ("non-blocking").
+
+    There are advantabes and disadvantages for each message pattern.
+    See the documentation for a full description of REQ/REP and PUB/SUB.
+    The default is REQ/REP for the ImageSender class and the ImageHub class.
+
     Arguments:
       open_port: (optional) the socket to open for receiving REQ requests or
                  socket to connect to for SUB requests.
-      block:     if set to True (default) the hub will connect to REP socket,
-                 will wait for messages and will send acknowlegements upon
-                 successful message reception.
-                 If set to False the hub will try to subscribe to PUB socket
-                 and will wait for images. No acknowlegements will be sent
-                 back to sender upon successful reception.
+      REQ_REP: (optional) if True (the default), a REP socket will be created
+                          if False, a SUB socket will be created
     """
 
     def __init__(self, open_port='tcp://*:5555', REQ_REP = True):
-        """Initializes zmq REP or connects to PUB  socket to receive images and text.
+        """Initializes zmq socket to receive images and text.
+
+        Expects an appropriate ZMQ socket at the senders tcp:port address:
+        If REQ_REP is True (the default), then a REP socket is created. It
+        must connect to a matching REQ socket on the ImageSender().
+
+        If REQ_REP = False, then a SUB socket is created. It must connect to
+        a matching PUB socket on the ImageSender().
+
         """
+        self.REQ_REP = REQ_REP
         if REQ_REP ==True:
             #Init REP socket for blocking mode
             self.init_reqrep(open_port)
@@ -213,16 +238,16 @@ class ImageHub():
        self.zmq_socket.setsockopt(zmq.SUBSCRIBE, b'')
        self.zmq_socket.connect(address)
 
-
     def connect(self, open_port):
-        """In PUB/SUB mode one hub can connect to multiple senders at the same time
-           Use this method to connect (and subscribe) to senders
+        """In PUB/SUB mode, the hub can connect to multiple senders at the same
+        time.
+        Use this method to connect (and subscribe) to additional senders.
 
-           Arguments:
+        Arguments:
              open_port: the PUB socket to connect to.
         """
 
-        if self.block == False:
+        if self.REQ_REP == False:
             #This makes sense only in PUB/SUB mode
             self.zmq_socket.setsockopt(zmq.SUBSCRIBE, b'')
             self.zmq_socket.connect(open_port)
