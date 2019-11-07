@@ -24,8 +24,8 @@ import imagezmq
 import RPi.GPIO as GPIO
 
 # use either of the formats below to specifiy address of display computer
-# sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
-sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
+sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
+# sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
 
 # optionally, turn on the LED area lighting
 use_led = False  # set to True or False as needed
