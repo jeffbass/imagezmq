@@ -5,7 +5,7 @@ OpenCV images gathered by a Raspberry Pi camera could be sent to another
 computer for displaying the images using cv2.imshow() or for further image
 processing. See API and Usage Examples for details.
 
-Copyright (c) 2017 by Jeff Bass.
+Copyright (c) 2019 by Jeff Bass.
 License: MIT, see LICENSE for more details.
 """
 
