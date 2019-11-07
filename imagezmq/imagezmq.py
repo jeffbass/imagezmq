@@ -23,11 +23,11 @@ class ImageSender():
     related text messages to the hub computer. Provides methods to
     send images or send jpg compressed images.
 
-    In a non-blocking mode (REQ_REP = False) creates a PUB socket 
+    In a non-blocking mode (REQ_REP = False) creates a PUB socket
 
     Arguments:
       connect_to: the tcp address:port of the hub computer.
-      block:      defines if the sender is intialized in blocking or 
+      block:      defines if the sender is intialized in blocking or
                   non-blocking mode
     """
 
@@ -38,8 +38,8 @@ class ImageSender():
         connect to that remote socket after setting up the REQ
         socket on this computer.
 
-        By default, creates sender for REQ/REP (blocking mode) 
-        
+        By default, creates sender for REQ/REP (blocking mode)
+
         If REQ_REP = False, creates a publisher (PUB socket).
         """
         if REQ_REP == True:
@@ -56,7 +56,7 @@ class ImageSender():
         self.zmq_context = SerializingContext()
         self.zmq_socket = self.zmq_context.socket(socketType)
         self.zmq_socket.connect(address)
-        
+
         # Assign corresponding send methods for REQ/REP mode
         self.send_image = self.send_image_reqrep
         self.send_jpg   = self.send_jpg_reqrep
@@ -75,7 +75,7 @@ class ImageSender():
 
     def send_image(self, msg, image):
         """ Depending on the mode used to create a hub/sender
-            this method is bind to a correcponding send_image_reqrep 
+            this method is bind to a correcponding send_image_reqrep
             or send_image_pubsub
 
         Arguments:
@@ -137,6 +137,7 @@ class ImageSender():
         """
         self.zmq_socket.send_jpg(msg, jpg_buffer, copy=False)
         hub_reply = self.zmq_socket.recv()  # receive the reply message
+        return hub_reply        
 
     def send_jpg_pubsub(self, msg, jpg_buffer):
         """Sends msg text and jpg buffer to hub computer in PUB?SUB mode.
@@ -175,13 +176,13 @@ class ImageHub():
     jpg compressed images.
 
     Arguments:
-      open_port: (optional) the socket to open for receiving REQ requests or 
+      open_port: (optional) the socket to open for receiving REQ requests or
                  socket to connect to for SUB requests.
-      block:     if set to True (default) the hub will connect to REP socket, 
+      block:     if set to True (default) the hub will connect to REP socket,
                  will wait for messages and will send acknowlegements upon
                  successful message reception.
                  If set to False the hub will try to subscribe to PUB socket
-                 and will wait for images. No acknowlegements will be sent 
+                 and will wait for images. No acknowlegements will be sent
                  back to sender upon successful reception.
     """
 
@@ -216,7 +217,7 @@ class ImageHub():
     def connect(self, open_port):
         """In PUB/SUB mode one hub can connect to multiple senders at the same time
            Use this method to connect (and subscribe) to senders
-      
+
            Arguments:
              open_port: the PUB socket to connect to.
         """
