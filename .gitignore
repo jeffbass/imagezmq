@@ -63,3 +63,4 @@ Icon
 *.log*
 *stdout*
 /venv/
+/devu/

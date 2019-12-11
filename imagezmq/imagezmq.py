@@ -11,7 +11,118 @@ License: MIT, see LICENSE for more details.
 
 import zmq
 import numpy as np
-import cv2
+
+REQUEST_TIMEOUT = 2500
+REQUEST_RETRIES = 3
+
+
+class ReliableImageSender:
+    """Opens RELIABLE (means it reconnects) zmq REQ socket and sends images.
+
+    Opens a zmq REQ socket on the image sending computer, often a
+    Raspberry Pi, that will be sending OpenCV images and
+    related text messages to the hub computer. Provides methods to
+    send images or send jpg compressed images.
+
+    Arguments:
+      connect_to: the tcp address:port of the hub computer.
+    """
+
+    def __init__(self, connect_to='tcp://127.0.0.1:5555'):
+        """Initializes zmq socket for sending images to the hub.
+
+        Expects an open socket at the connect_to tcp address; it will
+        connect to that remote socket after setting up the REQ
+        socket on this computer.
+        """
+
+        self._server_endpoint=connect_to
+        self.zmq_context = SerializingContext()
+        self.zmq_socket = self.zmq_context.socket(zmq.REQ)
+        self.zmq_socket.connect(connect_to)
+        client = self.zmq_socket
+        poll = zmq.Poller()
+        poll.register(client, zmq.POLLIN)
+        self.poll = poll
+        self.retries_left = REQUEST_RETRIES
+
+    def do_receive_with_retry(self):
+        poll = self.poll
+        client = self.zmq_socket
+        expect_reply = True
+        while expect_reply:
+            socks = dict(poll.poll(REQUEST_TIMEOUT))
+            if socks.get(client) == zmq.POLLIN:
+                reply = client.recv()
+                if not reply:
+                    break
+                if reply == b'OK': #TODO something more intelligent
+                    print("I: Server replied OK (%s)" % reply)
+                    retries_left = REQUEST_RETRIES
+                    expect_reply = False
+                    return reply
+                else:
+                    print("E: Malformed reply from server: %s" % reply)
+
+            else:
+                print("W: No response from server, retrying…")
+                # Socket is confused. Close and remove it.
+                client.setsockopt(zmq.LINGER, 0)
+                client.close()
+                poll.unregister(client)
+                self.retries_left -= 1
+                if self.retries_left == 0:
+                    print("E: Server seems to be offline, abandoning")
+                    break
+                print("I: Reconnecting and resending")
+                # Create new connection
+                client = self.zmq_context.socket(zmq.REQ)
+                client.connect(self._server_endpoint)
+                self.zmq_socket = client
+                poll.register(client, zmq.POLLIN)
+                #client.send(request)
+                return b'RESEND'
+
+    def send_image(self, msg, image):
+        """Sends OpenCV image and msg to hub computer.
+
+        Arguments:
+          msg: text message or image name.
+          image: OpenCV image to send to hub.
+
+        Returns:
+          A text reply from hub.
+        """
+
+        if image.flags['C_CONTIGUOUS']:
+            # if image is already contiguous in memory just send it
+            self.zmq_socket.send_array(image, msg, copy=False)
+        else:
+            # else make it contiguous before sending
+            image = np.ascontiguousarray(image)
+            self.zmq_socket.send_array(image, msg, copy=False)
+        hub_reply = self.do_receive_with_retry()  # receive the reply message
+        if hub_reply is not None and  hub_reply == b'RESEND':
+            print("Resending an image")
+            self.send_image(msg, image)
+        return hub_reply
+
+    def send_jpg(self, msg, jpg_buffer):
+        """Sends msg text and jpg buffer to hub computer.
+
+        Arguments:
+          msg: image name or message text.
+          jpg_buffer: bytestring containing the jpg image to send to hub.
+        Returns:
+          A text reply from hub.
+        """
+
+        self.zmq_socket.send_jpg(msg, jpg_buffer, copy=False)
+        hub_reply = self.do_receive_with_retry()  # receive the reply message
+        if hub_reply is not None and hub_reply == b'RESEND':
+            print("Resending an image")
+            self.send_jpg(msg, jpg_buffer)
+        return hub_reply
 
 
 class ImageSender():
