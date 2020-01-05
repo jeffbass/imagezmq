@@ -1,6 +1,5 @@
 # run this program on the Mac to display image streams from multiple RPis
 import sys
-sys.path.insert(0, '../imagezmq')  # imagezmq.py is in ../imagezmq
 import cv2
 import imagezmq
 
