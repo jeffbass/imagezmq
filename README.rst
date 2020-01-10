@@ -96,7 +96,7 @@ ZMQ allows many different messaging patterns. Two are implemented in **imagezmq*
   pattern for the sender.
 
 There are advantages and disadvantages for each pattern. For further details,
-see: (reference to be added). REQ/REP is the default.
+see: `ZeroMQ Messaging Patterns <https://zeromq.org/socket-api/#messaging-patterns/>`_. REQ/REP is the default.
 
 
 Dependencies and Installation
