@@ -11,6 +11,7 @@ License: MIT, see LICENSE for more details.
 
 import zmq
 import numpy as np
+import os
 
 REQUEST_TIMEOUT = 2500
 REQUEST_RETRIES = 3
@@ -27,6 +28,7 @@ class ReliableImageSender:
     Arguments:
       connect_to: the tcp address:port of the hub computer.
     """
+    _debug = os.environ.get("DEBUG", False)
 
     def __init__(self, connect_to='tcp://127.0.0.1:5555'):
         """Initializes zmq socket for sending images to the hub.
@@ -57,7 +59,8 @@ class ReliableImageSender:
                 if not reply:
                     break
                 if reply == b'OK': #TODO something more intelligent
-                    print("I: Server replied OK (%s)" % reply)
+                    if self._debug:
+                        print("I: Server replied OK (%s)" % reply)
                     retries_left = REQUEST_RETRIES
                     expect_reply = False
                     return reply
