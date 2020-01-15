@@ -104,11 +104,11 @@ Dependencies and Installation
 
 **imagezmq** has been tested with:
 
-- Python 3.5 and 3.6
-- OpenCV 3.3 (testing with OpenCV 4.0+ in progress)
-- Raspbian Buster Raspbian Stretch and Raspbian Jessie
-- PyZMQ 16.0
-- imutils 0.4.3 (used get to images from PiCamera)
+- Python 3.5, 3.6 and 3.7
+- OpenCV 3.3 and 4.0
+- Raspbian Buster, Raspbian Stretch and Raspbian Jessie
+- PyZMQ 16.0 and 17.1
+- imutils 0.5.2 (used to capture images from PiCamera)
 
 OpenCV is challenging to install. I recommend using the installation
 instructions at `PyImageSearch <https://www.pyimagesearch.com/>`_.
@@ -208,8 +208,8 @@ images::
     python test_1_send_images.py
 
 After a few seconds, a ``cv2.imshow()`` window should open and display a green
-square on a black background. Then it will display a red square on the same
-black background. The display will alternate every 2 seconds until you stop both
+square on a black background. There will be a yellow number in the green square
+that will increase (1, 2, ...) once per second until you stop both
 programs by pressing Ctrl-C. It is normal to get a cascade of error messages
 when stopping the program with Ctrl-C. This simple test program has no
 try / except error trapping.
