@@ -105,8 +105,8 @@ Dependencies and Installation
 **imagezmq** has been tested with:
 
 - Python 3.5 and 3.6
-- OpenCV 3.3
-- Raspian Stretch and Raspian Jessie
+- OpenCV 3.3 (testing with OpenCV 4.0+ in progress)
+- Raspbian Buster Raspbian Stretch and Raspbian Jessie
 - PyZMQ 16.0
 - imutils 0.4.3 (used get to images from PiCamera)
 
