@@ -10,7 +10,6 @@ import sys
 import time
 import numpy as np
 import cv2
-sys.path.insert(0, '../imagezmq')  # imagezmq.py is in ../imagezmq
 import imagezmq
 
 # Create an image sender in PUB/SUB (non-blocking) mode

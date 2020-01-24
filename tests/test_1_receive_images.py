@@ -28,7 +28,6 @@ may have to press Ctrl-C in the display window as well.
 
 import sys
 import cv2
-sys.path.insert(0, '../imagezmq')  # imagezmq.py is in ../imagezmq
 import imagezmq
 
 image_hub = imagezmq.ImageHub()

@@ -1,6 +1,5 @@
 import cv2
 import sys
-sys.path.insert(0, '../imagezmq')  # imagezmq.py is in ../imagezmq
 import imagezmq
 from werkzeug.wrappers import Request, Response
 from werkzeug.serving import run_simple

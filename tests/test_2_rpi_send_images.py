@@ -8,9 +8,7 @@ This program requires that the image receiving program be running first. Brief
 test instructions are in that program: test_2_mac_receive_images.py.
 """
 
-# import imagezmq from parent directory
 import sys
-sys.path.insert(0, '../imagezmq')  # imagezmq.py is in ../imagezmq
 
 import socket
 import time
