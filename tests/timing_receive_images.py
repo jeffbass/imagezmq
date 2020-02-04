@@ -22,7 +22,6 @@ Ctrl-C in each terminal window running a Rasperry Pi image sending program.
 """
 
 import sys
-sys.path.insert(0, '../imagezmq')  # imagezmq.py is in ../imagezmq
 
 import time
 import traceback

@@ -20,9 +20,7 @@ To end the programs, press Ctrl-C in the terminal window of the RPi  first.
 Then press Ctrl-C in the terminal window of the receiving proram. You may
 have to press Ctrl-C in the display window as well.
 """
-# import imagezmq from parent directory
 import sys
-sys.path.insert(0, '../imagezmq')  # imagezmq.py is in ../imagezmq
 
 import numpy as np
 import cv2

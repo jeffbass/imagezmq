@@ -11,9 +11,7 @@ This program can turn an LED on and off if needed; assumes BCM pin 18. This
 can help with lighting the subject area in front of the PiCamera.
 """
 
-# import imagezmq from parent directory
 import sys
-sys.path.insert(0, '../imagezmq')  # imagezmq.py is in ../imagezmq
 
 import socket
 import time
