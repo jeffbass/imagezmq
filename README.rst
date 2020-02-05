@@ -104,11 +104,13 @@ Dependencies and Installation
 
 **imagezmq** has been tested with:
 
-- Python 3.5, 3.6 and 3.7
+- Python 3.5, 3.6, 3.7 and 3.8
+- PyZMQ 16.0 and 17.1
+- Numpy 1.13 and 1.16
 - OpenCV 3.3 and 4.0
 - Raspbian Buster, Raspbian Stretch and Raspbian Jessie
-- PyZMQ 16.0 and 17.1
-- imutils 0.5.2 (used to capture images from PiCamera)
+- picamera 1.13 (used to capture images for the tests)
+- imutils 0.4.6 and 0.5.2 (used to capture images from PiCamera)
 
 OpenCV is challenging to install. I recommend using the installation
 instructions at `PyImageSearch <https://www.pyimagesearch.com/>`_.
