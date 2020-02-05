@@ -2,8 +2,6 @@
 #     https://github.com/navdeep-G/setup.py
 #     and from: https://github.com/psf/requests/blob/master/setup.py
 import os
-import re
-import sys
 
 from setuptools import setup
 
@@ -13,9 +11,7 @@ packages = ['imagezmq']
 
 requires = [
     'pyzmq>=16.0',
-    'idna>=2.5,<2.9',
-    'urllib3>=1.21.1,<1.26,!=1.25.0,!=1.25.1',
-    'certifi>=2017.4.17'
+    'numpy>=1.13',
 ]
 
 about = {}
@@ -35,7 +31,7 @@ setup(
     author_email=about['__author_email__'],
     url=about['__url__'],
     packages=packages,
-    package_dir={'requests': 'requests'},
+    package_dir={'imagezmq': 'imagezmq'},
     python_requires=">=3.5",
     install_requires=requires,
     license=about['__license__'],

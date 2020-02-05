@@ -96,7 +96,9 @@ ZMQ allows many different messaging patterns. Two are implemented in **imagezmq*
   pattern for the sender.
 
 There are advantages and disadvantages for each pattern. For further details,
-see: `ZeroMQ Messaging Patterns <https://zeromq.org/socket-api/#messaging-patterns/>`_. REQ/REP is the default.
+see: `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_.
+
+**REQ/REP is the default.**
 
 
 Dependencies and Installation
@@ -126,26 +128,20 @@ Linux computers.
   <https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/>`_
 
 Be sure to install OpenCV, including Numpy, into a Python Virtual Environment,
-as shown in the above tutorials. Be sure to install the remaining packages
-into the **same** virtual environment. In the examples below, my virtual
+as shown in the above tutorials. Be sure to install **imagezmq**
+into the **same** virtual environment. For example, my virtual
 environment is named **py3cv3**.
 
-Install PyZMQ using pip:
+Install **imagezmq** using pip:
 
 .. code-block:: bash
 
     workon py3cv3  # use your virtual environment name
-    pip install pyzmq
+    pip install imagezmq
 
-Install imutils using pip:
-
-.. code-block:: bash
-
-    workon py3cv3  # use your virtual environment name
-    pip install imutils
-
-**imagezmq** is still in early development, so it is not yet in PyPI. Get it by
-cloning the GitHub repository
+**imagezmq** has a directory of tests organized into sender and receiver pairs.
+You will get the "tests" directory containing all the test programs by
+cloning the GitHub repository:
 
 .. code-block:: bash
 
@@ -153,8 +149,7 @@ cloning the GitHub repository
 
 Once you have cloned the imagezmq directory to a directory on your local machine,
 you can run the tests per the instructions below. You can use imagezmq in your
-own code by copying ``imagezmq.py`` to one of your project directories and
-importing it (``import imagezmq``).
+own code by importing it (``import imagezmq``).
 
 **imagezmq** and all of the software dependencies must be installed on the
 display computer that will be receiving the images AND it must all be installed

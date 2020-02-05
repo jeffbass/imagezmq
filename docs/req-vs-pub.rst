@@ -1,181 +1,127 @@
-======================
+=========================================
 REQ/REP versus PUB/SUB Messaging Patterns
-======================
+=========================================
 
-The API for **imagezmq** consists of 2 classes with 2 methods each. The
-ImageSender class has 2 methods: one for sending an OpenCV image and one for
-sending a jpg compressed OpenCV image. The ImageHub class has 2 methods: one for
-receiving an OpenCV image and one for receiving a jpg compressed OpenCV image.
-**imagezmq** is in early development as part of a larger system. There are
-currently separate methods for sending and receiving images vs. jpg compressed
-images. Further development will refactor these into single methods for sending
-and receiving.
-
-ImageSender/ImageHub can work in one of following modes: REQ/REP or PUB/SUB.
+ImageSender/ImageHub can work in either of two modes: REQ/REP or PUB/SUB.
 The mode is selected when ImageSender and ImageHub are instantiated by setting
-REQ_REP parameter in the constructor to *True* or *False*. REQ/REP mode is the
-default.
+the REQ_REP parameter in the constructor to *True* or *False*. REQ/REP mode is
+the default.
 
 Two messaging patterns: REQ/REP and PUB/SUB
-==========================================
+===========================================
 
-These two modes (or to be more precise,  messaging patterns) are very similar;
-both are used to send images from sender to receiver. But the behavior of the
+These two modes (or to be more precise,  messaging patterns) are similar.
+Both are used to send images from sender to receiver. But the behavior of the
 sender and receiver is significantly different for the two messaging patterns.
 
-**REQ/REP** pattern guarantees image delivery from sender to recipient: the
-sender receives confirmation from recipient before next image is sent. This
+The **REQ/REP** pattern guarantees image delivery from sender to recipient: the
+sender receives confirmation from recipient before the next image is sent. This
 makes the code "blocking". This means that if a recipient for some reason does
-not reply sender will stop execution until it does receive a reply (it will be
-blocked).
+not reply, then the sender will stop execution until it does receive a reply
+(it will be blocked).
 
-Another feature of the REQ/REP pattern is that one recipient can receive
-images from many senders, however one sender can send images only to single
-recipient (one-to-many relation). This feature helps a lot in an environment
-when you know address of the hub (computer where ImageHub runs), but addresses of
-senders (computers or RPIs on which ImageSender runs) can change often (for
-example, you use DHCP and RPIs tend to reboot time to time).
+When using the REQ/REP pattern, one recipient can receive
+images from many senders, however one sender can only send images to a single
+recipient (many image senders send images to a single image hub). This feature
+is helpful in an situation where you know address of the hub (the computer where
+ImageHub runs), but the addresses of senders (computers on which ImageSender
+runs) can change often (for example, you use DHCP and the sending computers
+reboot from time to time).
 
-**PUB/SUB** in contrast is a non-blocking pattern with a non-guaranteed delivery.
-Sender does not expect confirmation from recipient. And the sender will continue
-sending images even if there are no recipients at all (images will be discarded
-right away by underlying library, so you need not worry about memory leaks).
+**PUB/SUB**, in contrast, is a non-blocking pattern with non-guaranteed delivery.
+The sender does not expect confirmation from recipient. The sender will continue
+sending images even if there are no recipients at all.
 
-Also, the PUB/SUB pattern supports many-to-many relations. One sender can send
+The PUB/SUB pattern easily supports many-to-many relations. One sender can send
 to many recipients and each recipient can receive images from many senders.
 
-However, from a configuration point of view this pattern requires more planning:
-each sender is an image server and ImageHub must explicitly subscribe to them.
-The recipient must know the addresses of all senders.
+From a configuration point of view, the PUB/SUB pattern requires more planning:
+each sender is an image server and the ImageHub must explicitly subscribe to
+each one of them. In the PUB/SUB pattern, the recipient must know the addresses
+of all senders.
 
-Taking described differences into account you can chose appropriate pattern for
-your application: use REQ/REP pattern for images delivery from cameras to central
-hub; use PUB/SUB pattern to detach some processing code from sensitive or time
-critical parts.
+The REQ/REP pattern was the first pattern implemented in **imagezmq** because it
+works well for the original **imagezmq** application: many Raspberry Pi (RPi)
+computers sending images to a single image hub computer receiving the images. The
+RPi's only need to know the address of a single hub computer. The hub computer
+does not need to know how many RPi's there will be or what their addresses are.
 
-.. code-block:: python
-  :number-lines:
+Advantages of the REQ/REP pattern
+=================================
 
-  class ImageSender(connect_to='tcp://127.0.0.1:5555', REQ_REP = True):
-      Opens a zmq socket (REQ type if REQ_REP == True, PUB type if REQ_REP == False)
-      on the image sending computer, typically a Raspberry Pi, that will be sending
-      OpenCV images and related text messages to the hub computer. Provides methods
-      to send images or send jpg compressed images.
+- Receipt of each sent image is verified (by the sender receiving a "REP").
+- Receiving hub computer does not need to know the addresses of senders.
+- Receiving hub computer can receive from one or many senders.
+- Receiving hub computer can receive and process images from multiple image
+  senders simultaneously.
+- Starting and stopping any of the senders does not affect the hub (or any of
+  the other senders).
 
-      Arguments:
-        connect_to: the tcp address and port of the hub computer
-             Example format: connect_to='tcp://192.168.1.17:5555'
-             Example format: connect_to='tcp://jeff-macbook:5555'
-        REQ_REP: whether to use REQ/REP messaging pattern or not.
-             Example: REQ_REP = True (default) The sender will be
-                      use a REQ/REP pattern.
-                      REQ_REP = False The sender will use a PUB/SUB
-                      pattern
+Disadvantages of the REQ/REP pattern
+====================================
 
-      send_image(self, msg, image):
-          Sends OpenCV image and msg to hub computer.
+- Each sender is "blocked" from sending the next image until it gets a reply
+  from the hub computer.
+- If the hub computer restarts, the senders must restart.
+- Hub needs to be reliable and not restart often (since all the senders have to
+  restart if the hub restarts).
 
-          Arguments:
-            msg: text message or image name.
-            image: OpenCV image to send to hub.
-          Returns:
-            A text reply from hub.
+Advantages of the PUB/SUB pattern
+=================================
 
-      send_jpg(self, msg, jpg_buffer):
-          Sends msg text and jpg buffer to hub computer.
+- It is a non-blocking pattern; senders keep sending images without waiting for
+  a reply.
+- Senders do not need to restart if the receiving hub restarts.
+- PUB/SUB can easily implement a many to many pattern with many senders and many
+  hubs.
 
-          Arguments:
-            msg: image name or message text.
-            jpg_buffer: bytestring containing the jpg image to send to hub.
-          Returns:
-            A text reply from hub.
+Disadvantages of the PUB/SUB pattern
+====================================
 
-  class ImageHub(open_port='tcp://:5555', REQ_REP = True):
-      Opens a zmq socket on the hub computer (REP type is REQ_REP = True,
-      SUB type otherwise), for example, a Mac, that will be receiving and
-      displaying or processing OpenCV images and related text messages.
-      Provides methods to receive images or receive jpg compressed images.
+- Receiving hub computer must know each senders address in advance.
+- Receiving hub must explicitly subscribe to each sender.
+- If the receiving hub computer fails or does not receive an image, the sender
+  will not know (since there is no REP sent).
 
-      Arguments:
-        open_port: (optional) the socket to open for receiving REQ requests.
-        REQ_REP: (optional) whether to use REQ/REP messaging pattern or not.
-
-      recv_image(self, copy=False):
-          Receives OpenCV image and text msg.
-
-          Arguments:
-            copy: (optional) zmq copy flag.
-          Returns:
-            msg: text msg, often the image name.
-            image: OpenCV image.
-
-      recv_jpg(self, copy=False):
-          Receives text msg, jpg buffer.
-
-          Arguments:
-            copy: (optional) zmq copy flag
-          Returns:
-            msg: text message, often image name
-            jpg_buffer: bytestring jpg compressed image
-
-      send_reply(self, reply_message=b'OK'):
-          Sends the zmq REP reply message.
-
-          Arguments:
-            reply_message: reply message text, often just the string 'OK'
-
-Usage Examples
-==============
-
-While additional programs using **imagezmq** are being developed, the programs
-mentioned below show how to use the API. The programs are found in the tests
-folder.
-
-The programs ``timing_send_images.py`` and ``timing_receive_images.py`` provide
-examples of how to use the **imagezmq** API to send and receive OpenCV
-images.  The programs show a simple **imagezmq** use case.
-Additional image processing in the sending program would typically be placed
-between the ``picam.read()`` and the ``sender.send_image()`` lines. Such processing
-would be done with calls to methods for image rotation, resizing,
-dilation, etc. from an application specific image processing class.
-
-The programs ``timing_send_jpg_buf`` and ``timing_receive_jpg_buf`` show how
-**imagezmq** would be used to send jpg compressed OpenCV images to reduce
-network load. The current API requires that the conversion from OpenCV image
-format to a jpg bytestring be done by the application program. This will likely
-change in the future. The 2 example programs show how to
-perform the conversion using OpenCV's ``cv2.imencode()`` and ``cv2.imdecode()``
-methods.
-
-Difference between REQ/REP and PUB/SUB
+Further reading on messaging patterns
 =====================================
+
+A full discussion of the two different messaging patterns is in the ZMQ
+documentation:
+`ZeroMQ Messaging Patterns <https://zeromq.org/socket-api/#messaging-patterns/>`_.
+
+Demonstrating the Difference between REQ/REP and PUB/SUB
+========================================================
 
 To demonstrate the difference between two messaging patterns you can run two
 examples from tests folder: ``test_1_send_image.py``/``test_1_receive_image.py``
-for a REQ/REP pattern and ``test_1_pub.py``/``test_1_sub.py`` for a PUB/SUB pattern.
+for a REQ/REP pattern and ``test_1_pub.py``/``test_1_sub.py`` for a
+PUB/SUB pattern.
 
-If you run ``test_1_send_image.py`` and ``test_1_receive_image.py`` scripts in a
+If you run ``test_1_send_image.py`` and ``test_1_receive_image.py`` scripts in
 separate console windows you should see incremental output on the sender window::
 
    Sending 1
    Sending 2
    ...
-etc
 
-And the receiver should open a window and display an incrementing number that should
-correspond to whatever you see on the sender screen.
 
-Now if you stop receiver you should notice that sender will stop printing "Sending XX".
-The sender will block until recipient is started again. And recipient window should
-continue from the moment where it was stoped.
+The receiver will open a window and display an incrementing number that will
+correspond to whatever number you see on the sender screen.
 
-Now use the ``test_1_pub.py`` and ``test_1_sub.py`` pair. You should see the same
-"Sending XX" printed on the sender window and corresponding number incrementing on
-recipient window.
+If you stop receiver (using Ctrl-C) you should notice that sender will stop
+printing "Sending XX". The sender will block until recipient is started again.
+This demonstrates that the REQ/REP pattern is "blocking".
+The recipient window should continue from the moment where it was stopped.
 
-However, now if you close the recipient script the sender will continue printing and
+Next, run the ``test_1_pub.py`` and ``test_1_sub.py`` pair. You should see the
+same "Sending XX" printed on the sender window and see the corresponding number
+incrementing on recipient window.
+
+However, if you close the recipient script the sender will continue printing and
 incrementing the value.
 
-And if you start the recipient again it will just pick from the current position.
+And if you start the recipient again it will just pick from the current sending
+number. This demonstrates that the PUB/SUB pattern is "non-blocking".
 
 `Return to main documentation page README.rst <../README.rst>`_
