@@ -11,40 +11,42 @@ currently separate methods for sending and receiving images vs. jpg compressed
 images. Further development will refactor these into single methods for sending
 and receiving.
 
-ImageSender/ImageHub pair can work in one of following modes: REQ/REP or PUB/SUB.
+ImageSender/ImageHub can work in one of following modes: REQ/REP or PUB/SUB.
 The mode is selected when ImageSender and ImageHub are instantiated by setting
-REQ_REP parameter in constructor to *True* or *False*. REQ/REP mode is a default one.
+REQ_REP parameter in the constructor to *True* or *False*. REQ/REP mode is the
+default.
 
 Two messaging patterns: REQ/REP and PUB/SUB
 ==========================================
 
-These two modes (or to be more precise,  messaging patterns) are very similar: 
-both are used to send images from sender to receiver. But the behaviour of the
-sender and receiver is pretty different.
+These two modes (or to be more precise,  messaging patterns) are very similar;
+both are used to send images from sender to receiver. But the behavior of the
+sender and receiver is significantly different for the two messaging patterns.
 
-**REQ/REP** pattern guarantees image delivery from sender to recipient: sender
-reception confirmation from recipient before next image is sent. This feature
-makes the code blocking. This means that if a recipient for some reason does not
-reply sender will stop execution (it will be blocked).
+**REQ/REP** pattern guarantees image delivery from sender to recipient: the
+sender receives confirmation from recipient before next image is sent. This
+makes the code "blocking". This means that if a recipient for some reason does
+not reply sender will stop execution until it does receive a reply (it will be
+blocked).
 
-Another interesting moment about REQ/REP pattern is that one recipient can receive
+Another feature of the REQ/REP pattern is that one recipient can receive
 images from many senders, however one sender can send images only to single
-recipient (one-to-many relation). This feature helps a lot in dynamic environment
+recipient (one-to-many relation). This feature helps a lot in an environment
 when you know address of the hub (computer where ImageHub runs), but addresses of
-senders (computers or RPIs on which ImageSender runs) can change dynamically (for
+senders (computers or RPIs on which ImageSender runs) can change often (for
 example, you use DHCP and RPIs tend to reboot time to time).
 
-**PUB/SUB** in contrast is a non-blocking pattern with a not guaranteed delivery.
-Sender does not expect confirmation from recipient, even more, sender will continue
-sending images event if there is no recipients at all (images will be discaded
-right away by underlying library, so you should not worry about memory leaks).
+**PUB/SUB** in contrast is a non-blocking pattern with a non-guaranteed delivery.
+Sender does not expect confirmation from recipient. And the sender will continue
+sending images even if there are no recipients at all (images will be discarded
+right away by underlying library, so you need not worry about memory leaks).
 
-Also, PUB/SUB pattern support a many-to-many relations. One sender can send to many
-recipients and each recipient can receive images from many senders.
+Also, the PUB/SUB pattern supports many-to-many relations. One sender can send
+to many recipients and each recipient can receive images from many senders.
 
-However, from configuration point of view this pattern requires more planning:
-each sender is an image server and ImageHub should explicitly subscribe to them
-so you have to know addresses of all senders (no dynamic discoveries).
+However, from a configuration point of view this pattern requires more planning:
+each sender is an image server and ImageHub must explicitly subscribe to them.
+The recipient must know the addresses of all senders.
 
 Taking described differences into account you can chose appropriate pattern for
 your application: use REQ/REP pattern for images delivery from cameras to central
