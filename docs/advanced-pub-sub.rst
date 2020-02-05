@@ -77,11 +77,12 @@ This code is pretty similar to `test_1_receive_images.py`:
 
 Additional things in this script are lines 14 and 21.
 
-Line 14 - here we create an `ImageSender` object in **PUB/SUB** mode (more about
-this you can read here_) This object will be used to publish images after they
+Line 14 - here we create an `ImageSender` object in **PUB/SUB** mode (you can
+read more about PUB/SUB
+here: `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_.
+) This object will be used to publish images after they
 are processed for monitoring (this is done in Line 21).
 
-.. _here: api-examples.rst#two-messaging-patterns-reqrep-and-pubsub
 
 HTTP server code
 ================
