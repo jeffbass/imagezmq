@@ -125,3 +125,6 @@ video in a browser.
     if __name__ == '__main__':
         # This code starts simple HTTP server that listens on interface with IP 192.168.0.114, port 4000
         run_simple('192.168.0.114', 4000, application)
+
+
+`Return to main documentation page README.rst <../README.rst>`_
