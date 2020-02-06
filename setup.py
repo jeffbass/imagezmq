@@ -1,23 +1,23 @@
 # Based on setup.py (for humans):
 #     https://github.com/navdeep-G/setup.py
-#     and from: https://github.com/psf/requests/blob/master/setup.py
+#     and also: https://github.com/psf/requests/blob/master/setup.py
 import os
 
 from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-packages = ['imagezmq']
-
 requires = [
     'pyzmq>=16.0',
     'numpy>=1.13',
 ]
 
+# load the "about" fields like name, version, author, etc. from __version__.py
 about = {}
-with open(os.path.join(here, 'imagezmq', '__version__.py'), 'r', 'utf-8') as f:
+with open(os.path.join(here, 'imagezmq', '__version__.py'), 'r') as f:
     exec(f.read(), about)
 
+# get PyPI readme for uploading to PyPI. It is shorter than the one on GitHub.
 with open('PyPI_README.rst', 'r', 'utf-8') as f:
     readme = f.read()
 
@@ -30,7 +30,7 @@ setup(
     author=about['__author__'],
     author_email=about['__author_email__'],
     url=about['__url__'],
-    packages=packages,
+    packages = ['imagezmq'],
     package_dir={'imagezmq': 'imagezmq'},
     python_requires=">=3.5",
     install_requires=requires,
@@ -49,8 +49,5 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: CPython',
     ],
-    project_urls={
-        'Documentation': 'https://requests.readthedocs.io',
-        'Source': 'https://github.com/psf/requests',
-    },
+    scripts=[]
 )
