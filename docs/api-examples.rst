@@ -120,7 +120,7 @@ application. That way, part of the application can be tightly coupled (and
 therefore blocking) using REQ/REP while another part can be a non-blocking
 web stream using PUB/SUB. Example programs are included in the tests folder.
 There is a detailed explanation of these web streaming example programs
-`here <docs/advanced-pub-sub.rst>`_.
+`here <advanced-pub-sub.rst>`_.
 
 
 `Return to main documentation page README.rst <../README.rst>`_
