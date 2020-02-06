@@ -121,7 +121,6 @@ ZMQ allows many different messaging patterns. Two are implemented in **imagezmq*
 
 There are advantages and disadvantages for each pattern. For further details,
 see: `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_.
-
 **REQ/REP is the default.**
 
 
