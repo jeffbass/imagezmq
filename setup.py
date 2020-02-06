@@ -18,7 +18,7 @@ with open(os.path.join(here, 'imagezmq', '__version__.py'), 'r') as f:
     exec(f.read(), about)
 
 # get PyPI README for uploading to PyPI. It is shorter primary README.rst.
-with open('PyPI_README.rst', 'r', 'utf-8') as f:
+with open('PyPI_README.rst', 'r') as f:
     readme = f.read()
 
 setup(
