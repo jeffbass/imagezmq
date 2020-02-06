@@ -1,4 +1,4 @@
-# populates fields for >>>help(imagezmq)
+# populates fields for >>>help(imagezmq) and setup.py
 __title__ = 'imagezmq'
 __description__ = 'Transporting OpenCV images via ZMQ'
 __url__ = 'https://github.com/jeffbass/imagezmq'
