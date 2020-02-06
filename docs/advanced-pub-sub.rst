@@ -1,6 +1,6 @@
-=========================================================================
-Advanced example using both messaging patterns in a streaming application
-=========================================================================
+===============================================================================
+Advanced example using both messaging patterns in an HTTP streaming application
+===============================================================================
 
 So far all examples were implying that we receive images on a regular computer
 (with a monitor) so we can use functions like ``cv2.imshow()`` to immediately see
@@ -80,7 +80,7 @@ Additional things in this script are lines 14 and 21.
 Line 14 - here we create an `ImageSender` object in **PUB/SUB** mode. This
 object will be used to publish images after they are processed for monitoring
 (this is done in Line 21). You can read more about PUB/SUB
-here: `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_.
+here: `REQ/REP versus PUB/SUB Messaging Patterns <req-vs-pub.rst>`_.
 
 HTTP server code
 ================
