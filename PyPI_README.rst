@@ -72,6 +72,29 @@ Features
 - Enables the image hub to receive and process images from multiple image senders
   simultaneously.
 
+Why ZMQ? Why not some other messaging protocol?
+===============================================
+
+There are a number of high quality and well maintained messaging protocols for
+passing messages between computers. I looked at MQTT, RabbitMQ, AMQP and ROS as
+alternatives. I chose ZMQ and its Python PyZMQ bindings for several reasons:
+
+- ZMQ does not require a message broker. It is a peer to peer protocol that does
+  not need to pass an image first to a message broker and then to the imagehub.
+  This means fewer running processes and less “double handling” of images.
+  OpenCV images are large compared to simple text messages, so the absence of a
+  message broker is important.
+- ZMQ is very fast for passing OpenCV images. It enables high throughput between
+  image senders and image hubs.
+- ZMQ and its PyZMQ bindings are easy to install.
+
+**imagezmq** has been transporting images from a dozen Raspberry Pi computers
+scattered around my farm to 2 linux image hub servers for over 2
+years. The RPi's capture and send dozens to thousands of frames frames a day.
+**imagezmq** has worked very reliably and is very fast. You can learn more about
+my "science experiment urban permaculture farm" project at
+`Yin Yang Ranch project overview. <https://github.com/jeffbass/yin-yang-ranch>`_.
+
 Messaging Patterns: REQ/REP versus PUB/SUB
 ==========================================
 
@@ -87,7 +110,7 @@ ZMQ allows many different messaging patterns. Two are implemented in **imagezmq*
   pattern for the sender.
 
 There are advantages and disadvantages for each pattern.
-**REQ/REP is the default.**
+**REQ/REP is the default.** See the documentation (link below) for more details.
 
 Dependencies and Installation
 =============================

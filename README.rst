@@ -81,6 +81,30 @@ Features
 - Enables the image hub to receive and process images from multiple image senders
   simultaneously.
 
+Why ZMQ? Why not some other messaging protocol?
+===============================================
+
+There are a number of high quality and well maintained messaging protocols for
+passing messages between computers. I looked at MQTT, RabbitMQ, AMQP and ROS as
+alternatives. I chose ZMQ and its Python PyZMQ bindings for several reasons:
+
+- ZMQ does not require a message broker. It is a peer to peer protocol that does
+  not need to pass an image first to a message broker and then to the imagehub.
+  This means fewer running processes and less “double handling” of images.
+  OpenCV images are large compared to simple text messages, so the absence of a
+  message broker is important.
+- ZMQ is very fast for passing OpenCV images. It enables high throughput between
+  image senders and image hubs.
+- ZMQ and its PyZMQ bindings are easy to install.
+
+**imagezmq** has been transporting images from a dozen Raspberry Pi computers
+scattered around my farm to 2 linux image hub servers for over 2
+years. The RPi's capture and send dozens to thousands of frames frames a day.
+**imagezmq** has worked very reliably and is very fast. You can learn more about
+my "science experiment urban permaculture farm" project at
+`Yin Yang Ranch project overview. <https://github.com/jeffbass/yin-yang-ranch>`_.
+
+
 Messaging Patterns: REQ/REP versus PUB/SUB
 ==========================================
 
@@ -316,6 +340,8 @@ Additional Documentation
 - `More details about the multiple RPi video streaming example <docs/more-details.rst>`_
 - `Using imagezmq in distributed computer vision projects <docs/imagezmq-uses.rst>`_
 - `API and Usage Examples <docs/api-examples.rst>`_
+- `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_.
+- `Advanced example using both messaging patterns in a streaming application <docs/advanced-pub-sub.rst>`_.
 - How **imagezmq** is used in my own projects connecting multiple
   Raspberry Pi **imagenodes** to an **imagehub**:
 
@@ -327,9 +353,14 @@ Additional Documentation
 
 Contributing
 ============
-**imagezmq** is in early development and testing. I welcome open issues and
+**imagezmq** is still in active development. I welcome open issues and
 pull requests, but because the programs are still evolving, it is best to
-open an issue with some discussion before submitting pull requests.
+open an issue for some discussion before submitting pull requests. We can
+exchange ideas about your potential pull request and open a development branch
+where you can develop your code and get feedback and testing help from myself
+and others. **imagezmq** is used in my own long running projects and the
+projects of others, so backwards compatibility with the existing API is
+important.
 
 Contributors
 ============
