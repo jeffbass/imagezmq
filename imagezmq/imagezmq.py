@@ -11,8 +11,6 @@ License: MIT, see LICENSE for more details.
 
 import zmq
 import numpy as np
-import cv2
-
 
 class ImageSender():
     """Opens a zmq socket and sends images
