@@ -93,7 +93,7 @@ scattered around my farm to 2 linux image hub servers for over 2
 years. The RPi's capture and send dozens to thousands of frames frames a day.
 **imagezmq** has worked very reliably and is very fast. You can learn more about
 my "science experiment urban permaculture farm" project at
-`Yin Yang Ranch project overview. <https://github.com/jeffbass/yin-yang-ranch>`_.
+`Yin Yang Ranch project overview <https://github.com/jeffbass/yin-yang-ranch>`_.
 
 Messaging Patterns: REQ/REP versus PUB/SUB
 ==========================================
