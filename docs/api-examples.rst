@@ -56,7 +56,7 @@ imagezmq API
             A text reply from hub.
 
   class ImageHub(open_port='tcp://:5555', REQ_REP = True):
-      Opens a zmq socket on the hub computer (REP type is REQ_REP = True,
+      Opens a zmq socket on the hub computer (REP type if REQ_REP = True,
       SUB type otherwise), for example, a Mac, that will be receiving and
       displaying or processing OpenCV images and related text messages.
       Provides methods to receive images or receive jpg compressed images.
@@ -64,6 +64,11 @@ imagezmq API
       Arguments:
         open_port: (optional) the socket to open for receiving REQ requests.
         REQ_REP: (optional) whether to use REQ/REP messaging pattern or not.
+        Example: REQ_REP = True (default) The Hub will be
+                 use a REQ/REP pattern.
+                 REQ_REP = False The Hub will use a PUB/SUB
+                 pattern
+
 
       recv_image(self, copy=False):
           Receives OpenCV image and text msg.
