@@ -54,7 +54,7 @@ Then, on each Raspberry Pi, run:
 Wow! A video surveillance system with 8 (or more!) Raspberry Pi cameras in
 19 lines of Python.
 
-See `About the multiple RPi video streaming examples (REQ/REP and PUB/SUB patterns) <docs/more-details.rst>`_
+See `About the multiple RPi video streaming examples <docs/more-details.rst>`_
 for more details about this example.
 
 .. contents::
@@ -69,7 +69,7 @@ image capture and simple image processing like flipping, blurring and motion
 detection. Then the images are passed via **imagezmq** to the central computer for
 more complex image processing like image tagging, text extraction, feature
 recognition, etc. An example of using **imagezmq** can be found
-at `Using imagezmq in distributed computer vision projects <docs/imagezmq-uses.rst>`_
+at `Using imagezmq in distributed computer vision projects. <docs/imagezmq-uses.rst>`_
 
 Features
 ========
@@ -102,7 +102,7 @@ scattered around my farm to 2 linux image hub servers for over 2
 years. The RPi's capture and send dozens to thousands of frames frames a day.
 **imagezmq** has worked very reliably and is very fast. You can learn more about
 my "science experiment urban permaculture farm" project at
-`Yin Yang Ranch project overview. <https://github.com/jeffbass/yin-yang-ranch>`_.
+`Yin Yang Ranch project overview. <https://github.com/jeffbass/yin-yang-ranch>`_
 
 
 Messaging Patterns: REQ/REP versus PUB/SUB
@@ -337,18 +337,18 @@ tests.
 
 Additional Documentation
 ========================
+- `API and Usage Examples <docs/api-examples.rst>`_
 - `More details about the multiple RPi video streaming example <docs/more-details.rst>`_
 - `Using imagezmq in distributed computer vision projects <docs/imagezmq-uses.rst>`_
-- `API and Usage Examples <docs/api-examples.rst>`_
-- `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_.
-- `Advanced example using both messaging patterns in a streaming application <docs/advanced-pub-sub.rst>`_.
+- `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_
+- `Advanced example using both messaging patterns in an HTTP streaming application <docs/advanced-pub-sub.rst>`_
 - How **imagezmq** is used in my own projects connecting multiple
   Raspberry Pi **imagenodes** to an **imagehub**:
 
-  - My Yin Yang Ranch project to manage a small urban permaculture farm.
-    `Yin Yang Ranch project overview. <https://github.com/jeffbass/yin-yang-ranch>`_
-  - `imagenode: Capture and Send Images and Sensor Data. <https://github.com/jeffbass/imagenode>`_
-  - `imagehub: Receive and Store Images and Event Logs. <https://github.com/jeffbass/imagehub>`_
+  - My Yin Yang Ranch project to manage a small urban permaculture farm:
+    `Yin Yang Ranch project overview <https://github.com/jeffbass/yin-yang-ranch>`_
+  - `imagenode: Capture and Send Images and Sensor Data <https://github.com/jeffbass/imagenode>`_
+  - `imagehub: Receive and Store Images and Event Logs <https://github.com/jeffbass/imagehub>`_
 
 
 Contributing
