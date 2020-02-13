@@ -127,6 +127,20 @@ see: `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_.
 Dependencies and Installation
 =============================
 
++--------------+--------+---------------+-----------+-------+
+| |pyversions| | |pypi| | |releasedate| | |license| | |doi| |
++--------------+--------+---------------+-----------+-------+
+
+.. |pyversions| image:: /docs/images/python_versions.svg
+
+.. |pypi| image:: /docs/images/pypi_version.svg
+
+.. |releasedate| image:: /docs/images/release_date.svg
+
+.. |license| image::  /docs/images/license.svg
+
+.. |doi| image::  /docs/images/doi.svg
+
 **imagezmq** has been tested with:
 
 - Python 3.5, 3.6, 3.7 and 3.8
