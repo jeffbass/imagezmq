@@ -140,6 +140,7 @@ Dependencies and Installation
 .. |license| image::  /docs/images/license.svg
 
 .. |doi| image::  /docs/images/doi.svg
+   :target: https://doi.org/10.5281/zenodo.3663275
 
 **imagezmq** has been tested with:
 
