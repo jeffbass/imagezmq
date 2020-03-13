@@ -87,7 +87,7 @@ Disadvantages of the PUB/SUB pattern
   can even cause the program to fail. This has been an issue for some
   **imagezmq** users. See issue #27, [PUB/SUB] Subscriber slow motion video
   (queue keeps growing). See also the ZMQ documentation about slow subscribers:
-  `ZMQ Slow Subscriber Detection (Suicidal Snail Pattern). <http://zguide.zeromq.org/php:chapter5#toc4>`
+  `ZMQ Slow Subscriber Detection (Suicidal Snail Pattern). <http://zguide.zeromq.org/php:chapter5#toc4>`_
   If you use the PUB/SUB pattern and encounter this Slow Subscriber problem,
   read Issue #27 and comment there if you come up with a good solution!
 
