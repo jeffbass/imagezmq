@@ -401,7 +401,7 @@ can have a discussion first rather than opening a pull request. Thanks!
 +----------------------------+------------+-----------------------------------------------------------+
 | **Helpful Fork**           | **Name**   | **GitHub repository of fork**                             |
 +----------------------------+------------+-----------------------------------------------------------+
-| Add timeouts to image      | Pat Ryan   | `@youngsoul <https://github.com/youngsoul/imagezmq`_  See |
+| Add timeouts to image      | Pat Ryan   | `@youngsoul <https://github.com/youngsoul/imagezmq>`_ See |
 | sender to fix restarts or  |            |  CHANGES.md                                               |
 | non-response of ImageHub   |            |                                                           |
 +----------------------------+------------+-----------------------------------------------------------+
