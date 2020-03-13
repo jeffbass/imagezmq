@@ -82,6 +82,14 @@ Disadvantages of the PUB/SUB pattern
 - Receiving hub must explicitly subscribe to each sender.
 - If the receiving hub computer fails or does not receive an image, the sender
   will not know (since there is no REP sent).
+- If one (or more) of the receiving programs is much slower than the sender,
+  then the slow subscriber can start to build up a ZMQ queue that slows down and
+  can even cause the program to fail. This has been an issue for some
+  **imagezmq** users. See issue #27, [PUB/SUB] Subscriber slow motion video
+  (queue keeps growing). See also the ZMQ documentation about slow subscribers:
+  `ZMQ Slow Subscriber Detection (Suicidal Snail Pattern). <http://zguide.zeromq.org/php:chapter5#toc4>`
+  If you use the PUB/SUB pattern and encounter this Slow Subscriber problem,
+  read Issue #27 and comment there if you come up with a good solution!
 
 Further reading on messaging patterns
 =====================================
