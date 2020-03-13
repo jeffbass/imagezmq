@@ -390,6 +390,22 @@ Thanks for all contributions big and small. Some significant ones:
 | HTTP Streaming example | Maksym        | `@bigdaddymax <https://github.com/bigdaddymax>`_ |
 +------------------------+---------------+--------------------------------------------------+
 
+Helpful Forks of imagezmq
+=========================
+Some users have come up with Forks of **imagezmq** that I think will be helpful
+to others, either by using their code or reading their changed code. If
+you have developed a fork of **imagezmq** that demonstrates a concept that
+would be helpful to others, please open an issue describing your fork so we
+can have a discussion first rather than opening a pull request. Thanks!
+
++----------------------------+------------+------------------------------------------------------+
+| **Helpful Fork**           | **Name**   | **GitHub repository of fork**                        |
++----------------------------+------------+------------------------------------------------------+
+| Add timeouts to image      | Pat Ryan   | `@youngsoul <https://github.com/youngsoul/imagezmq`_ |
+| sender to fix restarts or  |            | See CHANGES.md                                       |
+| non-response of ImageHub   |            |                                                      |
++----------------------------+------------+------------------------------------------------------+
+
 Acknowledgements and Thank Yous
 ===============================
 - **ZeroMQ** is a great messaging library with great documentation
