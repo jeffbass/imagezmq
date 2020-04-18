@@ -356,6 +356,7 @@ Additional Documentation
 - `Using imagezmq in distributed computer vision projects <docs/imagezmq-uses.rst>`_
 - `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_
 - `Advanced example using both messaging patterns in an HTTP streaming application <docs/advanced-pub-sub.rst>`_
+- `Advanced pub sub example showcasing a multithreaded receiver doing heavy processing without becoming a slow subscriber <docs/fast-pub-sub.rst>`_ 
 - How **imagezmq** is used in my own projects connecting multiple
   Raspberry Pi **imagenodes** to an **imagehub**:
 
@@ -380,15 +381,17 @@ Contributors
 ============
 Thanks for all contributions big and small. Some significant ones:
 
-+------------------------+---------------+--------------------------------------------------+
-| **Contribution**       | **Name**      | **GitHub**                                       |
-+------------------------+---------------+--------------------------------------------------+
-| Initial code & docs    | Jeff Bass     | `@jeffbass <https://github.com/jeffbass>`_       |
-+------------------------+---------------+--------------------------------------------------+
-| Added PUB / SUB option | Maksym        | `@bigdaddymax <https://github.com/bigdaddymax>`_ |
-+------------------------+---------------+--------------------------------------------------+
-| HTTP Streaming example | Maksym        | `@bigdaddymax <https://github.com/bigdaddymax>`_ |
-+------------------------+---------------+--------------------------------------------------+
++------------------------+-----------------+----------------------------------------------------------+
+| **Contribution**       | **Name**        | **GitHub**                                               |
++------------------------+-----------------+----------------------------------------------------------+
+| Initial code & docs    | Jeff Bass       | `@jeffbass <https://github.com/jeffbass>`_               |
++------------------------+-----------------+----------------------------------------------------------+
+| Added PUB / SUB option | Maksym          | `@bigdaddymax <https://github.com/bigdaddymax>`_         |
++------------------------+-----------------+----------------------------------------------------------+
+| HTTP Streaming example | Maksym          | `@bigdaddymax <https://github.com/bigdaddymax>`_         |
++------------------------+-----------------+----------------------------------------------------------+
+| Fast Pub Sub example   | Philipp Schmidt | `@philipp-schmidt <https://github.com/philipp-schmidt>`_ |
++------------------------+-----------------+----------------------------------------------------------+
 
 Helpful Forks of imagezmq
 =========================
