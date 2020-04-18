@@ -1,8 +1,8 @@
 ===============================================================================
-Advanced example showcasing fast pub sub and heavy processing load
+PUB/SUB Multithreaded Fast Subscribers for Realtime Processing
 ===============================================================================
 
-When using the pub sub pattern, the receiver of the frames will always receive
+When using the PUB/SUB pattern, the receiver of the frames will always receive
 all frames of the publisher. This works as long as the receiver can keep up
 with the incoming data. If the receiver needs to do some processing work on the
 frames (motion detection, edge detection, maybe even object detection using CNNs)
@@ -11,9 +11,9 @@ but whatever is still in the receive queue of the zmq socket.
 
 To make sure such a receiver always processes the most recent frames from the publisher,
 one could connect, receive a frame and disconnect immediately, to ensure its the most recent frame.
-However, this might not be viable, as every connect will introduce an additional delay (e.g. TCP handshake roundtriptime).
+However, this might neither be viable nor elegant, as every connect will introduce an additional delay (e.g. TCP handshake roundtriptime).
 
-A better approach (if network bandwidth is not most concerning) is to keep a connection open,
+A better approach (if network bandwidth is not most concerning) is to keep the socket open,
 receive every frame in a dedicated IO thread, but only process the most recent one in a processing thread.
 
 Fast Pub Sub Subscriber
@@ -53,8 +53,17 @@ Fast Pub Sub Subscriber
             self._stop = True
 
 This helper class creates a sub socket in a dedicated IO thread and signals new data via an event.
-The main thread can now read the most recent frame by calling receive().
+The main thread can read the most recent frame by calling receive().
 
-For a full example see `pub_sub_receive.py <../examples/pub_sub_receive.py`_ and `pub_sub_broadcast.py <../examples/pub_sub_broadcast.py`_
+A timeout can be configured, after which the connection must be considered down.
+Keep in mind that in line with the zmq socket behaviour, there is no way of checking whether the connection was
+established successfully. If the first call to receive creates a timeout, the connection might not have been established
+or the pusblisher is not sending frames (...fast enough?).
+
+The event synchronisation in this class makes sure a single frame will never be read twice.
+
+Please note that this class is not threadsafe, as there is only a single event for new data.
+
+For a full example see `pub_sub_receive.py <../examples/pub_sub_receive.py>`_ and `pub_sub_broadcast.py <../examples/pub_sub_broadcast.py>`_
 
 `Return to main documentation page README.rst <../README.rst>`_
