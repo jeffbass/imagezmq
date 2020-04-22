@@ -1,17 +1,17 @@
 ====================================
-imagezmq: Transporting OpenCV images
+imageZMQ: Transporting OpenCV images
 ====================================
 
 Introduction
 ============
 
-**imagezmq** is a set of Python classes that transport OpenCV images from one
+**imageZMQ** is a set of Python classes that transport OpenCV images from one
 computer to another using PyZMQ messaging. For example, here is a screen on a
 Mac computer showing simultaneous video streams from 8 Raspberry Pi cameras:
 
 .. image:: docs/images/screenshottest.png
 
-Using **imagezmq**, this is possible with 11 lines of Python on each Raspberry
+Using **imageZMQ**, this is possible with 11 lines of Python on each Raspberry
 Pi and with 8 lines of Python on the Mac.
 
 First, run this code on the Mac (or other display computer):
@@ -59,17 +59,17 @@ for more details about this example.
 
 .. contents::
 
-Why use imagezmq?
+Why use imageZMQ?
 =================
 
-**imagezmq** is an easy to use image transport mechanism for a distributed image
+**imageZMQ** is an easy to use image transport mechanism for a distributed image
 processing network. For example, a network of a dozen Raspberry Pis with cameras
 can send images to a more powerful central computer. The Raspberry Pis perform
 image capture and simple image processing like flipping, blurring and motion
-detection. Then the images are passed via **imagezmq** to the central computer for
+detection. Then the images are passed via **imageZMQ** to the central computer for
 more complex image processing like image tagging, text extraction, feature
-recognition, etc. An example of using **imagezmq** can be found
-at `Using imagezmq in distributed computer vision projects. <docs/imagezmq-uses.rst>`_
+recognition, etc. An example of using **imageZMQ** can be found
+at `Using imageZMQ in distributed computer vision projects. <docs/imagezmq-uses.rst>`_
 
 Features
 ========
@@ -97,10 +97,10 @@ alternatives. I chose ZMQ and its Python PyZMQ bindings for several reasons:
   image senders and image hubs.
 - ZMQ and its PyZMQ bindings are easy to install.
 
-**imagezmq** has been transporting images from a dozen Raspberry Pi computers
+**imageZMQ** has been transporting images from a dozen Raspberry Pi computers
 scattered around my farm to 2 linux image hub servers for over 2
 years. The RPi's capture and send dozens to thousands of frames frames a day.
-**imagezmq** has worked very reliably and is very fast. You can learn more about
+**imageZMQ** has worked very reliably and is very fast. You can learn more about
 my "science experiment urban permaculture farm" project at
 `Yin Yang Ranch project overview. <https://github.com/jeffbass/yin-yang-ranch>`_
 
@@ -108,7 +108,7 @@ my "science experiment urban permaculture farm" project at
 Messaging Patterns: REQ/REP versus PUB/SUB
 ==========================================
 
-ZMQ allows many different messaging patterns. Two are implemented in **imagezmq**:
+ZMQ allows many different messaging patterns. Two are implemented in **imageZMQ**:
 
 - REQ/REP: Each RPi sends an image and waits for a REPLY from the central image
   hub. The RPi sends a new image only when the REPLY is received. In the REQ/REP
@@ -142,7 +142,7 @@ Dependencies and Installation
 .. |doi| image::  /docs/images/doi.svg
    :target: https://doi.org/10.5281/zenodo.3663275
 
-**imagezmq** has been tested with:
+**imageZMQ** has been tested with:
 
 - Python 3.5, 3.6, 3.7 and 3.8
 - PyZMQ 16.0 and 17.1
@@ -166,18 +166,18 @@ Linux computers.
   <https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/>`_
 
 Be sure to install OpenCV, including Numpy, into a Python Virtual Environment,
-as shown in the above tutorials. Be sure to install **imagezmq**
+as shown in the above tutorials. Be sure to install **imageZMQ**
 into the **same** virtual environment. For example, my virtual
 environment is named **py3cv3**.
 
-Install **imagezmq** using pip:
+Install **imageZMQ** using pip:
 
 .. code-block:: bash
 
     workon py3cv3  # use your virtual environment name
     pip install imagezmq
 
-**imagezmq** has a directory of tests organized into sender and receiver pairs.
+**imageZMQ** has a directory of tests organized into sender and receiver pairs.
 You will get the "tests" directory containing all the test programs by
 cloning the GitHub repository:
 
@@ -186,10 +186,10 @@ cloning the GitHub repository:
     git clone https://github.com/jeffbass/imagezmq.git
 
 Once you have cloned the imagezmq directory to a directory on your local machine,
-you can run the tests per the instructions below. You can use imagezmq in your
+you can run the tests per the instructions below. You can use imageZMQ in your
 own code by importing it (``import imagezmq``).
 
-**imagezmq** and all of the software dependencies must be installed on the
+**imageZMQ** and all of the software dependencies must be installed on the
 display computer that will be receiving the images AND it must all be installed
 on every Raspberry Pi that will be sending images. If you will be using multiple
 Raspberry Pis to capture and send images it is best to install the software on a
@@ -206,7 +206,7 @@ I use the term "Mac" to refer to any Mac or Linux computer, including a
 Raspbery Pi). One terminal window is used to launch the programs that run on the
 Mac to receive the images. Another terminal window on the Mac is used to ssh
 into the Raspberry Pi and run the image sending program. If sending from multiple
-Raspberry Pis, ssh to each Raspberry Pi in a new terminal window. **imagezmq**
+Raspberry Pis, ssh to each Raspberry Pi in a new terminal window. **imageZMQ**
 and its dependencies must be installed on the Mac and on each Raspberry Pi that
 will be sending images.
 
@@ -215,7 +215,7 @@ program sends images and the other program displays images. Because of the
 REQ/REP pattern that is being used, it is important that the receiving program
 be started before the sending program.
 
-**imagezmq** is in early development as part of a larger system. There are
+**imageZMQ** is in early development as part of a larger system. There are
 currently separate methods for sending and receiving images vs. jpg compressed
 images. Further development will refactor these into single methods for sending
 and receiving. ::
@@ -253,7 +253,7 @@ Test 2: Sending stream of OpenCV images from RPi(s) to Mac
 ----------------------------------------------------------
 **The second test** runs the sending program on a Raspberry Pi, capturing
 images from the PiCamera at up to 32 frames a second and sending them via
-**imagezmq** to the Mac. The receiving program on the Mac displays a continuous
+**imageZMQ** to the Mac. The receiving program on the Mac displays a continuous
 video stream of the images captured by the Raspberry Pi. First, in one terminal
 window, activate your virtual environment, change to the tests directory and
 run the receiving program which will display the images::
@@ -296,7 +296,7 @@ Test 3: Sending stream of jpgs from RPi(s) to Mac
 **The third test** runs a different pair of sending / receiving programs. The
 program on the Raspberry Pi captures images from the PiCamera at up to 32
 frames a second and **compresses them to jpeg form** before sending them via
-**imagezmq** to the Mac. The receiving program on the Mac converts the jpg
+**imageZMQ** to the Mac. The receiving program on the Mac converts the jpg
 compressed frames back to OpenCV images and displays them as a continuous video
 stream. This jpeg compression can greatly reduce the network load of sending many
 images from multiple sources.
@@ -318,13 +318,13 @@ This simple test program has no try / except error trapping. Be sure to activate
 your virtual environment as you did for Test 2 (see above) before running these
 tests.
 
-Timing tests: Complete imagezmq usage examples
+Timing tests: Complete imageZMQ usage examples
 ==============================================
 The test programs above are short and simple. They test that the software and
 dependencies are installed correctly and that images transfer successfully between
 a Raspberry Pi computer and a display computer such as a Mac.  The tests
 directory contains 2 more send / receive program pairs that provide a more
-complete example of imagezmq usage. Each of these programs includes
+complete example of imageZMQ usage. Each of these programs includes
 try / except blocks that enable ending the programs by typing Ctrl-C
 without starting a cascade of error messages. They also perform frames per
 second (FPS) timing tests that measure the speeds of image transfer using the
@@ -353,10 +353,10 @@ Additional Documentation
 ========================
 - `API and Usage Examples <docs/api-examples.rst>`_
 - `More details about the multiple RPi video streaming example <docs/more-details.rst>`_
-- `Using imagezmq in distributed computer vision projects <docs/imagezmq-uses.rst>`_
+- `Using imageZMQ in distributed computer vision projects <docs/imagezmq-uses.rst>`_
 - `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_
 - `Advanced example using both messaging patterns in an HTTP streaming application <docs/advanced-pub-sub.rst>`_
-- How **imagezmq** is used in my own projects connecting multiple
+- How **imageZMQ** is used in my own projects connecting multiple
   Raspberry Pi **imagenodes** to an **imagehub**:
 
   - My Yin Yang Ranch project to manage a small urban permaculture farm:
@@ -367,12 +367,12 @@ Additional Documentation
 
 Contributing
 ============
-**imagezmq** is still in active development. I welcome open issues and
+**imageZMQ** is still in active development. I welcome open issues and
 pull requests, but because the programs are still evolving, it is best to
 open an issue for some discussion before submitting pull requests. We can
 exchange ideas about your potential pull request and open a development branch
 where you can develop your code and get feedback and testing help from myself
-and others. **imagezmq** is used in my own long running projects and the
+and others. **imageZMQ** is used in my own long running projects and the
 projects of others, so backwards compatibility with the existing API is
 important.
 
@@ -390,11 +390,11 @@ Thanks for all contributions big and small. Some significant ones:
 | HTTP Streaming example | Maksym        | `@bigdaddymax <https://github.com/bigdaddymax>`_ |
 +------------------------+---------------+--------------------------------------------------+
 
-Helpful Forks of imagezmq
+Helpful Forks of imageZMQ
 =========================
-Some users have come up with Forks of **imagezmq** that I think will be helpful
+Some users have come up with Forks of **imageZMQ** that I think will be helpful
 to others, either by using their code or reading their changed code. If
-you have developed a fork of **imagezmq** that demonstrates a concept that
+you have developed a fork of **imageZMQ** that demonstrates a concept that
 would be helpful to others, please open an issue describing your fork so we
 can have a discussion first rather than opening a pull request. Thanks!
 
@@ -410,7 +410,7 @@ Acknowledgements and Thank Yous
 ===============================
 - **ZeroMQ** is a great messaging library with great documentation
   at `ZeroMQ.org <http://zeromq.org/>`_.
-- **PyZMQ** serialization examples provided a starting point for **imagezmq**. See the
+- **PyZMQ** serialization examples provided a starting point for **imageZMQ**. See the
   `PyZMQ documentation <https://pyzmq.readthedocs.io/en/latest/index.html>`_.
 - **OpenCV** and its Python bindings provide great scaffolding for computer
   vision projects large or small: `OpenCV.org <https://opencv.org/>`_.
