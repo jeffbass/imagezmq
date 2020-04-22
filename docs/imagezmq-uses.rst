@@ -1,18 +1,18 @@
 ==========================================================
-Using **imagezmq** in Distributed Computer Vision Projects
+Using **imageZMQ** in Distributed Computer Vision Projects
 ==========================================================
 
-The test programs show how **imagezmq** can be used to capture images on
-Raspberry Pi computers, send them to a Mac via **imagezmq** and then display
+The test programs show how **imageZMQ** can be used to capture images on
+Raspberry Pi computers, send them to a Mac via **imageZMQ** and then display
 them on the Mac. The ability for one hub to gather and process images from
 multiple sources allows computer vision pipelines to distribute vision processing
 across multiple computers.
 
-Let's walk through an example where **imagezmq** is used to distribute a
+Let's walk through an example where **imageZMQ** is used to distribute a
 computer vision process across a Raspberry Pi and a Mac. This project involves
 reading a water meter using a Raspberry Pi and PiCamera to gather images and do
 some image processing locally. A program running on the Raspberry Pi selects
-some images to be transmitted via **imagezmq** to a Mac for more complex
+some images to be transmitted via **imageZMQ** to a Mac for more complex
 processing.
 
 This is what a water meter looks like:
@@ -28,7 +28,7 @@ spins clockwise. Each full rotation of the needle causes the rightmost
 digit of the digital meter to advance by one digit. The small "blue star" dial
 is a "leak detector" that spins even when a very small amount of water is
 flowing (like a dripping faucet). This a great project for a Raspberry Pi,
-**imagezmq** and a Mac (or Linux computer).
+**imageZMQ** and a Mac (or Linux computer).
 
 Here's what occurs on the Raspberry Pi:
 
@@ -40,7 +40,7 @@ Here's what occurs on the Raspberry Pi:
 - The images are pushed into a Queue as they are gathered.
 - Pairs of images in the Queue are differenced to look for needle motion to
   determine if water is flowing or not.
-- The water meter status (flowing or not flowing) is sent via **imagezmq**
+- The water meter status (flowing or not flowing) is sent via **imageZMQ**
   along with a series of images that show when the status changed (from flowing
   to not flowing or vice-versa). To minimize network load, images are only sent
   when there has been a status change. The program logic to select which images
@@ -55,7 +55,7 @@ Here's what occurs on the Raspberry Pi:
 
 Here's what occurs on the Mac:
 
-- The images are received via **imagezmq** along with the status messages.
+- The images are received via **imageZMQ** along with the status messages.
 - The images are stored in an image database and indexed.
 - Several Regions of Interest (ROI) are extracted from each image and further
   processed:
@@ -79,7 +79,7 @@ Here's what occurs on the Mac:
   method is called inside the loop that extracts an ROI and does feature
   extraction and digit classification.
 
-**imagezmq** optimizes this Raspberry Pi to Mac computer vision pipeline in a
+**imageZMQ** optimizes this Raspberry Pi to Mac computer vision pipeline in a
 way that allows each computer to do tasks for which it is best suited:
 
 - No images are stored on the Raspberry Pi. The SD Card storage on the Raspberry
@@ -87,7 +87,7 @@ way that allows each computer to do tasks for which it is best suited:
   reports of SD card failures caused by frequent writes of large binary files.
 - The Raspberry Pi can control the lighting to gather the best images.
 - The Raspberry Pi can do simple image processing, motion detection and can use
-  an algoritm to select which images to send via **imagezmq**.
+  an algoritm to select which images to send via **imageZMQ**.
 - The Mac can use its larger memory and faster CPU to do more complex image
   processing, including feature extraction and digit classification.
 - The Mac can use its fast SSD disk drives to store the images and the extracted
