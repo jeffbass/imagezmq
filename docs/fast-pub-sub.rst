@@ -17,10 +17,10 @@ round-trip-time).
 
 A better approach (if network bandwidth is not most concerning) is to keep the
 socket open, receive every frame in a dedicated IO thread, but only process the
-most recent one in a processing thread.
+most recent one in a processing thread. This is possible with this helper class:
 
-Fast Pub Sub Subscriber
-=======================
+Fast Pub Sub Subscriber Helper Class
+====================================
 
 .. code-block:: python
     :number-lines:
