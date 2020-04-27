@@ -62,7 +62,7 @@ if __name__ == "__main__":
             # the most recent frame (more or less realtime behaviour)
 
             # Uncomment this to simulate processing load
-            # limit_to_2_fps()
+            limit_to_2_fps()
 
             cv2.imshow("Pub Sub Receive", image)
             cv2.waitKey(1)

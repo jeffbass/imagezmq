@@ -13,9 +13,13 @@ if __name__ == "__main__":
     port = 5555
     sender = imagezmq.ImageSender(f"tcp://*:{port}", REQ_REP=False)
 
-    # Open input stream
-    # First available cam in this case for simplicity, you can use any stream url (rtsp, mjpg, etc...)
-    capture = VideoStream()
+    # Open input stream; comment out one of these capture = VideoStream() lines!
+    # *** You mus use only one of Webcam OR PiCamera
+    # Webcam source for broadcast images
+    capture = VideoStream()  # Webcam
+    # PiCamera source for broadcast images (Raspberry Pi only)
+    # capture = VideoStream(usePiCamera=True)  # PiCamera
+
     capture.start()
     print("Input stream opened")
 
