@@ -23,10 +23,11 @@ if __name__ == "__main__":
     jpeg_quality = 95
 
     # Send RPi hostname with each image
-    # This might be unnecessary in this pub sub mode, as the receiver will already need to know our address
-    # and can therefore distinguish streams
-    # Keeping it anyway in case you wanna send a meaningful tag or something (or have a many to many setup)
-    rpi_name = socket.gethostname()  
+    # This might be unnecessary in this pub sub mode, as the receiver will
+    #    already need to know our address and can therefore distinguish streams
+    # Keeping it anyway in case you wanna send a meaningful tag or something
+    #    (or have a many to many setup)
+    rpi_name = socket.gethostname()
 
     try:
         counter = 0

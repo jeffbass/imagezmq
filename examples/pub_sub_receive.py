@@ -56,11 +56,11 @@ if __name__ == "__main__":
         while True:
             msg, frame = receiver.receive()
             image = cv2.imdecode(np.frombuffer(frame, dtype='uint8'), -1)
-            
+
             # Due to the IO thread constantly fetching images, we can do any amount
             # of processing here and the next call to receive() will still give us
             # the most recent frame (more or less realtime behaviour)
-            
+
             # Uncomment this to simulate processing load
             # limit_to_2_fps()
 
