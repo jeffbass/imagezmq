@@ -19,6 +19,7 @@ if __name__ == "__main__":
     capture = VideoStream()  # Webcam
     # PiCamera source for broadcast images (Raspberry Pi only)
     # capture = VideoStream(usePiCamera=True)  # PiCamera
+    sleep(2.0)  # Warmup time; needed by PiCamera on some RPi's
 
     capture.start()
     print("Input stream opened")
