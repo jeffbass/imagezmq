@@ -15,7 +15,7 @@ if __name__ == "__main__":
     sender = imagezmq.ImageSender("tcp://*:{}".format(port), REQ_REP=False)
 
     # Open input stream; comment out one of these capture = VideoStream() lines!
-    # *** You mus use only one of Webcam OR PiCamera
+    # *** You must use only one of Webcam OR PiCamera
     # Webcam source for broadcast images
     capture = VideoStream()  # Webcam
     # PiCamera source for broadcast images (Raspberry Pi only)
