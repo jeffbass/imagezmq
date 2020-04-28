@@ -27,12 +27,12 @@ class VideoStreamSubscriber:
         flag = self._data_ready.wait(timeout=timeout)
         if not flag:
             raise TimeoutError(
-                f"Timeout while reading from subscriber tcp://{self.hostname}:{self.port}")
+                "Timeout while reading from subscriber tcp://{}:{}".format(self.hostname, self.port))
         self._data_ready.clear()
         return self._data
 
     def _run(self):
-        receiver = imagezmq.ImageHub(f"tcp://{self.hostname}:{self.port}", REQ_REP=False)
+        receiver = imagezmq.ImageHub("tcp://{}:{}".format(self.hostname, self.port), REQ_REP=False)
         while not self._stop:
             self._data = receiver.recv_jpg()
             self._data_ready.set()
@@ -48,7 +48,9 @@ def limit_to_2_fps():
 
 if __name__ == "__main__":
     # Receive from broadcast
-    hostname = "127.0.0.1"
+    # There are 2 hostname styles; comment out the one you don't need
+    hostname = "127.0.0.1"  # Use to receive from localhost
+    # hostname = "192.168.86.38"  # Use to receive from other computer
     port = 5555
     receiver = VideoStreamSubscriber(hostname, port)
 
@@ -61,8 +63,8 @@ if __name__ == "__main__":
             # of processing here and the next call to receive() will still give us
             # the most recent frame (more or less realtime behaviour)
 
-            # Uncomment this to simulate processing load
-            limit_to_2_fps()
+            # Uncomment this statement to simulate processing load
+            # limit_to_2_fps()   # Comment this statement out to run full speeed
 
             cv2.imshow("Pub Sub Receive", image)
             cv2.waitKey(1)

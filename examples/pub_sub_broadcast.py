@@ -11,7 +11,7 @@ import imagezmq
 if __name__ == "__main__":
     # Publish on port
     port = 5555
-    sender = imagezmq.ImageSender(f"tcp://*:{port}", REQ_REP=False)
+    sender = imagezmq.ImageSender("tcp://*:{}".format(port), REQ_REP=False)
 
     # Open input stream; comment out one of these capture = VideoStream() lines!
     # *** You mus use only one of Webcam OR PiCamera
@@ -40,7 +40,7 @@ if __name__ == "__main__":
             ret_code, jpg_buffer = cv2.imencode(
                 ".jpg", frame, [int(cv2.IMWRITE_JPEG_QUALITY), jpeg_quality])
             sender.send_jpg(rpi_name, jpg_buffer)
-            print(f"Sent frame {counter}")
+            print("Sent frame {}".format(counter))
             counter = counter + 1
     except (KeyboardInterrupt, SystemExit):
         print('Exit due to keyboard interrupt')
