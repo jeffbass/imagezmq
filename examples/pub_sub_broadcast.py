@@ -4,6 +4,7 @@ import sys
 
 import socket
 import traceback
+from time import sleep
 import cv2
 from imutils.video import VideoStream
 import imagezmq
