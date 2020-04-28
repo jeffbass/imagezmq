@@ -49,8 +49,8 @@ def limit_to_2_fps():
 if __name__ == "__main__":
     # Receive from broadcast
     # There are 2 hostname styles; comment out the one you don't need
-    # hostname = "127.0.0.1"  # Use to receive from localhost
-    hostname = "192.168.86.38"  # Use to receive from other computer
+    hostname = "127.0.0.1"  # Use to receive from localhost
+    # hostname = "192.168.86.38"  # Use to receive from other computer
     port = 5555
     receiver = VideoStreamSubscriber(hostname, port)
 
