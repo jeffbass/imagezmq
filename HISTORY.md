@@ -7,34 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Development
 
-- Adding and testing `close()` method in `ImageSender` and `ImageHub` classes
-- Adding and testing `__enter__` and `__exit__` methods
+- Adding and testing `close()` method in `ImageSender` and `ImageHub` classes.
+- Adding and testing `__enter__` and `__exit__` methods.
+- Adding keywords variable to setup.py to improve PyPI repository.
+- Adding history variable to setup.py.
 
 ## 1.0.2 - 2020-05-12
 
 ### Improvements
 
-- Advanced PUB/SUB example with multithreaded fast subscribers for realtime processing.
+- Added Advanced PUB/SUB example with multithreaded fast subscribers for realtime processing.
  (@philipp-schmidt).
 - Added this HISTORY.md file to document project changes.
 
 ### Changes and Bugfixes
 
-- Multiple changes to all documentation files.
-- Fix documentation of API, adding `connect()` method to ImageHub class.
+- Multiple fixes to all documentation files.
+- Fixed documentation of API, adding `connect()` method to ImageHub class docs.
 
 ## 1.0.1 - 2020-02-11
 
 ### Improvements
 
-- setup.py, MANIFEST.in and PyPI_README.rst to enable pip installation and upload to PyPI.
-- New images /docs/image/various_badges.svg with static badge images to improve README.rst load time.
+- Added setup.py, MANIFEST.in and PyPI_README.rst to enable pip installation and upload to PyPI.
+- Added new images /docs/image/various_badges.svg with static badge images to improve README.rst load time.
 - Reference as 1st Release in GitHub, PyPI (2020-02-05) and Zendodo (2020-02-12).
 
 ### Changes and Bugfixes
 
 - Changed README.rst to show badges referenced in badge_fetch.rst.
 - Changed README.rst to include pip install instructions.
+- Multiple fixes to all documentation files.
 
 ## 0.0.3 - 2019-08-23
 
@@ -47,20 +50,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes and Bugfixes
 
-- Multiple changes to all documentation files.
-- Substantial rewrite of API, to include PUB/SUB option.
+- Multiple fixes to all documentation files.
+- Substantial rewrite of API, to include and clean up PUB/SUB option docs.
 
 ## 0.0.2 - 2019-02-09
 
-### Added
+### Improvements
 
 - More detail and uniform formatting for docstrings and code snippets in docs.
 - Additional tests and test docs.
 
-### Changed
+### Changes and Bugfixes
 
-- Multiple changes to all documentation files.
-- Restructured test files & testing documentation.
+- Multiple fixes to all documentation files.
+- Restructured test files & testing documentation to make them consistent.
 
 ## 0.0.1 - 2018-03-03
 
