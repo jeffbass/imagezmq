@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adding and testing `__enter__` and `__exit__` methods.
 - Adding keywords variable to setup.py to improve PyPI repository.
 - Adding history variable to setup.py.
+- Adding FAQs doc file to capture discussions in various issues.
 
 ## 1.0.2 - 2020-05-12
 
