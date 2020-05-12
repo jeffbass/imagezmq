@@ -88,6 +88,13 @@ imagezmq API
             msg: text message, often image name
             jpg_buffer: bytestring jpg compressed image
 
+      connect(self, open_port):
+          In PUB/SUB mode, the hub can connect to multiple senders at the same
+          time. Use this method to connect (and subscribe) to additional senders.
+
+      Arguments:
+           open_port: the PUB socket to connect to.
+
       send_reply(self, reply_message=b'OK'):
           Sends the zmq REP reply message.
 

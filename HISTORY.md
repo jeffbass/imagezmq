@@ -12,50 +12,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 1.0.2 - 2020-05-12
 
-### Added
+### Improvements
 
 - Advanced PUB/SUB example with multithreaded fast subscribers for realtime processing.
  (@philipp-schmidt).
-- This HISTORY.md file to document project changes.
+- Added this HISTORY.md file to document project changes.
 
-### Changed
+### Changes and Bugfixes
 
 - Multiple changes to all documentation files.
+- Fix documentation of API, adding `connect()` method to ImageHub class.
 
 ## 1.0.1 - 2020-02-11
 
-### Added
+### Improvements
 
 - setup.py, MANIFEST.in and PyPI_README.rst to enable pip installation and upload to PyPI.
 - New images /docs/image/various_badges.svg with static badge images to improve README.rst load time.
-- Reference as 1st Release in GitHub.
+- Reference as 1st Release in GitHub, PyPI (2020-02-05) and Zendodo (2020-02-12).
 
-### Changed
+### Changes and Bugfixes
 
 - Changed README.rst to show badges referenced in badge_fetch.rst.
 - Changed README.rst to include pip install instructions.
 
 ## 0.0.3 - 2019-08-23
 
-### Added
+### Improvements
 
 - Implementation of PUB/SUB ZMQ messaging pattern (@bigdaddymax).
 - Example of PUB/SUB ZMQ messaging pattern (@bigdaddymax).
 - Example of HTTP Steaming Example (@bigdaddymax).
 - Helpful fork: Add timeouts to `ImageSender` to fix restarts or non-response of `ImageHub` timeouts (@youngsoul).
 
-### Changed
+### Changes and Bugfixes
 
 - Multiple changes to all documentation files.
+- Substantial rewrite of API, to include PUB/SUB option.
 
 ## 0.0.2 - 2019-02-09
 
 ### Added
 
 - More detail and uniform formatting for docstrings and code snippets in docs.
+- Additional tests and test docs.
 
 ### Changed
+
 - Multiple changes to all documentation files.
+- Restructured test files & testing documentation.
 
 ## 0.0.1 - 2018-03-03
 
