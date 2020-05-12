@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Advanced PUB/SUB example with multithreaded fast subscribers for realtime processing.
  (@philipp-schmidt).
 - Added this HISTORY.md file to document project changes.
+- Fixed inconsistent spellings of `imageZMQ`.
 
 ### Changes and Bugfixes
 
@@ -71,5 +72,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.0.0 - 2016-01-09
 
-- First early prototype posted as a GitHub Gist on Jan 9, 2016
+- First early prototype of `imageZMQ` posted as a GitHub Gist on Jan 9, 2016.
 - Gist is [here](https://gist.github.com/jeffbass/ebf877e964c9a0b84272).
