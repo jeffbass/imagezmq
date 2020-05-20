@@ -1,8 +1,8 @@
 """test_receive_with_close.py -- test close() and __enter__ and __exit__.
 This test program tests three new capabilities added in v1.1.0.
 
-It is the RECEIVE part of a program pair. The SEND part is
-test_send_with_close.py
+This program is the RECEIVE part of a program pair. The SEND part is
+test_send_with_close.py.
 
 *** RUN this RECEIVE program of this pair first, then leave it running while
 you run the sending program. Instructions for running the complete test of both
@@ -23,34 +23,47 @@ The total test of both programs in the pair has 4 parts:
    images between them is running OK.
 
 *** Instructions for using BOTH programs for a complete Unit Test:
+To make sure your testing the latest development version if imagezmq.py:
+1. Copy imagezmq.py from its directory into this one, changing its name:
+   cp ../imagezmq/imagezmq.py imagezmqtest.py
+2. Edit imagezmqtest.py to add a print("test version") statement it to be
+   sure it is importing correctly.
+
+Then run the tests. These test programs expect imagezmqtest.py to be available
+in this same directory and will produce an import error if it is not.
+
 1. Run this program in its own terminal window:
 python test_receive_with_close.py
 
 This "receive and display images" program MUST be running before starting the
 image sending program.
 
-2. Wait until the first 3 test parts show 3 OK assert messages (or note if an
-error occurs). If an error occurs, it must be fixed before remaining steps.
+2. Wait until the first 3 test steps show 3 OK messages (or note if an
+error occurs). If an error occurs, it must be fixed before the remaining steps.
 
 3. Run the image sending program in a different terminal window:
 python test_send_with_close.py
 
-After the 3 OK assert messages appear:
+After the 3 "OK" test messages appear:
 A cv2.imshow() window will appear showing the tramsmitted image. The sending
-program sends an images with imprinted incrementing couner value.
+program sends a series of images with an incrementing couner value.
 
 To end the programs, press Ctrl-C in the terminal window of the sending program
 first. Then press Ctrl-C in the terminal window of the receiving proram. You
 get various error messages when you press Ctrl-C. That's normal; there is no
-error or exception trapping in these simple test programs
+error or exception trapping in these simple test programs.
 
 """
 # TODO: Jeff! Finish this and its paired program ASAP!
 
 import sys
 import cv2
-import imagezmq
+import imagezmqtest
 
+image_hub = imagezmq.ImageHub()
+print('Opened ImageHub OK.')
+image_hub.close()
+print('Closed ImageHUB OK.')
 image_hub = imagezmq.ImageHub()
 while True:  # press Ctrl-C to stop image display program
     image_name, image = image_hub.recv_image()
