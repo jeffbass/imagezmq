@@ -1,25 +1,20 @@
-"""test_send_with_close.py -- test close() and __enter__ and __exit__.
+"""test_send_with_close.py -- test close() method.
 This test program tests three new capabilities added in v1.1.0.
 
-It is the SEND part of a program pair. The RECEIVE part is
-test_receive_with_close.py
+This program is the SEND part of a program pair. The RECEIVE part is
+test_receive_with_close.py. Instructions for running the complete test of both
+programs are in the RECEIVE program of this pair.
 
 *** RUN the RECEIVE program of this pair first, then leave that running while
-you run this one. Instructions for running the complete test of both programs
-are in the RECEIVE program of this pair.
+you run this one.
 
-This program is a Unit Test (on both sender and receiver) of sender.close() and
-    sender.__enter__() and sender.__exit__ (using "with" context manager).
+This program is a Unit Test (on both sender and receiver) of .close() method.
 
 The test has 3 parts:
-1. Tests instantiating an ImageSender, using sender.close() and reinstantiating
-   ImageSender. Then sending 3 images.
-2. Uses with ImageSender context invocation to send 3 images. This should
-   exit without errors.
-3. Uses "with ImageSender" context invocation to send 3 more images. This
-   should both start and end without errors.
+1. Tests instantiating an ImageSender and prints an OK message.
+2. Closes the sender using sender.close() and re-Instantiates it.
+2. Starts forever sending loop.
 
-TODO: Jeff! Finish this and its paired program ASAP!
 """
 
 import sys
@@ -28,11 +23,19 @@ import numpy as np
 import cv2
 import imagezmq
 
+import imagezmqtest
+
+sender = imagezmqtest.ImageSender()
+print('Opened ImageSender OK.')
+sender.close()
+print('Closed ImageSender OK.')
+sender = imagezmqtest.ImageSender()
+print('Reopened ImageSender OK after first close. Starting receive & show loop.')
+
 # Create 2 different test images to send
 # A green square on a black background
 # A red square on a black background
 
-sender = imagezmq.ImageSender()
 i = 0
 image_window_name = 'From Sender'
 while True:  # press Ctrl-C to stop image sending program

@@ -1,5 +1,5 @@
-"""test_receive_with_close.py -- test close() and __enter__ and __exit__.
-This test program tests three new capabilities added in v1.1.0.
+"""test_receive_with_close.py -- test close() method.
+This test program tests the new .close() method added in v1.1.0.
 
 This program is the RECEIVE part of a program pair. The SEND part is
 test_send_with_close.py.
@@ -8,19 +8,15 @@ test_send_with_close.py.
 you run the sending program. Instructions for running the complete test of both
 programs are below.
 
-This program is a Unit Test (on both sender and receiver) of sender.close() and
-    sender.__enter__() and sender.__exit__ (using "with" context manager).
+This program is a Unit Test (on both sender and receiver) of .close() method.
 
-The total test of both programs in the pair has 4 parts:
+The total test of both programs in the pair has 3 stages:
 1. Instantiate an ImageHub, the use hub.close() and then reinstantiate
-   an ImageHub. Then send 3 images.
-2. Use ImageHub context invocation to send 3 images. This should
-   exit without errors.
-3. Use "with ImageSender" context invocation to send 3 more images. This
-   should both start and end without errors.
-4. Run other program in pair -- test_send_with_close.py -- so that the above 3
-   tests are also run on the receiving program and the imageZMQ link transmitting
-   images between them is running OK.
+   an ImageHub. Then await images. Thats THIS program.
+2. Instantiate an ImageSender, then use sender.close() and then reinstantiate
+   the ImageSender. Then start sending images. That's the OTHER program in this
+   program test pair.
+3. A cv2.imshow() window appears showing the 2 programs are working OK together.
 
 *** Instructions for running BOTH programs for a complete Unit Test:
 To make sure your testing the latest development version of imagezmq.py:
@@ -64,11 +60,12 @@ import sys
 import cv2
 import imagezmqtest
 
-image_hub = imagezmq.ImageHub()
+image_hub = imagezmqtest.ImageHub()
 print('Opened ImageHub OK.')
 image_hub.close()
-print('Closed ImageHUB OK.')
-image_hub = imagezmq.ImageHub()
+print('Closed ImageHub OK.')
+image_hub = imagezmqtest.ImageHub()
+print('Reopened ImageHub OK after first close. Starting receive & show loop.')
 while True:  # press Ctrl-C to stop image display program
     image_name, image = image_hub.recv_image()
     cv2.imshow(image_name, image)
