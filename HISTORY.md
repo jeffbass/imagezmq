@@ -7,11 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Development
 
-- Adding and testing `close()` method in `ImageSender` and `ImageHub` classes.
 - Adding and testing `__enter__` and `__exit__` methods.
 - Adding keywords variable to setup.py to improve PyPI repository.
 - Adding history variable to setup.py.
 - Adding FAQs doc file to capture discussions in various issues.
+
+## 1.1.0 - 2020-05-DD
+
+### Improvements
+
+- Added `tests/unit_tests` directory to hold "tests of new imagezmq features".
+- Added `close()` method in `ImageSender` and `ImageHub` classes. Added 2 test
+  programs to `tests/unit_tests` to test it. 
+- Added Advanced PUB/SUB example with multithreaded fast subscribers for
+  realtime processing. (@philipp-schmidt).
+- Added this HISTORY.md file to document project changes.
+- Fixed inconsistent spellings of `imageZMQ`.
+
+### Changes and Bugfixes
+
+- Multiple fixes to all documentation files.
+- Fixed documentation of API, adding `connect()` method to ImageHub class docs.
+
 
 ## 1.0.2 - 2020-05-12
 

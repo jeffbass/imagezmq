@@ -22,14 +22,16 @@ The total test of both programs in the pair has 4 parts:
    tests are also run on the receiving program and the imageZMQ link transmitting
    images between them is running OK.
 
-*** Instructions for using BOTH programs for a complete Unit Test:
-To make sure your testing the latest development version if imagezmq.py:
+*** Instructions for running BOTH programs for a complete Unit Test:
+To make sure your testing the latest development version of imagezmq.py:
 1. Copy imagezmq.py from its directory into this one, changing its name:
    cp ../../imagezmq/imagezmq.py imagezmqtest.py
 2. Edit imagezmqtest.py to add a print("test version") statement it to be
    sure it is importing correctly. Add it right after the import numpy
    statement:
    print('Test: importing imagezmqtest.py')
+3. Be sure to be in your appropriate virtualenv:
+   workon py3cv3  # this is my testing one for these tests
 
 Then run the tests. These test programs expect imagezmqtest.py to be available
 in this same directory and will produce an import error if it is not.
