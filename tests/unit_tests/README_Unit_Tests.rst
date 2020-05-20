@@ -9,13 +9,17 @@ The first test program pair is made up of test_receive_with_close.py and
 test_send_with_close.py.
 
 Test programs in this directory so far:
+
 1. test_receive_with_close.py and test_send_with_close.py: This pair tests the
-   .close() method added to both imageZMQ classes in version 1.1.0.
+   new .close() method added to both imageZMQ classes in version 1.1.0.
 
 The below instructions are the ones for test_receive_with_close.py:
 
-*** Instructions for running BOTH test programs for a complete Unit Test:
+**Instructions for running BOTH test programs for a complete Unit Test:**
+
 To make sure your testing the latest development version of imagezmq.py:
+
+
 1. Copy imagezmq.py from its directory into this one, changing its name:
    cp ../../imagezmq/imagezmq.py imagezmqtest.py
 2. Edit imagezmqtest.py to add a print("test version") statement it to be
