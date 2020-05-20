@@ -176,6 +176,16 @@ class ImageSender():
 
         self.zmq_socket.send_jpg(msg, jpg_buffer, copy=False)
 
+    def close(self):
+        """Closes the ZMQ socket and the ZMQ context.
+
+        Returns:
+          Nothing.
+        """
+
+        self.zmq_socket.close()
+        self.zmq_context.term()
+
 
 class ImageHub():
     """Opens a zmq socket and receives images
@@ -286,6 +296,16 @@ class ImageHub():
           reply_message: reply message text, often just string 'OK'
         """
         self.zmq_socket.send(reply_message)
+
+    def close(self):
+        """Closes the ZMQ socket and the ZMQ context.
+
+        Returns:
+          Nothing.
+        """
+
+        self.zmq_socket.close()
+        self.zmq_context.term()
 
 
 class SerializingSocket(zmq.Socket):
