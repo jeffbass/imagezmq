@@ -12,33 +12,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adding history variable to setup.py.
 - Adding FAQs doc file to capture discussions in various issues.
 
-## 1.1.0 - 2020-05-DD
+## 1.1.0 - 2020-05-20
 
 ### Improvements
 
 - Added `tests/unit_tests` directory to hold "tests of new imagezmq features".
-  Also added README_Unit_Tests in that directory to explain Unit Tests for
+  Also added README_Unit_Tests.rst in that directory to explain Unit Tests for
   imageZMQ improvements going forward.
 - Added `close()` method in `ImageSender` and `ImageHub` classes. Added 2 test
   programs to `tests/unit_tests` to test it. Added `close()` to API docs.
 - Added Advanced PUB/SUB example with multithreaded fast subscribers for
   realtime processing. (@philipp-schmidt).
-- Added this HISTORY.md file to document project changes.
-- Fixed inconsistent spellings of `imageZMQ`.
-
-### Changes and Bugfixes
-
-- Multiple fixes to all documentation files.
-- Fixed documentation of API, adding `connect()` method to ImageHub class docs.
-
-
-## 1.0.2 - 2020-05-12
-
-### Improvements
-
-- Added Advanced PUB/SUB example with multithreaded fast subscribers for realtime processing.
- (@philipp-schmidt).
-- Added this HISTORY.md file to document project changes.
+- Added this HISTORY.md file to document project changes going forward.
 - Fixed inconsistent spellings of `imageZMQ`.
 
 ### Changes and Bugfixes
