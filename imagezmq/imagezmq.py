@@ -145,6 +145,7 @@ class ImageSender():
         Returns:
           A text reply from hub in REQ/REP mode or nothing in PUB/SUB mode.
         """
+        pass
 
     def send_jpg_reqrep(self, msg, jpg_buffer):
         """Sends msg text and jpg buffer to hub computer in REQ/REP mode.
