@@ -55,6 +55,10 @@ imagezmq API
           Returns:
             A text reply from hub.
 
+      close(self):
+          Closes the ZMQ socket and the ZMQ context.
+            
+
   class ImageHub(open_port='tcp://:5555', REQ_REP = True):
       Opens a zmq socket on the hub computer (REP type if REQ_REP = True,
       SUB type otherwise), for example, a Mac, that will be receiving and
@@ -100,6 +104,10 @@ imagezmq API
 
           Arguments:
             reply_message: reply message text, often just the string 'OK'
+
+      close(self):
+          Closes the ZMQ socket and the ZMQ context.
+
 
 Usage Examples
 ==============

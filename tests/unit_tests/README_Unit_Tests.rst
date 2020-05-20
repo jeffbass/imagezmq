@@ -8,6 +8,10 @@ change to imageZMQ will need a modification to imageZMQ and 2 test programs.
 The first test program pair is made up of test_receive_with_close.py and
 test_send_with_close.py.
 
+Test programs in this directory so far:
+1. test_receive_with_close.py and test_send_with_close.py: This pair tests the
+   .close() method added to both imageZMQ classes in version 1.1.0.
+
 The below instructions are the ones for test_receive_with_close.py:
 
 *** Instructions for running BOTH test programs for a complete Unit Test:
