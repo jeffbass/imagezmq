@@ -36,8 +36,7 @@ class VideoStreamSubscriber:
         while not self._stop:
             self._data = receiver.recv_jpg()
             self._data_ready.set()
-        # Close socket here, not implemented in ImageHub :(
-        # zmq_socket.close()
+        receiver.close()
 
     def close(self):
         self._stop = True

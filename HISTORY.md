@@ -17,8 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Improvements
 
 - Added `tests/unit_tests` directory to hold "tests of new imagezmq features".
+  Also added README_Unit_Tests in that directory to explain Unit Tests for
+  imageZMQ improvements going forward.
 - Added `close()` method in `ImageSender` and `ImageHub` classes. Added 2 test
-  programs to `tests/unit_tests` to test it. 
+  programs to `tests/unit_tests` to test it. Added `close()` to API docs.
 - Added Advanced PUB/SUB example with multithreaded fast subscribers for
   realtime processing. (@philipp-schmidt).
 - Added this HISTORY.md file to document project changes.
