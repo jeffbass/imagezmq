@@ -1,4 +1,4 @@
-README_Unit_Tests.rst -- Explain this directory and my Unit Tesing method.
+**Explanation of this tests/unit_tests directory and my Unit Tesing method.**
 
 As new features and significant changes are added to imageZMQ, they will need
 to be tested. I will put the test programs (in pairs, one sending and one
@@ -8,7 +8,7 @@ change to imageZMQ will need a modification to imageZMQ and 2 test programs.
 The first test program pair is made up of test_receive_with_close.py and
 test_send_with_close.py.
 
-Test programs in this directory so far:
+Test program pairs that have been placed in this directory so far:
 
 1. test_receive_with_close.py and test_send_with_close.py: This pair tests the
    new .close() method added to both imageZMQ classes in version 1.1.0.
