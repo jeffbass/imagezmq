@@ -179,13 +179,25 @@ class ImageSender():
 
     def close(self):
         """Closes the ZMQ socket and the ZMQ context.
-
-        Returns:
-          Nothing.
         """
 
         self.zmq_socket.close()
         self.zmq_context.term()
+
+    def __enter__(self):
+        """Enables use of ImageSender in with statement.
+
+        Returns:
+          self.
+        """
+
+        return self
+
+    def __exit__(self):
+        """Enables use of ImageSender in with statement.
+        """
+
+        self.close()
 
 
 class ImageHub():
@@ -300,13 +312,25 @@ class ImageHub():
 
     def close(self):
         """Closes the ZMQ socket and the ZMQ context.
-
-        Returns:
-          Nothing.
         """
 
         self.zmq_socket.close()
         self.zmq_context.term()
+
+    def __enter__(self):
+        """Enables use of ImageHub in with statement.
+
+        Returns:
+          self.
+        """
+
+        return self
+
+    def __exit__(self):
+        """Enables use of ImageHub in with statement.
+        """
+
+        self.close()
 
 
 class SerializingSocket(zmq.Socket):
