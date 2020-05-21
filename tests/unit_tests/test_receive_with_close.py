@@ -19,14 +19,10 @@ The total test of both programs in the pair has 3 stages:
 3. A cv2.imshow() window appears showing the 2 programs are working OK together.
 
 *** Instructions for running BOTH programs for a complete Unit Test:
-To make sure your testing the latest development version of imagezmq.py:
+To make sure you are testing the latest development version of imagezmq.py:
 1. Copy imagezmq.py from its directory into this one, changing its name:
    cp ../../imagezmq/imagezmq.py imagezmqtest.py
-2. Edit imagezmqtest.py to add a print("test version") statement it to be
-   sure it is importing correctly. Add it right after the import numpy
-   statement:
-   print('Test: importing imagezmqtest.py')
-3. Be sure to be in your appropriate virtualenv:
+2. Be sure to be in your appropriate virtualenv:
    workon py3cv3  # this is my testing one for these tests
 
 Then run the tests. These test programs expect imagezmqtest.py to be available
@@ -54,7 +50,6 @@ get various error messages when you press Ctrl-C. That's normal; there is no
 error or exception trapping in these simple test programs.
 
 """
-# TODO: Jeff! Finish this and its paired program ASAP!
 
 import sys
 import cv2

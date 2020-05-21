@@ -1,5 +1,4 @@
 """test_send_with_close.py -- test close() method.
-This test program tests three new capabilities added in v1.1.0.
 
 This program is the SEND part of a program pair. The RECEIVE part is
 test_receive_with_close.py. Instructions for running the complete test of both
@@ -13,7 +12,7 @@ This program is a Unit Test (on both sender and receiver) of .close() method.
 The test has 3 parts:
 1. Tests instantiating an ImageSender and prints an OK message.
 2. Closes the sender using sender.close() and re-Instantiates it.
-2. Starts forever sending loop.
+3. Starts forever sending loop.
 
 """
 
@@ -31,10 +30,6 @@ sender.close()
 print('Closed ImageSender OK.')
 sender = imagezmqtest.ImageSender()
 print('Reopened ImageSender OK after first close. Starting receive & show loop.')
-
-# Create 2 different test images to send
-# A green square on a black background
-# A red square on a black background
 
 i = 0
 image_window_name = 'From Sender'
