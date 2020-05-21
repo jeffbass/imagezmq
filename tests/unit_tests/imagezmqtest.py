@@ -12,8 +12,6 @@ License: MIT, see LICENSE for more details.
 import zmq
 import numpy as np
 
-print('Test: importing imagezmqtest.py')
-
 class ImageSender():
     """Opens a zmq socket and sends images
 
@@ -147,6 +145,7 @@ class ImageSender():
         Returns:
           A text reply from hub in REQ/REP mode or nothing in PUB/SUB mode.
         """
+        pass
 
     def send_jpg_reqrep(self, msg, jpg_buffer):
         """Sends msg text and jpg buffer to hub computer in REQ/REP mode.
@@ -180,13 +179,25 @@ class ImageSender():
 
     def close(self):
         """Closes the ZMQ socket and the ZMQ context.
-
-        Returns:
-          Nothing.
         """
 
         self.zmq_socket.close()
         self.zmq_context.term()
+
+    def __enter__(self):
+        """Enables use of ImageSender in with statement.
+
+        Returns:
+          self.
+        """
+
+        return self
+
+    def __exit__(self):
+        """Enables use of ImageSender in with statement.
+        """
+
+        self.close()
 
 
 class ImageHub():
@@ -301,13 +312,25 @@ class ImageHub():
 
     def close(self):
         """Closes the ZMQ socket and the ZMQ context.
-
-        Returns:
-          Nothing.
         """
 
         self.zmq_socket.close()
         self.zmq_context.term()
+
+    def __enter__(self):
+        """Enables use of ImageHub in with statement.
+
+        Returns:
+          self.
+        """
+
+        return self
+
+    def __exit__(self):
+        """Enables use of ImageHub in with statement.
+        """
+
+        self.close()
 
 
 class SerializingSocket(zmq.Socket):
