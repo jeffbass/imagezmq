@@ -5,12 +5,14 @@ All notable changes the **imageZMQ** project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Development
+## Ongoing Development
 
-- Adding `with` statement example to examples folder.
+- Improving documentation layout and chapter arrangement
+- Adding separate Examples documentation chapter
+- Moving Testing section of README.rst to its own chapter
 - Adding FAQs doc file to capture discussions in various issues.
 
-## 1.1.1 - 2020-05-21
+## 1.1.1 - 2020-05-22
 
 ### Improvements
 
