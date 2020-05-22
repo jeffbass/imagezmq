@@ -193,7 +193,7 @@ class ImageSender():
 
         return self
 
-    def __exit__(self):
+    def __exit__(self, exc_type, exc_val, exc_tb):
         """Enables use of ImageSender in with statement.
         """
 
@@ -326,7 +326,7 @@ class ImageHub():
 
         return self
 
-    def __exit__(self):
+    def __exit__(self, exc_type, exc_val, exc_tb):
         """Enables use of ImageHub in with statement.
         """
 
