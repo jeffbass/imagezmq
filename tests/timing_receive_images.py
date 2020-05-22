@@ -48,6 +48,7 @@ try:
         sender_image_counts[sent_from] += 1  # count images for each RPi name
         cv2.imshow(sent_from, image)  # display images 1 window per sent_from
         cv2.waitKey(1)
+        # other image processing code, such as saving the image, would go here.
         image_hub.send_reply(b"OK")  # REP reply
 except (KeyboardInterrupt, SystemExit):
     pass  # Ctrl-C was pressed to end program; FPS stats computed below
