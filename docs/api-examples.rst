@@ -2,7 +2,7 @@
 API and Usage Examples
 ======================
 
-The API for **imagezmq** consists of 2 classes with 2 methods each. The
+The API for **imageZMQ** consists of 2 classes with 2 methods each. The
 ImageSender class has 2 methods: one for sending an OpenCV image and one for
 sending a jpg compressed OpenCV image. The ImageHub class has 2 methods: one for
 receiving an OpenCV image and one for receiving a jpg compressed OpenCV image.
@@ -15,7 +15,7 @@ There are advantages and disadvantages for each pattern. For further details,
 see: `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_.
 
 
-imagezmq API
+imageZMQ API
 ============
 
 .. code-block:: python
@@ -57,7 +57,7 @@ imagezmq API
 
       close(self):
           Closes the ZMQ socket and the ZMQ context.
-            
+
 
   class ImageHub(open_port='tcp://:5555', REQ_REP = True):
       Opens a zmq socket on the hub computer (REP type if REQ_REP = True,
@@ -116,15 +116,15 @@ The simple test and example programs mentioned below show how to use the API.
 The programs are found in the tests folder.
 
 The programs ``timing_send_images.py`` and ``timing_receive_images.py`` provide
-examples of how to use the **imagezmq** API to send and receive OpenCV
-images.  The programs show a simple **imagezmq** use case.
+examples of how to use the **imageZMQ** API to send and receive OpenCV
+images.  The programs show a simple **imageZMQ** use case.
 Additional image processing in the sending program would typically be placed
 between the ``picam.read()`` and the ``sender.send_image()`` lines. Such processing
 would be done with calls to methods for image rotation, resizing,
 dilation, etc. from an application specific image processing class.
 
 The programs ``timing_send_jpg_buf`` and ``timing_receive_jpg_buf`` show how
-**imagezmq** would be used to send jpg compressed OpenCV images to reduce
+**imageZMQ** would be used to send jpg compressed OpenCV images to reduce
 network load. The current API requires that the conversion from OpenCV image
 format to a jpg bytestring be done by the application program. This may
 change in the future. The 2 example programs show how to
