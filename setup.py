@@ -17,14 +17,17 @@ about = {}
 with open(os.path.join(here, 'imagezmq', '__version__.py'), 'r') as f:
     exec(f.read(), about)
 
-# get PyPI README for uploading to PyPI. It is shorter primary README.rst.
+# get PyPI README for uploading to PyPI. It is a shorter README for PyPI
 with open('PyPI_README.rst', 'r') as f:
     readme = f.read()
+with open('HISTORY.md', 'r') as f:
+    history = f.read()
 
 setup(
     name=about['__title__'],
     version=about['__version__'],
     description=about['__description__'],
+    keywords=['opencv-python', 'pyzmq', 'raspberrypi']
     long_description=readme,
     long_description_content_type='text/x-rst',
     author=about['__author__'],
