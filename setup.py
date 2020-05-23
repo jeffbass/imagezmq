@@ -27,7 +27,7 @@ setup(
     name=about['__title__'],
     version=about['__version__'],
     description=about['__description__'],
-    keywords=['opencv-python', 'pyzmq', 'raspberrypi']
+    keywords=['opencv-python', 'pyzmq', 'raspberrypi'],
     long_description=readme,
     long_description_content_type='text/x-rst',
     author=about['__author__'],
