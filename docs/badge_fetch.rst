@@ -15,8 +15,8 @@ Dependencies and Installation
 
 .. |license| image:: https://img.shields.io/pypi/l/imagezmq
 
-.. |doi| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3663275.svg
-   :target: https://doi.org/10.5281/zenodo.3663275
+.. |doi| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3840855.svg
+   :target: https://doi.org/10.5281/zenodo.3840855
 
 The above text will fetch the appropriate badges from shield.io and from
 zendodo.org when the text is displayed, for example, in a GitHub Gist.
