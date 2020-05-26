@@ -12,13 +12,14 @@ in the ``examples`` folder, one that sends images and one that receives images.
 Example PUB/SUB code for the multiple RPi video streaming example
 =================================================================
 
-The README.rst file for this repository starts with a picture of a screen
-where 8 Raspberry Pi computers are sending images to a single Mac computer.
-This can be accomplished using either the REQ/REP messaging pattern or using the
-PUB/SUB messaging pattern. The programs ``test_2_rpi_send_images.py``
+The README.rst file for this imageZMQ GitHub repository starts with a picture of
+a screen where 8 Raspberry Pi computers are sending images to a single Mac
+computer. This can be accomplished using either the REQ/REP messaging pattern or
+using the PUB/SUB messaging pattern. The programs ``test_2_rpi_send_images.py``
 and ``test_2_mac_receive_images.py``, located in ``tests`` folder, were used
-to create that display. Those programs use the REQ/REP messaging pattern.
-Sending images from multiple RPi's to display on a Mac can also be done
+to create that display. Those 2 programs are an example of how use the REQ/REP
+messaging pattern to send images from multiple RPis to a single Mac.
+Sending images from multiple RPi's to display on a single Mac can also be done
 using the PUB/SUB messaging pattern. There are 2 programs in the ``examples``
 folder which are the same as the ``test_2_`` program pair, but use the PUB/SUB
 messaging pattern.
@@ -38,7 +39,7 @@ Advanced example using both messaging patterns in an HTTP streaming application
 This example illustrates how images can be sent from an RPi to a hub computer using
 REQ/REP and then relayed to an HTTP server using PUB/SUB so the images can be
 viewed in a browser. This example shows how a single program can use two
-different imageZMQ instances using different ports. The example programs are:
+different imageZMQ instances using different ports. The 3 example programs are:
 
 1. ``advanced_send.py`` runs on the RPi to send the images.
 2. ``advanced_pub.py`` runs on the hub computer to send the images to the HTTP server.
@@ -60,6 +61,7 @@ discussion of this in imageZMQ issue #27). It also demonstrates a great way to
 use threading with the imageZMQ PUB/SUB message pattern.
 
 The example programs are:
+
 1. ``pub_sub_broadcast.py`` runs on the computer sending the images.
 2. ``pub_sub_receive.py`` runs on the computer receiving the images.
 
