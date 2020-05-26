@@ -318,6 +318,51 @@ This simple test program has no try / except error trapping. Be sure to activate
 your virtual environment as you did for Test 2 (see above) before running these
 tests.
 
+Test 4: Using PUB/SUB to send simple generated images and display them on Mac
+-----------------------------------------------------------------------------
+**The fourth test** is a repeat of Test 1, but uses the PUB/SUB messaging
+pattern instead of the REQ/REP messaging pattern. It shows the differences
+in running PUB/SUB versus REQ/REP in the simplest possible test program.
+
+Test 4 runs both the sending program and the receiving program on
+the Mac. No Raspberry Pi or camera is involved. This test shows the start / stop
+flexibility of the PUB/SUB pattern. All 3 of the above REQ/REP tests require
+that the receiving program be started first, then the sending program. And they
+require that the sending program be restarted if the receiving program is
+restarted. This is standard behavior for the REQ/REP messaging pattern. But
+this test shows that either PUB/SUB program can be started first and that
+message sending will resume if either program is restarted. That is a feature
+of the PUB/SUB messaging pattern. See other documentation listed below for
+further differences, advantages and disadvantages of the REQ/REP versus PUB/SUB
+messaging patterns.
+
+The sending program generates test images and sends them to the receiving program.
+First, in one terminal window, activate your virtual environment, then change to
+the tests directory and run the receiving program, which will receive and
+display images::
+
+    workon py3cv3  # use your virtual environment name
+    cd imagezmq/tests
+    python test_4_pub.py
+
+Then, in a second terminal window on the same display computer (Mac), change to
+the tests directory and run the sending program, which will generate and send
+images::
+
+    workon py3cv3  # use your virtual environment name
+    cd imagezmq/tests
+    python test_4_sub.py
+
+After a few seconds, a ``cv2.imshow()`` window should open and display a green
+square on a black background. There will be a yellow number in the green square
+that will increase (1, 2, ...) once per second. Now you can stop either
+program and restart it and see that the sending of numbers continues and picks
+up where it left off (though some transmitted images may have been skipped
+during restart). It is normal to get a cascade of error messages
+when starting and stopping the program with Ctrl-C. These simple test program
+have no try / except error trapping, since their only purpose is this simple
+demonstration.
+
 Timing tests: Complete imageZMQ usage examples
 ==============================================
 The test programs above are short and simple. They test that the software and
@@ -356,7 +401,7 @@ Additional Documentation
 - `Using imageZMQ in distributed computer vision projects <docs/imagezmq-uses.rst>`_
 - `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_
 - `Advanced example using both messaging patterns in an HTTP streaming application <docs/advanced-pub-sub.rst>`_
-- `Advanced PUB/SUB example with multithreaded fast subscribers for realtime processing <docs/fast-pub-sub.rst>`_ 
+- `Advanced PUB/SUB example with multithreaded fast subscribers for realtime processing <docs/fast-pub-sub.rst>`_
 - How **imageZMQ** is used in my own projects connecting multiple
   Raspberry Pi **imagenodes** to an **imagehub**:
 
