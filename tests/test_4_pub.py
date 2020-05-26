@@ -1,4 +1,4 @@
-"""test_1_pub.py -- basic send images test using PUB/SUB message pattern.
+"""test_4_pub.py -- basic send images test using PUB/SUB message pattern.
 
 A simple test program that uses imagezmq to send images to a receiving program
 that will display the images.

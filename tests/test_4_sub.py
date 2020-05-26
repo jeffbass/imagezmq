@@ -1,4 +1,4 @@
-"""test_1_sub.py -- basic receive images test in PUB/SUB mode.
+"""test_4_sub.py -- basic receive images test in PUB/SUB mode.
 
 A simple test program that uses imagezmq to receive images from a program that
 is sending images. This test pair uses the PUB/SUB messaging pattern.
