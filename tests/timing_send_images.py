@@ -39,7 +39,8 @@ time.sleep(2.0)  # allow camera sensor to warm up
 try:
     while True:  # send images as stream until Ctrl-C
         image = picam.read()
-        sender.send_image(rpi_name, image)
+        reply_from_mac = sender.send_image(rpi_name, image)
+        # above line shows how to capture REP reply text from Mac
 except (KeyboardInterrupt, SystemExit):
     pass  # Ctrl-C was pressed to end program
 except Exception as ex:

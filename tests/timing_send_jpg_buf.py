@@ -46,7 +46,8 @@ try:
             image = cv2.flip(image, -1)
         ret_code, jpg_buffer = cv2.imencode(
             ".jpg", image, [int(cv2.IMWRITE_JPEG_QUALITY), jpeg_quality])
-        sender.send_jpg(rpi_name, jpg_buffer)
+        reply_from_mac = sender.send_jpg(rpi_name, jpg_buffer)
+        # above line shows how to capture REP reply text from Mac
 except (KeyboardInterrupt, SystemExit):
     pass  # Ctrl-C was pressed to end program
 except Exception as ex:

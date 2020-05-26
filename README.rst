@@ -373,7 +373,9 @@ complete example of imageZMQ usage. Each of these programs includes
 try / except blocks that enable ending the programs by typing Ctrl-C
 without starting a cascade of error messages. They also perform frames per
 second (FPS) timing tests that measure the speeds of image transfer using the
-compressed versus the non-compressed transfer methods.
+compressed versus the non-compressed transfer methods. They also show how to
+capture the hub response in the sending program, which wasn't needed in the
+simple tests.
 
 One pair of programs transmits and receives **OpenCV images** and measures FPS::
 
