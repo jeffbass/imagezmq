@@ -1,5 +1,3 @@
-t2_send_images_via_pub.py
-# code goes here from examples
 """t2_send_images_via_pub.py -- send images using PUB/SUB message pattern.
 
 This simple example program uses imagezmq to send images to a receiving program

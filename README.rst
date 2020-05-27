@@ -398,7 +398,7 @@ tests.
 
 Additional Documentation
 ========================
-- `API and Usage Examples <docs/api-examples.rst>`_
+- `API and Two Simple Example Programs <docs/api-examples.rst>`_
 - `More details about the multiple RPi video streaming example <docs/more-details.rst>`_
 - `Using imageZMQ in distributed computer vision projects <docs/imagezmq-uses.rst>`_
 - `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_

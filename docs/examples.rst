@@ -9,8 +9,8 @@ in the ``examples`` folder, one that sends images and one that receives images.
 
 .. contents::
 
-Example PUB/SUB code for the multiple RPi video streaming example
-=================================================================
+Equivalent PUB/SUB code for the Multiple RPi video streaming example
+====================================================================
 
 The README.rst file for this imageZMQ GitHub repository starts with a picture of
 a screen where 8 Raspberry Pi computers are sending images to a single Mac
@@ -22,7 +22,7 @@ messaging pattern to send images from multiple RPis to a single Mac.
 Sending images from multiple RPi's to display on a single Mac can also be done
 using the PUB/SUB messaging pattern. There are 2 programs in the ``examples``
 folder which are the same as the ``test_2_`` program pair, but use the PUB/SUB
-messaging pattern.
+messaging pattern:
 
 1. ``t2_send_images_via_pub.py`` is equivalent to ``test_2_rpi_send_images.py``.
 2. ``t2_recv_images_via_sub.py`` is equivalent to ``test_2_mac_receive_images.py``.
@@ -31,7 +31,7 @@ Running this program pair will allow multiple RPi's to send to and display on
 a single Mac or Linux computer, but will do it using the PUB/SUB messaging
 pattern. To learn about how these examples work and how the two messaging
 patterns differ, read:
-`More details about the multiple RPi video streaming example <docs/more-details.rst>`_
+`More details about the multiple RPi video streaming example <docs/more-details.rst>`_.
 
 Advanced example using both messaging patterns in an HTTP streaming application
 ===============================================================================
@@ -79,19 +79,58 @@ Example of using imageZMQ in a context manager "with" statement
 ===============================================================
 
 This example illustrates how to use a ``with`` statement to instantiate and
-close both an ImageSender and an ImageHub.
+close both an ImageSender and an ImageHub. The example programs are:
 
-Tiny imagenode sending to Tiny imagehub
-=======================================
+1. ``send_with.py`` runs on the computer sending the images.
+2. ``with_receive.py`` runs on the computer receiving the images.
 
-This example illustrates how to use imageZMQ to send images from an imagenode
-that captures images to an imagehub that saves the images to disk storage. The
-programs are called ``tiny_imagenode`` and ``tiny_imagehub`` because they are
-small versions on the imagenode and imagehub projects that were the reason that
-I developed imageZMQ.
+Using a ``with`` statement as a content manager can simplify shorter programs
+and make sure that the ZMQ sockets and contexts are properly closed without
+expressly calling the imageZMQ ``close`` methods.
 
+A simple example program pair is also in the test folder
+========================================================
 
+The programs ``timing_send_images.py`` and ``timing_receive_images.py`` provide
+examples of how to use the **imageZMQ** API to send and receive OpenCV
+images.  Both of these programs are in the `tests` folder.
+The programs show a simple, but complete **imageZMQ** use case.
+Additional image processing in the sending program would typically be placed
+between the ``picam.read()`` and the ``sender.send_image()`` lines. Such processing
+would be done with calls to methods for image rotation, resizing,
+dilation, etc.  The program that is receiving images would do other processing
+and save the images to disk using the text portion of the image message to
+categorize or label each image file received. See the comments in these programs
+for more details on where these processing statements would be placed.
 
+Full imagenode and imagehub Examples
+====================================
+
+I wrote imageZMQ to send images from multiple RPi's to multiple Mac and Linux
+hub computers as part of my own project to automate my small permaculture farm.
+So the most complete example of an ImageSender sending images is my own
+`imagenode project on GitHub <https://github.com/jeffbass/imagenode>`_. And the
+most complete example of an ImageHub that receives and store images and event
+messages is my own `imagehub project on GitHub <https://github.com/jeffbass/imagehub>`_.
+The "meta project" describing how imagenode, imagehub and imageZMQ are used
+together to manage the farm is this
+`Yin Yang Ranch project overview on GitHub <https://github.com/jeffbass/yin-yang-ranch>`_.
+I gave a talk about it as part of **PyCon 2020:**
+
+**Jeff Bass - Yin Yang Ranch: Building a Distributed Computer
+Vision Pipeline using Python, OpenCV and ZMQ**
+
+`PyCon 2020 Talk Video about the project  <https://youtu.be/76GGZGneJZ4?t=2>`_
+
+`PyCon 2020 Talk Presentation slides  <https://speakerdeck.com/jeffbass/yin-yang-ranch-building-a-distributed-computer-vision-pipeline-using-python-opencv-and-zmq-17024000-4389-4bae-9e4d-16302d20a5b6>`_
+
+Other Open Source Contributed Examples are Welcome!
+===================================================
+
+If you have an open source project with source code available on GitHub (or a
+similar public repository), feel free to open an issue and describe it. We can
+work to gether to get your project and a short description listed here so other
+imageZMQ users can learn from it.
 
 
 

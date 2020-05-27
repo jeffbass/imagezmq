@@ -78,18 +78,20 @@ Advantages of the PUB/SUB pattern
 Disadvantages of the PUB/SUB pattern
 ====================================
 
-- Receiving hub computer must know each senders address in advance.
+- Receiving hub computer must know each senders address in advance. When there
+  are a large number of senders, there can be a lot of "connect_to" method calls.
+  See `More details about the multiple RPi video streaming example. <more-details.rst>`_
 - Receiving hub must explicitly subscribe to each sender.
 - If the receiving hub computer fails or does not receive an image, the sender
   will not know (since there is no REP sent).
 - If one (or more) of the receiving programs is much slower than the sender,
   then the slow subscriber can start to build up a ZMQ queue that slows down and
-  can even cause the program to fail. This has been an issue for some
-  **imagezmq** users. See issue #27, [PUB/SUB] Subscriber slow motion video
-  (queue keeps growing). See also the ZMQ documentation about slow subscribers:
+  can even cause the program to fail. This issue is mentioned in
+  the ZMQ documentation section about dealing with slow subscribers:
   `ZMQ Slow Subscriber Detection (Suicidal Snail Pattern). <http://zguide.zeromq.org/php:chapter5#toc4>`_
   If you use the PUB/SUB pattern and encounter this Slow Subscriber problem,
-  read Issue #27 and comment there if you come up with a good solution!
+  please see Philipp Schmidt's example program with a threaded solution:
+  `PUB/SUB Multithreaded Fast Subscribers for Realtime Processing. <fast-pub-sub.rst>`_
 
 Further reading on messaging patterns
 =====================================
@@ -103,7 +105,7 @@ Demonstrating the Difference between REQ/REP and PUB/SUB
 
 To demonstrate the difference between two messaging patterns you can run two
 examples from tests folder: ``test_1_send_image.py``/``test_1_receive_image.py``
-for a REQ/REP pattern and ``test_1_pub.py``/``test_1_sub.py`` for a
+for a REQ/REP pattern and ``test_4_pub.py``/``test_4_sub.py`` for a
 PUB/SUB pattern.
 
 If you run ``test_1_send_image.py`` and ``test_1_receive_image.py`` scripts in
@@ -113,7 +115,6 @@ separate console windows you should see incremental output on the sender window:
    Sending 2
    ...
 
-
 The receiver will open a window and display an incrementing number that will
 correspond to whatever number you see on the sender screen.
 
@@ -122,7 +123,7 @@ printing "Sending XX". The sender will block until recipient is started again.
 This demonstrates that the REQ/REP pattern is "blocking".
 The recipient window should continue from the moment where it was stopped.
 
-Next, run the ``test_1_pub.py`` and ``test_1_sub.py`` pair. You should see the
+Next, run the ``test_4_pub.py`` and ``test_4_sub.py`` pair. You should see the
 same "Sending XX" printed on the sender window and see the corresponding number
 incrementing on recipient window.
 

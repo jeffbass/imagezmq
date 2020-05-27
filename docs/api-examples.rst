@@ -1,6 +1,6 @@
-======================
-API and Usage Examples
-======================
+===================================
+API and Two Simple Example Programs
+===================================
 
 The API for **imageZMQ** consists of 2 classes with 2 methods each. The
 ImageSender class has 2 methods: one for sending an OpenCV image and one for
@@ -109,11 +109,11 @@ imageZMQ API
           Closes the ZMQ socket and the ZMQ context.
 
 
-Usage Examples
-==============
+Two Simple Example Programs using the REQ/REP messaging pattern
+===============================================================
 
 The simple test and example programs mentioned below show how to use the API.
-The programs are found in the tests folder.
+All 4 of these programs are found in the ``tests`` folder.
 
 The programs ``timing_send_images.py`` and ``timing_receive_images.py`` provide
 examples of how to use the **imageZMQ** API to send and receive OpenCV
@@ -121,15 +121,17 @@ images.  The programs show a simple **imageZMQ** use case.
 Additional image processing in the sending program would typically be placed
 between the ``picam.read()`` and the ``sender.send_image()`` lines. Such processing
 would be done with calls to methods for image rotation, resizing,
-dilation, etc. from an application specific image processing class.
+dilation, etc.  The program that is receiving images would do other processing
+and save the images to disk using the text portion of the image message to
+categorize or label the image file. See the scomments in these programs for more
+details on where these statements would be placed.
 
 The programs ``timing_send_jpg_buf`` and ``timing_receive_jpg_buf`` show how
 **imageZMQ** would be used to send jpg compressed OpenCV images to reduce
-network load. The current API requires that the conversion from OpenCV image
-format to a jpg bytestring be done by the application program. This may
-change in the future. The 2 example programs show how to
-perform the conversion using OpenCV's ``cv2.imencode()`` and ``cv2.imdecode()``
-methods.
+network load. The programs show how the conversion from OpenCV image
+format to a jpg bytestring would be done by the application program. These
+programs show how to perform the conversion using OpenCV's ``cv2.imencode()``
+and ``cv2.imdecode()`` methods.
 
 =====================================================================
 Using both messaging patterns together in a web streaming application
@@ -138,7 +140,8 @@ Using both messaging patterns together in a web streaming application
 It is possible to use both the REQ/REP and PUB/SUB patters in the same
 application. That way, part of the application can be tightly coupled (and
 therefore blocking) using REQ/REP while another part can be a non-blocking
-web stream using PUB/SUB. Example programs are included in the tests folder.
+web stream using PUB/SUB. Three programs demonstrate this are included in the
+examples folder.
 There is a detailed explanation of these web streaming example programs
 `here <advanced-pub-sub.rst>`_.
 
