@@ -28,7 +28,7 @@ from imutils.video import FPS
 import imagezmq
 
 try:
-    with ImageHub() as image_hub:
+    with imagezmq.ImageHub() as image_hub:
         while True:  # receive images until Ctrl-C is pressed
             sent_from, jpg_buffer = image_hub.recv_jpg()
             image = cv2.imdecode(np.frombuffer(jpg_buffer, dtype='uint8'), -1)

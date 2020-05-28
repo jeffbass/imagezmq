@@ -29,7 +29,7 @@ picam = VideoStream(usePiCamera=True).start()
 time.sleep(2.0)  # allow camera sensor to warm up
 jpeg_quality = 95  # 0 to 100, higher is better quality, 95 is cv2 default
 try:
-    with ImageSender(connect_to='tcp://192.168.86.34:5555') as sender:
+    with imagezmq.ImageSender(connect_to='tcp://192.168.86.34:5555') as sender:
         while True:  # send images as stream until Ctrl-C
             image = picam.read()
             # processing of image before sending would go here.
