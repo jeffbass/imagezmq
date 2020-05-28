@@ -49,6 +49,8 @@ try:
         cv2.imshow(sent_from, image)  # display images 1 window per sent_from
         cv2.waitKey(1)
         # other image processing code, such as saving the image, would go here.
+        # often the text in "sent_from" will have additional information about
+        # the image that will be used in processing the image.
         image_hub.send_reply(b"OK")  # REP reply
 except (KeyboardInterrupt, SystemExit):
     pass  # Ctrl-C was pressed to end program; FPS stats computed below
@@ -73,5 +75,6 @@ finally:
     print('    = {:,g} bytes'.format(uncompressed_size))
     print('Elasped time: {:,.2f} seconds'.format(fps.elapsed()))
     print('Approximate FPS: {:.2f}'.format(fps.fps()))
-    cv2.destroyAllWindows()
+    cv2.destroyAllWindows()  # closes the windows opened by cv2.imshow()
+    image_hub.close()  # closes ZMQ socket and context
     sys.exit()

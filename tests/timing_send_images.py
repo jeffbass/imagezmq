@@ -39,8 +39,10 @@ time.sleep(2.0)  # allow camera sensor to warm up
 try:
     while True:  # send images as stream until Ctrl-C
         image = picam.read()
-        reply_from_mac = sender.send_image(rpi_name, image)
-        # above line shows how to capture REP reply text from Mac
+        # processing of image before sending would go here.
+        # for example, rotation, ROI selection, conversion to grayscale, etc.
+        reply_from_hub = sender.send_image(rpi_name, image)
+        # above line shows how to capture REP reply text from Hub
 except (KeyboardInterrupt, SystemExit):
     pass  # Ctrl-C was pressed to end program
 except Exception as ex:
@@ -51,5 +53,6 @@ finally:
     if use_led:
         GPIO.output(18, False)  # turn off LEDs
         GPIO.cleanup()  # close GPIO channel and release it
-    picam.stop()
+    picam.stop()  # stop the camera thread
+    sender.close()  # close the ZMQ socket and context
     sys.exit()

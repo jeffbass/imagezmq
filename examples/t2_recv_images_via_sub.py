@@ -33,8 +33,8 @@ import cv2
 import imagezmq
 
 # Instantiate and provide the first publisher address
-image_hub = imagezmq.ImageHub(open_port='tcp://192.168.1.100:5555', REQ_REP=False)
-image_hub.connect('tcp://192.168.0.101:5555')    # second publisher address
+image_hub = imagezmq.ImageHub(open_port='tcp://192.168.86.39:5555', REQ_REP=False)
+image_hub.connect('tcp://192.168.86.38:5555')    # second publisher address
 # image_hub.connect('tcp://192.168.0.102:5555')  # third publisher address
 # image_hub.connect('tcp://192.168.0.103:5555')  # must specify address for every sender
 # repeat hub.connect() statements as needed for all senders.

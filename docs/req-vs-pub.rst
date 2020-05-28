@@ -40,8 +40,8 @@ each sender is an image server and the ImageHub must explicitly subscribe to
 each one of them. In the PUB/SUB pattern, the recipient must know the addresses
 of all senders.
 
-The REQ/REP pattern was the first pattern implemented in **imagezmq** because it
-works well for the original **imagezmq** application: many Raspberry Pi (RPi)
+The REQ/REP pattern was the first pattern implemented in **imageZMQ** because it
+works well for the original **imageZMQ** application: many Raspberry Pi (RPi)
 computers sending images to a single image hub computer receiving the images. The
 RPi's only need to know the address of a single hub computer. The hub computer
 does not need to know how many RPi's there will be or what their addresses are.
@@ -51,7 +51,6 @@ Advantages of the REQ/REP pattern
 
 - Receipt of each sent image is verified (by the sender receiving a "REP").
 - Receiving hub computer does not need to know the addresses of senders.
-- Receiving hub computer can receive from one or many senders.
 - Receiving hub computer can receive and process images from multiple image
   senders simultaneously.
 - Starting and stopping any of the senders does not affect the hub (or any of

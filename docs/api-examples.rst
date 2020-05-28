@@ -123,7 +123,7 @@ between the ``picam.read()`` and the ``sender.send_image()`` lines. Such process
 would be done with calls to methods for image rotation, resizing,
 dilation, etc.  The program that is receiving images would do other processing
 and save the images to disk using the text portion of the image message to
-categorize or label the image file. See the scomments in these programs for more
+categorize or label the image file. See the comments in these programs for more
 details on where these statements would be placed.
 
 The programs ``timing_send_jpg_buf`` and ``timing_receive_jpg_buf`` show how
