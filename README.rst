@@ -396,14 +396,14 @@ the try / except blocks will end the programs cleanly with no errors when you
 press Ctrl-C. Be sure to activate your virtual environment before running these
 tests.
 
-Additional Documentation
-========================
+Additional Documentation and Examples
+=====================================
 - `API and Two Simple Example Programs <docs/api-examples.rst>`_
 - `More details about the multiple RPi video streaming example <docs/more-details.rst>`_
-- `Using imageZMQ in distributed computer vision projects <docs/imagezmq-uses.rst>`_
 - `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_
-- `Advanced example using both messaging patterns in an HTTP streaming application <docs/advanced-pub-sub.rst>`_
-- `Advanced PUB/SUB example with multithreaded fast subscribers for realtime processing <docs/fast-pub-sub.rst>`_
+- `Examples showing different techniques for using imageZMQ <docs/examples.rst>`_
+- `Using imageZMQ in distributed computer vision projects <docs/imagezmq-uses.rst>`_
+- `FAQ: Frequently Asked Questions <docs/FAQ.rst>`_
 - How **imageZMQ** is used in my own projects connecting multiple
   Raspberry Pi **imagenodes** to an **imagehub**:
 
