@@ -81,10 +81,10 @@ Example of using imageZMQ in a context manager "with" statement
 This example illustrates how to use a ``with`` statement to instantiate and
 close both an ImageSender and an ImageHub. The example programs are:
 
-1. ``send_with.py`` runs on the computer sending the images.
-2. ``with_receive.py`` runs on the computer receiving the images.
+1. ``with_ImageSender.py`` runs on the computer sending the images.
+2. ``with_ImageHub.py`` runs on the computer receiving the images.
 
-Using a ``with`` statement as a content manager can simplify shorter programs
+Using a ``with`` statement as a content manager can simplify programs
 and make sure that the ZMQ sockets and contexts are properly closed without
 expressly calling the imageZMQ ``close`` methods.
 
