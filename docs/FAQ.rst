@@ -78,7 +78,6 @@ and 2 image reads and 2 image sends. Here are the changes I made to
         image = webcam.read()
         sender.send_image(webcam_name, image)
 
-
 The test_2_mac_receive_images.py program did not need any changes. The sent
 images appear in 2 different windows, one for each camera stream.
 
@@ -103,11 +102,47 @@ multiple solutions, but 2 primary ones I have used:
 2. Use ZMQ polling or the ZMQ "Lazy Pirate" message protocol in the sending
    program.
 
-I use the first one in my imagenode programs. It looks like this:
+I use the first one in my own imagenode programs.
 
-    code goes Here
+You can set a timeout exception in the image sending program when sending frames
+to the receiving image hub. I use a try / except block with a Patience() class
+that raises a Timeout exception after a preselected time. Here is a code
+snippet:
 
-Wrap up text goes here.
+.. code-block:: python
+  :number-lines:
+
+    try:
+        with Patience(settings.patience):
+            text, image = node.send_q.popleft()
+            hub_reply = node.send_frame(text, image)
+    except Patience.Timeout:  # if no timely response from hub
+        log.info('No imagehub reply for '
+            + str(int(settings.patience)) + ' seconds')
+        hub_reply = node.fix_comm_link()
+    node.process_hub_reply(hub_reply)
+
+The Patience(seconds) class sets an OS SIGNAL timer and The above code is in imagenode.py. The Patience class is defined here.
+
+In my own
+`imagenode project <https://github.com/jeffbass/imagenode>`_, I restart the
+client if the ``Patience()`` amount is exceeded, but you could do many other
+things instead. My ``Patience`` class is defined
+`here <https://github.com/jeffbass/imagenode/blob/master/imagenode/tools/utils.py>`_
+
+
+Is it possible to have two ImageHub servers running on the same computer?
+=========================================================================
+
+Yes. You can have multiple image receiving servers on the same computer, and
+even in the same image receiving program. You
+will have to run each server using a different port (I use 5555, 5556, 5557, but
+any unused port numbers will do). The image sending client that is sending to
+each server must have its port number changed to match the port number of the
+server that it is sending to. You can, as always, have multiple clients sending
+to the same server, but all the clients must have the same port number as the
+server they are sending to. I have run as many as 3 servers on the same
+computer, receiving images from 8 clients each.
 
 Why does image sender need to restart when the image hub program restarts?
 ==========================================================================
@@ -145,6 +180,12 @@ built-in laptop battery backup), so they run for months without failing, even
 through brief power outages. So I have chosen not to use one of ZMQ's
 recommended "more reliable, but more complex" REQ / REP patterns.
 
+The "hanging" of the REQ client when the REP server restarts is a known ZMQ
+"feature" and is there by design (so that a dropped REQ won't go unnoticed by
+the sender). I use this ZMQ feature as a part of my own yin-yang-ranch project
+design -- I want the RPi's to know if they need to deal with a non-responsive
+imagehub.
+
 One imageZMQ user, @youngsoul forked imageZMQ and developed a helpful method to
 add timeouts to image sender to fix restarts or non-response of ImageHub. A
 link to his "Helpful Fork of imageZMQ" is in the README.rst file.
@@ -157,6 +198,11 @@ in issue#27
 
 Describe @philipp-shmidt's solution and link to his example programs / docs.
 
+Have you given a talk about imageZMQ? Is there a video explaining it?
+=====================================================================
+
+Pointers to talk and slides go here. Reference the time marker where imageZMQ
+is discussed.
 
 How does the current version of imageZMQ differ from your PyCon 2020 presentation?
 ==================================================================================
