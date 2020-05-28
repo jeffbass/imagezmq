@@ -42,6 +42,8 @@ jpeg_quality = 95  # 0 to 100, higher is better quality, 95 is cv2 default
 try:
     while True:  # send images as stream until Ctrl-C
         image = picam.read()
+        # processing of image before sending would go here.
+        # for example, rotation, ROI selection, conversion to grayscale, etc.
         if flip:
             image = cv2.flip(image, -1)
         ret_code, jpg_buffer = cv2.imencode(
@@ -58,5 +60,6 @@ finally:
     if use_led:
         GPIO.output(18, False)  # turn off LEDs
         GPIO.cleanup()  # close GPIO channel and release it
-    picam.stop()
+    picam.stop()  # stop the camera thread
+    sender.close()  # close the ZMQ socket and context
     sys.exit()
