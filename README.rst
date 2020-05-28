@@ -413,6 +413,15 @@ Additional Documentation and Examples
   - `imagehub: Receive and Store Images and Event Logs <https://github.com/jeffbass/imagehub>`_
 
 
+I gave a talk about imageZMQ and its use in my Yin Yang Ranch project at
+PyCon 2020: 
+**Jeff Bass - Yin Yang Ranch: Building a Distributed Computer
+Vision Pipeline using Python, OpenCV and ZMQ**
+
+`PyCon 2020 Talk Video about the project  <https://youtu.be/76GGZGneJZ4?t=2>`_
+
+`PyCon 2020 Talk Presentation slides  <https://speakerdeck.com/jeffbass/yin-yang-ranch-building-a-distributed-computer-vision-pipeline-using-python-opencv-and-zmq-17024000-4389-4bae-9e4d-16302d20a5b6>`_
+
 Contributing
 ============
 **imageZMQ** is still in active development. I welcome open issues and
