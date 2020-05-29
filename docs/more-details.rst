@@ -240,7 +240,7 @@ the addresses of all the RPi's to replicate our example displayed above.
 
 The REQ/REP and PUB/SUB messaging patterns both have advantages and disadvantages.
 You can learn more about them here:
-`REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_
+`REQ/REP versus PUB/SUB Messaging Patterns <req-vs-pub.rst>`_
 
 
 `Return to main documentation page <../README.rst>`_
