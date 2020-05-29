@@ -25,7 +25,7 @@ Yes, but only with PUB/SUB messaging pattern. The REQ/REP messaging pattern
 allows multiple senders but only one receiver (one ImageHub). The PUB/SUB
 messaging pattern allows multiple senders and multiple ImageHubs. You need to be
 careful with "connect_to" addresses. Take a look at this description:
-`More details about the multiple RPi video streaming example. <docs/more-details.rst>`_
+`More details about the multiple RPi video streaming example. <more-details.rst>`_
 
 Why am I getting a slow Frames Per Second (FPS) throughput with imageZMQ?
 =========================================================================
