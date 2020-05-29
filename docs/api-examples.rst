@@ -12,7 +12,7 @@ The mode is selected when ImageSender and ImageHub are instantiated by setting
 REQ_REP parameter in constructor to *True* or *False*.
 **REQ/REP mode is the default**.
 There are advantages and disadvantages for each pattern. For further details,
-see: `REQ/REP versus PUB/SUB Messaging Patterns <docs/req-vs-pub.rst>`_.
+see: `REQ/REP versus PUB/SUB Messaging Patterns <req-vs-pub.rst>`_.
 
 
 imageZMQ API
