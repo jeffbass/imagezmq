@@ -214,7 +214,9 @@ into the imageZMQ examples folder.  You can find his description of his solution
 Have you given a talk about imageZMQ? Is there a video explaining it?
 =====================================================================
 
-I gave a talk about imageZMQ and its use in my own projects at PyCon 2020:
+I gave a talk about my full **imagenode** ==> **imageZMQ** ==> **imagehub**
+project at PyCon 2020:
+
 **Jeff Bass - Yin Yang Ranch: Building a Distributed Computer
 Vision Pipeline using Python, OpenCV and ZMQ**
 

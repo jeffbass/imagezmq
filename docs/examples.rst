@@ -124,17 +124,16 @@ Vision Pipeline using Python, OpenCV and ZMQ**
 
 `PyCon 2020 Talk Presentation slides  <https://speakerdeck.com/jeffbass/yin-yang-ranch-building-a-distributed-computer-vision-pipeline-using-python-opencv-and-zmq-17024000-4389-4bae-9e4d-16302d20a5b6>`_
 
-Other Open Source Contributed Examples are Welcome!
-===================================================
+Other Contributed imageZMQ Examples are Welcome!
+================================================
 
-If you have an open source project with source code available on GitHub (or a
-similar public repository), feel free to open an issue and describe it. We can
-work to gether to get your project and a short description listed here so other
-imageZMQ users can learn from it.
-
-
-
-
+If you have an example program that uses imageZMQ and you think it would be
+helpful to other imageZMQ users, feel free to open an issue and describe it. We can
+work together to get your example and a short description listed here so other
+imageZMQ users can learn from it. Or, if you have forked imageZMQ and made some
+changes you would like to share with others, perhaps we could list it in the
+"Helpful Forks of imageZMQ" section of the README.rst. Open an issue to start
+the discussion. Thanks!
 
 
 `Return to main documentation page README.rst <../README.rst>`_
