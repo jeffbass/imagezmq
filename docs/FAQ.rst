@@ -235,3 +235,5 @@ with 4 minor additions:
 2. Added a HISTORY.md file that serves as a project ChangeLog.
 3. Added multiple imageZMQ example programs and documentation for them.
 4. Added this FAQ file.
+
+`Return to main documentation page README.rst <../README.rst>`_
