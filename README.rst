@@ -134,13 +134,14 @@ Dependencies and Installation
 .. |pyversions| image:: /docs/images/python_versions.svg
 
 .. |pypi| image:: /docs/images/pypi_version.svg
+   :target: https://pypi.org/project/imagezmq/
 
 .. |releasedate| image:: /docs/images/release_date.svg
 
 .. |license| image::  /docs/images/license.svg
 
 .. |doi| image::  /docs/images/doi.svg
-   :target: https://doi.org/10.5281/zenodo.3663275
+   :target: https://doi.org/10.5281/zenodo.3840855
 
 **imageZMQ** has been tested with:
 
@@ -414,7 +415,7 @@ Additional Documentation and Examples
 
 
 I gave a talk about imageZMQ and its use in my Yin Yang Ranch project at
-PyCon 2020: 
+PyCon 2020:
 **Jeff Bass - Yin Yang Ranch: Building a Distributed Computer
 Vision Pipeline using Python, OpenCV and ZMQ**
 
