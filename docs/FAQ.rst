@@ -151,7 +151,7 @@ computer, receiving images from 8 clients each.
 Why does image sender need to restart when the image hub program restarts?
 ==========================================================================
 
-This need to restart the image sending program when an image receiving program
+The need to restart the image sending program when an image receiving program
 restarts is an expected behavior in the REQ/REP messaging pattern, but does not
 happen in the PUB/SUB messaging pattern. This is actually a design choice made
 by the ZMQ team for the simplest REQ / REP pattern (which is the one my own
@@ -209,7 +209,7 @@ Philipp Schmidt @philipp-shmidt contributed a solution to the slow subscriber
 problem. It is an elegant use of Threading. I tested it with significant
 subscriber delays and it worked perfectly. I merged his code and documentation
 into the imageZMQ examples folder.  You can find his description of his solution
-`here. <docs/fast-pub-sub.rst>`_
+`here. <fast-pub-sub.rst>`_
 
 Have you given a talk about imageZMQ? Is there a video explaining it?
 =====================================================================
