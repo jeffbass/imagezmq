@@ -103,8 +103,8 @@ and save the images to disk using the text portion of the image message to
 categorize or label each image file received. See the comments in these programs
 for more details on where these processing statements would be placed.
 
-Full imagenode and imagehub Examples
-====================================
+Full imagenode and imagehub Project Examples
+============================================
 
 I wrote imageZMQ to send images from multiple RPi's to multiple Mac and Linux
 hub computers as part of my own project to automate my small permaculture farm.

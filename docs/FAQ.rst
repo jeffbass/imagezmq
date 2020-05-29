@@ -4,8 +4,9 @@ FAQ: Frequently Asked Questions about imageZMQ
 
 **imageZMQ** users have raised a number of questions in multiple forums (GitHub
 issues, emails, pull requests and responses to my PyCon 2020 presentation).
-(right now, this FAQ is a prototype / template that I will be adding actual
-content to in the next few weeks).
+Here are some Frequently Asked Questions and answers. If you have a question
+that is not listed here, I suggest you start a new issue. You will likely get an
+answer from me or another imageZMQ user in a few days.
 
 .. contents::
 
@@ -15,7 +16,7 @@ Does imageZMQ work with Windows OS?
 I don't use Windows, but a number of imageZMQ users have reported that imageZMQ
 does indeed work on Windows. See the discussion on this open issue#20. Making
 it work involves opening the right port and opening the firewall to Python
-programs.
+programs. See issue #20.
 
 Is it possible to send images to multiple receivers?
 ====================================================
@@ -24,7 +25,7 @@ Yes, but only with PUB/SUB messaging pattern. The REQ/REP messaging pattern
 allows multiple senders but only one receiver (one ImageHub). The PUB/SUB
 messaging pattern allows multiple senders and multiple ImageHubs. You need to be
 careful with "connect_to" addresses. Take a look at this description:
-`More details about the multiple RPi video streaming example <docs/more-details.rst>`_
+`More details about the multiple RPi video streaming example. <docs/more-details.rst>`_
 
 Why am I getting a slow Frames Per Second (FPS) throughput with imageZMQ?
 =========================================================================
@@ -42,10 +43,12 @@ The image size / compression factors have been the rate limiting items for me,
 but I always check all 4 of the above. I use relatively small images sizes
 (320 x 240 is my most common size when transmitting from Raspberry Pi). I also
 use jpeg compression (which cuts image size by 60-90%). You can see the jpeg
-compression example in the test program ``timing_send_jpg_buf``. I do not find
+compression example in the test program ``timing_send_jpg_buf.py``. I do not find
 the 320 x 240 image size limiting because I have to use smaller sizes with most
 deep machine learning techniques downstream anyway. But if you need larger
 images sizes, network bandwidth and network load will be the dominant issues.
+If you are using PUB/SUB and have a Slow Subscriber, see the Slow Subscriber
+question below.
 
 Is it possible to send images from 2 cameras on a single Raspberry Pi?
 ======================================================================
@@ -58,7 +61,7 @@ from a single PiCamera. If you want to send a 2nd video stream of images from
 the same RPi, you would have to use a USB Webcam plugged into one of the USB
 ports on the RPi. I have one RPi set up with 1 PiCamera and 1 USB WebCam (a
 Logitech C920 Webcam). To test the 2 camera RPi setup I  modified
-test_2_rpi_send_images.py. Running 2 cameras on the same RPi requires 2 unique
+``test_2_rpi_send_images.py``. Running 2 cameras on the same RPi requires 2 unique
 names for the 2 streams, and requires 2 camera instantiations from VideoStream
 and 2 image reads and 2 image sends. Here are the changes I made to
 ``test_2_rpi_send.py``:
@@ -97,6 +100,7 @@ network issues can pass unnoticed.
 In my system with many RPi's sending to each hub, I find that "stalls" in the
 network or the RPi happen fairly frequently due brief power glitches. There are
 multiple solutions, but 2 primary ones I have used:
+
 1. Set a SIGNAL timer for each image send that raises an exception in the
    sending program if there is not a REP received after some interval of time.
 2. Use ZMQ polling or the ZMQ "Lazy Pirate" message protocol in the sending
@@ -122,13 +126,13 @@ snippet:
         hub_reply = node.fix_comm_link()
     node.process_hub_reply(hub_reply)
 
-The Patience(seconds) class sets an OS SIGNAL timer and The above code is in imagenode.py. The Patience class is defined here.
+The Patience(seconds) class sets a ``signal.SIGALRM`` timer and then raises an
+exception if the timer runs out before the hub_reply comes back.
 
-In my own
-`imagenode project <https://github.com/jeffbass/imagenode>`_, I restart the
-client if the ``Patience()`` amount is exceeded, but you could do many other
-things instead. My ``Patience`` class is defined
-`here <https://github.com/jeffbass/imagenode/blob/master/imagenode/tools/utils.py>`_
+You can see the try except block in my
+`imagenode project <https://github.com/jeffbass/imagenode>`_, and
+the ``Patience`` class is defined
+`here. <https://github.com/jeffbass/imagenode/blob/master/imagenode/tools/utils.py>`_
 
 
 Is it possible to have two ImageHub servers running on the same computer?
@@ -193,24 +197,39 @@ link to his "Helpful Fork of imageZMQ" is in the README.rst file.
 How can I fix the PUB/SUB "slow subscriber" when image processing slows down?
 =============================================================================
 
-Describe PUB/SUB slow subscriber issue. A number of imageZMQ users raised this
-in issue#27
+Some users of the PUB/SUB messaging pattern find have found that when the
+receiver (SUB) does processing that makes it slower than the image sender (PUB)
+frame transmission rate, the ZMQ queue can build and cause the image loop on the
+subscriber to get extremely slow. This "slow subscriber" issue is mentioned in
+the ZMQ documentation, with a recommendation of killing and restarting a slow
+subscriber. (the ZMQ documentation calls it the "Suicidal Snail" problem). A
+number of imageZMQ users have discussed this in issue #27.
 
-Describe @philipp-shmidt's solution and link to his example programs / docs.
+Philipp Schmidt @philipp-shmidt contributed a solution to the slow subscriber
+problem. It is an elegant use of Threading. I tested it with significant
+subscriber delays and it worked perfectly. I merged his code and documentation
+into the imageZMQ examples folder.  You can find his description of his solution
+`here. <docs/fast-pub-sub.rst>`_
 
 Have you given a talk about imageZMQ? Is there a video explaining it?
 =====================================================================
 
-Pointers to talk and slides go here. Reference the time marker where imageZMQ
-is discussed.
+I gave a talk about imageZMQ and its use in my own projects at PyCon 2020:
+**Jeff Bass - Yin Yang Ranch: Building a Distributed Computer
+Vision Pipeline using Python, OpenCV and ZMQ**
+
+`PyCon 2020 Talk Video about the project  <https://youtu.be/76GGZGneJZ4?t=2>`_
+
+`PyCon 2020 Talk Presentation slides  <https://speakerdeck.com/jeffbass/yin-yang-ranch-building-a-distributed-computer-vision-pipeline-using-python-opencv-and-zmq-17024000-4389-4bae-9e4d-16302d20a5b6>`_
 
 How does the current version of imageZMQ differ from your PyCon 2020 presentation?
 ==================================================================================
 
 This version of imageZMQ is the same as the one in the PyCon 2020 presentation
-with 2 minor additions:
+with 4 minor additions:
 
 1. Added the capability to use the ImageSender and ImageHub classes in a "with"
    statement context manager.
 2. Added a HISTORY.md file that serves as a project ChangeLog.
 3. Added multiple imageZMQ example programs and documentation for them.
+4. Added this FAQ file.
