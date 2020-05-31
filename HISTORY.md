@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Ongoing Development
 
-- Improving documentation layout and chapter arrangement
-- Adding separate Examples documentation chapter
-- Adding FAQs doc file to capture discussions in various issues.
+- Improving documentation content, layout, arrangement.
+- Including additional Example programs and documentation.
+- Adding more questions to FAQs doc file.
 
 ## 1.1.1 - 2020-05-22
 
