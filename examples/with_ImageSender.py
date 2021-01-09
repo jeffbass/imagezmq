@@ -5,14 +5,11 @@ PiCamera continuously to a receiving program on a Mac that will display the
 images as a video stream. Images are jpg compressed before sending.
 
 This program requires that the image receiving program be running first. Brief
-test instructions are in that program: timing_receive_images.py.
+test instructions are in that program: with_ImageHub.py.
 
-This program can turn an LED on and off if needed; assumes BCM pin 18. This
-can help with lighting the subject area in front of the PiCamera.
 """
 
 import sys
-
 import socket
 import time
 import traceback
