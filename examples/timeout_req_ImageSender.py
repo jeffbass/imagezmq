@@ -60,7 +60,7 @@ try:
             print('Closing ImageSender.')
             sleep(5)
             print('Restarting ImageSender.')
-            sender_start(connect_to)
+            sender = sender_start(connect_to)
         except:
             raise
 except (KeyboardInterrupt, SystemExit):
