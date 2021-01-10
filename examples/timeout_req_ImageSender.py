@@ -57,6 +57,7 @@ try:
         try:
             reply_from_mac = sender.send_jpg(rpi_name, jpg_buffer)
         except (zmq.ZMQError, zmq.ContextTerminated, zmq.Again):
+            print('Sender in locals():', ('sender' in locals()))
             if 'sender' in locals():
                 sender.close()
             print('Closing ImageSender.')
