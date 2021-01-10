@@ -53,7 +53,7 @@ Running this program pair will allow multiple RPi's to send to and display on
 a single Mac or Linux computer, but will do it using the PUB/SUB messaging
 pattern. To learn about how these examples work and how the two messaging
 patterns differ, read:
-`More details about the multiple RPi video streaming example <docs/more-details.rst>`_.
+`More details about the multiple RPi video streaming example <more-details.rst>`_.
 
 Advanced example using both messaging patterns in an HTTP streaming application
 ===============================================================================
@@ -69,7 +69,7 @@ different imageZMQ instances using different ports. The 3 example programs are:
    display in a browser.
 
 The instructions for this example are in:
-`Advanced example using both messaging patterns in an HTTP streaming application <docs/advanced-pub-sub.rst>`_.
+`Advanced example using both messaging patterns in an HTTP streaming application <advanced-pub-sub.rst>`_.
 (Thanks to Maksym, @bigdaddymax for this example code and documentation.)
 
 PUB/SUB Multithreaded Fast Subscribers for Realtime Processing
@@ -94,7 +94,7 @@ subscriber". It is commented out for full speed, but you can remove the # and
 easily simulate a "slow subscriber".
 
 The instructions for this example are in:
-`Advanced PUB/SUB example with multithreaded fast subscribers for realtime processing <docs/fast-pub-sub.rst>`_.
+`Advanced PUB/SUB example with multithreaded fast subscribers for realtime processing <fast-pub-sub.rst>`_.
 (Thanks to Philipp Schmidt, @philipp-schmidt for this example code and documentation.)
 
 Example of using imageZMQ in a context manager "with" statement
