@@ -29,10 +29,9 @@ import traceback
 from time import sleep
 from imutils.video import VideoStream
 
-def sender_start(connect_to=None, timeout_seconds=2):
+def sender_start(connect_to=None):
     sender = imagezmq.ImageSender(connect_to=connect_to)
     sender.zmq_socket.setsockopt(zmq.LINGER, 0)  # prevents ZMQ hang on exit
-    milliseconds = int(timeout_seconds * 2)
     sender.zmq_socket.setsockopt(zmq.RCVTIMEO, 2000)  # receive timeout
     sender.zmq_socket.setsockopt(zmq.SNDTIMEO, 2000)  # send timeout
     return sender
@@ -41,8 +40,7 @@ def sender_start(connect_to=None, timeout_seconds=2):
 # connect_to='tcp://jeff-macbook:5555'
 # connect_to='tcp://192.168.1.190:5555'
 connect_to = 'tcp://jeff-macbook:5555'
-timeout_seconds = 2  # number of seconds for ZMQ timeouts before ZMQError raised
-sender = sender_start(connect_to, timeout_seconds)
+sender = sender_start(connect_to)
 
 rpi_name = socket.gethostname()  # send RPi hostname with each image
 picam = VideoStream(usePiCamera=True).start()
@@ -57,14 +55,12 @@ try:
         try:
             reply_from_mac = sender.send_jpg(rpi_name, jpg_buffer)
         except (zmq.ZMQError, zmq.ContextTerminated, zmq.Again):
-            print('Sender in locals():', ('sender' in locals()))
             if 'sender' in locals():
                 print('Closing ImageSender.')
                 sender.close()
             sleep(time_between_restarts)
             print('Restarting ImageSender.')
-            sender = sender_start(connect_to, timeout_seconds)
-            sleep(time_between_restarts)
+            sender = sender_start(connect_to)
 except (KeyboardInterrupt, SystemExit):
     pass  # Ctrl-C was pressed to end program
 except Exception as ex:
