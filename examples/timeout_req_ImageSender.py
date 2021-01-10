@@ -12,7 +12,7 @@ This image sending program uses the REQ/REP messaging pattern. It demonstrates
 one way to deal with a failure to receive a REP after a REQ is sent. If the
 receiving program restarts, this sending program will automatically restart.
 
-Use the 'with_ImageHub.py' program to receive the images on the Mac. Brief
+Use with the 'with_ImageHub.py' program to receive the images on the Mac. Brief
 test instructions are in that program: with_ImageHub.py. Stop the
 'with_ImageHub' program and restart it. It should resume receiving images after
 it is restarted.
@@ -35,8 +35,8 @@ def sender_start(connect_to=None):
     # NOTE: because of the way PyZMQ and imageZMQ are implemented, the
     #       timeout values specified must be integer constants, not variables.
     #       The timeout value is in milliseconds, e.g., 2000 = 2 seconds.
-    sender.zmq_socket.setsockopt(zmq.RCVTIMEO, 2000)  # receive timeout
-    sender.zmq_socket.setsockopt(zmq.SNDTIMEO, 2000)  # send timeout
+    sender.zmq_socket.setsockopt(zmq.RCVTIMEO, 2000)  # set a receive timeout
+    sender.zmq_socket.setsockopt(zmq.SNDTIMEO, 2000)  # set a send timeout
     return sender
 
 # use either of the formats below to specifiy address of display computer
