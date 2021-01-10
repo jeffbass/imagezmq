@@ -13,14 +13,15 @@ one way to deal with a failure to receive a REP after a REQ is sent. If the
 receiving program restarts, this sending program will automatically restart.
 
 Use the 'with_ImageHub.py' program to receive the images on the Mac. Brief
-test instructions are in that program: with_ImageHub.py. Stop the program and
-restart it. It should resume receiving images after it is restarted.
+test instructions are in that program: with_ImageHub.py. Stop the
+'with_ImageHub' program and restart it. It should resume receiving images after
+it is restarted.
 
 """
 
 import cv2
 import sys
-import zmq  # this is needed because we will be using zmq.[options]
+import zmq  # needed because we will be using zmq socket options & exceptions
 import time
 import socket
 import imagezmq
@@ -28,24 +29,25 @@ import traceback
 from time import sleep
 from imutils.video import VideoStream
 
-def sender_start(connect_to=None):
+def sender_start(connect_to=None, timeout_seconds=2):
     sender = imagezmq.ImageSender(connect_to=connect_to)
     sender.zmq_socket.setsockopt(zmq.LINGER, 0)  # prevents ZMQ hang on exit
-    # setting each option below will cause a ZMQError Exception to be raised
-    # after a timeout of 2 seconds = 2000 milliseconds
-    sender.zmq_socket.setsockopt(zmq.RCVTIMEO, 2000 )  # if receive timeout
-    sender.zmq_socket.setsockopt(zmq.SNDTIMEO, 2000 )  # if send timeout
+    milliseconds = int(timeout_seconds * 2)
+    # sender.zmq_socket.setsockopt(zmq.RCVTIMEO, milliseconds)  # receive timeout
+    sender.zmq_socket.setsockopt(zmq.SNDTIMEO, milliseconds)  # send timeout
     return sender
 
 # use either of the formats below to specifiy address of display computer
 # connect_to='tcp://jeff-macbook:5555'
 # connect_to='tcp://192.168.1.190:5555'
 connect_to = 'tcp://jeff-macbook:5555'
-sender = sender_start(connect_to)
+timeout_seconds = 2  # number of seconds for ZMQ timeouts before ZMQError raised
+sender = sender_start(connect_to, timeout_seconds)
 
 rpi_name = socket.gethostname()  # send RPi hostname with each image
 picam = VideoStream(usePiCamera=True).start()
 time.sleep(2.0)  # allow camera sensor to warm up
+time_between_restarts = 5  # number of seconds to sleep between sender restarts
 jpeg_quality = 95  # 0 to 100, higher is better quality, 95 is cv2 default
 try:
     while True:  # send images as stream until Ctrl-C
@@ -58,9 +60,9 @@ try:
             if 'sender' in locals():
                 sender.close()
             print('Closing ImageSender.')
-            sleep(5)
+            sleep(time_between_restarts)
             print('Restarting ImageSender.')
-            sender = sender_start(connect_to)
+            sender = sender_start(connect_to, timeout_seconds)
         except:
             raise
 except (KeyboardInterrupt, SystemExit):
