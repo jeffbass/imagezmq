@@ -15,7 +15,7 @@ Fixing REQ/REP ImageSender hangs when ImageHub is restarted using ZMQ TimeOuts
 When using the REQ/REP pattern, the sender will hang when it does not receive a
 timely REP back from the receiving hub. There are many reasons or this,
 including network issues, a restarted or stalled hub, brief power glitches or
-several other things. One way to deal with these ImageSender hangs is to 
+several other things. One way to deal with these ImageSender hangs is to
 set the ZMQ Timeout options to an appropriate value and then restart either
 the ImageSender or the entire program when the Exception occurs.
 You can see an example of how to set the ZMQ TimeOut options and catch their
@@ -29,7 +29,7 @@ You can start and stop the ``with_ImageHub.py`` image receiving program and
 then restart it and the image stream will resume.
 There is more to be said about REQ/REP ImageSender stalls when the ImageHub is
 restarted or if the network hangs. See the REQ/REP question in the
-`FAQ. <docs/FAQ.rst>`_.
+`FAQ <FAQ.rst>`_.
 
 Equivalent PUB/SUB code for the Multiple RPi video streaming example
 ====================================================================
