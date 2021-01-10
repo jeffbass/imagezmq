@@ -35,7 +35,7 @@ def sender_start(connect_to=None):
     # NOTE: because of the way PyZMQ and imageZMQ are implemented, the
     #       timeout values specified must be integer constants, not variables.
     #       The timeout value is in milliseconds, e.g., 2000 = 2 seconds.
-    # sender.zmq_socket.setsockopt(zmq.RCVTIMEO, 2000)  # receive timeout
+    sender.zmq_socket.setsockopt(zmq.RCVTIMEO, 2000)  # receive timeout
     sender.zmq_socket.setsockopt(zmq.SNDTIMEO, 2000)  # send timeout
     return sender
 
