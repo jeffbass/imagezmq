@@ -124,10 +124,8 @@ One imageZMQ user @youngsoul forked imageZMQ and modified the ImageSender
 class to raise a ZMQ exception for a timeout on sending or receiving. You can
 see his code
 `here. <https://github.com/youngsoul/imagezmq/blob/master/imagezmq/imagezmq.py>`_
-
 I mention @youngsoul's code in the Helpful Forks section of
 the imageZMQ README.
-
 If you use @youngsoul's code, you would need to include a try / except
 block in your own code that checks for the exception being raised. You can see
 an example of how @youngsoul did that
