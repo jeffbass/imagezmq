@@ -33,8 +33,8 @@ def sender_start(connect_to=None, timeout_seconds=2):
     sender = imagezmq.ImageSender(connect_to=connect_to)
     sender.zmq_socket.setsockopt(zmq.LINGER, 0)  # prevents ZMQ hang on exit
     milliseconds = int(timeout_seconds * 2)
-    sender.zmq_socket.setsockopt(zmq.RCVTIMEO, milliseconds)  # receive timeout
-    sender.zmq_socket.setsockopt(zmq.SNDTIMEO, milliseconds)  # send timeout
+    sender.zmq_socket.setsockopt(zmq.RCVTIMEO, 2000)  # receive timeout
+    sender.zmq_socket.setsockopt(zmq.SNDTIMEO, 2000)  # send timeout
     return sender
 
 # use either of the formats below to specifiy address of display computer
@@ -46,7 +46,7 @@ sender = sender_start(connect_to, timeout_seconds)
 
 rpi_name = socket.gethostname()  # send RPi hostname with each image
 picam = VideoStream(usePiCamera=True).start()
-time.sleep(2.0)  # allow camera sensor to warm up
+time.sleep(3.0)  # allow camera sensor to warm up
 time_between_restarts = 5  # number of seconds to sleep between sender restarts
 jpeg_quality = 95  # 0 to 100, higher is better quality, 95 is cv2 default
 try:
