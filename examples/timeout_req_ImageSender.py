@@ -25,6 +25,7 @@ import time
 import socket
 import imagezmq
 import traceback
+from time import sleep
 from imutils.video import VideoStream
 
 def sender_start(connect_to=None):
@@ -53,6 +54,13 @@ try:
             ".jpg", image, [int(cv2.IMWRITE_JPEG_QUALITY), jpeg_quality])
         try:
             reply_from_mac = sender.send_jpg(rpi_name, jpg_buffer)
+        except (zmq.ZMQError, zmq.ContextTerminated, zmq.Again):
+            if 'sender' in locals():
+                sender.close()
+            print('Closing ImageSender.')
+            sleep(5)
+            print('Restarting ImageSender.')
+            sender_start(connect_to)
         except:
             raise
 except (KeyboardInterrupt, SystemExit):
