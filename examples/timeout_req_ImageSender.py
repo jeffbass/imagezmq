@@ -26,9 +26,20 @@ import imagezmq
 import traceback
 from imutils.video import VideoStream
 
+def sender_start(connect_to=None):
+    sender = imagezmq.ImageSender(connect_to=hub_address)
+    sender.zmq_socket.setsockopt(zmq.LINGER, 0)  # prevents ZMQ hang on exit
+    # setting each option below will cause a ZMQError Exception to be raised
+    # after a timeout of 2 seconds = 2000 milliseconds
+    sender.zmq_socket.setsockopt(zmq.RCVTIMEO, 2000 )  # if receive timeout
+    sender.zmq_socket.setsockopt(zmq.SNDTIMEO, 2000 )  # if send timeout
+    return sender
+
 # use either of the formats below to specifiy address of display computer
-sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
-# sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
+# connect_to='tcp://jeff-macbook:5555'
+# connect_to='tcp://192.168.1.190:5555'
+connect_to = 'tcp://jeff-macbook:5555'
+sender = sender_start(connect_to)
 
 rpi_name = socket.gethostname()  # send RPi hostname with each image
 picam = VideoStream(usePiCamera=True).start()
@@ -39,8 +50,10 @@ try:
         image = picam.read()
         ret_code, jpg_buffer = cv2.imencode(
             ".jpg", image, [int(cv2.IMWRITE_JPEG_QUALITY), jpeg_quality])
-        reply_from_mac = sender.send_jpg(rpi_name, jpg_buffer)
-        # above line shows how to capture REP reply text from Mac
+        try:
+            reply_from_mac = sender.send_jpg(rpi_name, jpg_buffer)
+        except:
+            raise
 except (KeyboardInterrupt, SystemExit):
     pass  # Ctrl-C was pressed to end program
 except Exception as ex:
