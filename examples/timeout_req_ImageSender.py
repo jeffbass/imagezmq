@@ -59,13 +59,11 @@ try:
         except (zmq.ZMQError, zmq.ContextTerminated, zmq.Again):
             print('Sender in locals():', ('sender' in locals()))
             if 'sender' in locals():
+                print('Closing ImageSender.')
                 sender.close()
-            print('Closing ImageSender.')
             sleep(time_between_restarts)
             print('Restarting ImageSender.')
             sender = sender_start(connect_to, timeout_seconds)
-        except:
-            raise
 except (KeyboardInterrupt, SystemExit):
     pass  # Ctrl-C was pressed to end program
 except Exception as ex:
