@@ -84,8 +84,8 @@ and 2 image reads and 2 image sends. Here are the changes I made to
 The test_2_mac_receive_images.py program did not need any changes. The sent
 images appear in 2 different windows, one for each camera stream.
 
-In REQ/REP pattern, what should be done when ImageSender hangs?
-===============================================================
+In REQ/REP pattern, what should be done when the ImageSender hangs?
+===================================================================
 
 When using the REQ/REP pattern, the sender will hang when it does not receive a
 timely REP back from the receiving hub. There are many reasons or this,
@@ -133,20 +133,6 @@ block in your own code that checks for the exception being raised. You can see
 an example of how @youngsoul did that
 `here. <https://github.com/youngsoul/imagezmq/blob/master/CHANGES.md>`_
 
-
-Is it possible to have two ImageHub servers running on the same computer?
-=========================================================================
-
-Yes. You can have multiple image receiving servers on the same computer, and
-even in the same image receiving program. You
-will have to run each server using a different port (I use 5555, 5556, 5557, but
-any unused port numbers will do). The image sending client that is sending to
-each server must have its port number changed to match the port number of the
-server that it is sending to. You can, as always, have multiple clients sending
-to the same server, but all the clients must have the same port number as the
-server they are sending to. I have run as many as 3 servers on the same
-computer, receiving images from 8 clients each.
-
 Why does image sender need to restart when the image hub program restarts?
 ==========================================================================
 
@@ -192,6 +178,23 @@ imagehub.
 One imageZMQ user, @youngsoul forked imageZMQ and developed a helpful method to
 add timeouts to image sender to fix restarts or non-response of ImageHub. A
 link to his "Helpful Fork of imageZMQ" is in the README.rst file.
+
+It is also possible to set ZMQ TimeOut Socket options so that at Try / Except
+block can catch a stalled ImageHub. See the question about REQ / REP ImageSender
+hangs above. It also points to an example program in the ``Examples`` folder.
+
+Is it possible to have two ImageHub servers running on the same computer?
+=========================================================================
+
+Yes. You can have multiple image receiving servers on the same computer, and
+even in the same image receiving program. You
+will have to run each server using a different port (I use 5555, 5556, 5557, but
+any unused port numbers will do). The image sending client that is sending to
+each server must have its port number changed to match the port number of the
+server that it is sending to. You can, as always, have multiple clients sending
+to the same server, but all the clients must have the same port number as the
+server they are sending to. I have run as many as 3 servers on the same
+computer, receiving images from 8 clients each.
 
 How can I fix the PUB/SUB "slow subscriber" when image processing slows down?
 =============================================================================
