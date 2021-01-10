@@ -27,7 +27,7 @@ import traceback
 from imutils.video import VideoStream
 
 def sender_start(connect_to=None):
-    sender = imagezmq.ImageSender(connect_to=hub_address)
+    sender = imagezmq.ImageSender(connect_to=connect_to)
     sender.zmq_socket.setsockopt(zmq.LINGER, 0)  # prevents ZMQ hang on exit
     # setting each option below will cause a ZMQError Exception to be raised
     # after a timeout of 2 seconds = 2000 milliseconds
