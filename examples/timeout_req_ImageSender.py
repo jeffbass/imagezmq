@@ -20,6 +20,7 @@ restart it. It should resume receiving images after it is restarted.
 
 import cv2
 import sys
+import zmq  # this is needed because we will be using zmq.[options]
 import time
 import socket
 import imagezmq
