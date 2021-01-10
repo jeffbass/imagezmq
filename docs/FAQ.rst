@@ -89,7 +89,7 @@ In REQ/REP pattern, what should be done when ImageSender hangs?
 
 When using the REQ/REP pattern, the sender will hang when it does not receive a
 timely REP back from the receiving hub. There are many reasons or this,
-including network issues, a stalled hub, brief power glitches or
+including network issues, a restarted or stalled hub, brief power glitches or
 several other things. If the image sender does not receive a REP back from the
 hub, the sender loop hangs waiting for the REP. This is by design; the REQ/REP
 is meant to be a tightly coupled messaging pattern. Every sent image requires a
@@ -99,40 +99,39 @@ network issues can pass unnoticed.
 
 In my system with many RPi's sending to each hub, I find that "stalls" in the
 network or the RPi happen fairly frequently due brief power glitches. There are
-multiple solutions, but 2 primary ones I have used:
+multiple solutions, but the 2 primary ones I have used are:
 
-1. Set a SIGNAL timer for each image send that raises an exception in the
-   sending program if there is not a REP received after some interval of time.
-2. Use ZMQ polling or the ZMQ "Lazy Pirate" message protocol in the sending
-   program.
+1. Set the ZMQ Timeout options to an appropriate value and then restart either
+   the ImageSender or the entire program when the Exception occurs.
+2. Get a timestamp just before sending and a timestamp just after sending each
+   image message. Check the amount of time between them in a timed loop running
+   in a separate thread. If the amount of time between the timestamps is longer
+   than desired, then close / restart the ImageSender() or the entire program.
 
-I use the first one in my own imagenode programs.
+You can see an example of how #1 above can be implemented in the example program
+``timeout_req_ImageSender.py`` in the examples folder in this repository. The
+example is discussed in the `Examples documentation. <examples.rst>`_
 
-You can set a timeout exception in the image sending program when sending frames
-to the receiving image hub. I use a try / except block with a Patience() class
-that raises a Timeout exception after a preselected time. Here is a code
-snippet:
+You can see an example of #2 above in the most recent version of imagenode.
+I use a method of saving a timestamp before and after each call to
+``sender.send_jpg(text, jpg_buffer)`` in lines 326-347 of
+`imagenode. <https://github.com/jeffbass/imagenode/blob/master/imagenode/tools/imaging.py>`_
+I then check for an excessive amount of time between the timestamps in
+the method ``REP_watcher()`` in the same block of code.  ``REP_watcher()`` is
+started in a separate thread with a timing loop.
 
-.. code-block:: python
-  :number-lines:
+One imageZMQ user @youngsoul forked imageZMQ and modified the ImageSender
+class to raise a ZMQ exception for a timeout on sending or receiving. You can
+see his code
+`here. <https://github.com/youngsoul/imagezmq/blob/master/imagezmq/imagezmq.py>`_
 
-    try:
-        with Patience(settings.patience):
-            text, image = node.send_q.popleft()
-            hub_reply = node.send_frame(text, image)
-    except Patience.Timeout:  # if no timely response from hub
-        log.info('No imagehub reply for '
-            + str(int(settings.patience)) + ' seconds')
-        hub_reply = node.fix_comm_link()
-    node.process_hub_reply(hub_reply)
+I mention @youngsoul's code in the Helpful Forks section of
+the imageZMQ README.
 
-The Patience(seconds) class sets a ``signal.SIGALRM`` timer and then raises an
-exception if the timer runs out before the hub_reply comes back.
-
-You can see the try except block in my
-`imagenode project <https://github.com/jeffbass/imagenode>`_, and
-the ``Patience`` class is defined
-`here. <https://github.com/jeffbass/imagenode/blob/master/imagenode/tools/utils.py>`_
+If you use @youngsoul's code, you would need to include a try / except
+block in your own code that checks for the exception being raised. You can see
+an example of how @youngsoul did that
+`here. <https://github.com/youngsoul/imagezmq/blob/master/CHANGES.md>`_
 
 
 Is it possible to have two ImageHub servers running on the same computer?
