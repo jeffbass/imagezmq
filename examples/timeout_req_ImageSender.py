@@ -33,7 +33,7 @@ def sender_start(connect_to=None, timeout_seconds=2):
     sender = imagezmq.ImageSender(connect_to=connect_to)
     sender.zmq_socket.setsockopt(zmq.LINGER, 0)  # prevents ZMQ hang on exit
     milliseconds = int(timeout_seconds * 2)
-    # sender.zmq_socket.setsockopt(zmq.RCVTIMEO, milliseconds)  # receive timeout
+    sender.zmq_socket.setsockopt(zmq.RCVTIMEO, milliseconds)  # receive timeout
     sender.zmq_socket.setsockopt(zmq.SNDTIMEO, milliseconds)  # send timeout
     return sender
 
