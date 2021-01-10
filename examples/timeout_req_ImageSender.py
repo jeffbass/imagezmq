@@ -64,6 +64,7 @@ try:
             sleep(time_between_restarts)
             print('Restarting ImageSender.')
             sender = sender_start(connect_to, timeout_seconds)
+            sleep(time_between_restarts)
 except (KeyboardInterrupt, SystemExit):
     pass  # Ctrl-C was pressed to end program
 except Exception as ex:
