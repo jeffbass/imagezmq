@@ -113,7 +113,7 @@ video in a browser.
             # Using OpenCV library create a JPEG image from the frame we have received
             jpg = cv2.imencode('.jpg', frame)[1]
             # Convert this JPEG image into a binary string that we can send to the browser via HTTP
-            yeild b'--frame\r\nContent-Type:image/jpeg\r\n\r\n'+jpg.tostring()+b'\r\n'
+            yield b'--frame\r\nContent-Type:image/jpeg\r\n\r\n'+jpg.tostring()+b'\r\n'
 
     # Add `application` method to Request class and define this method here
     @Request.application

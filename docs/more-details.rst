@@ -37,7 +37,7 @@ displaying on 1 Mac" example above can be done with either the REQ/REP
 messaging patern or the PUB/SUB messaging pattern. But the tcp addresses are
 specified differently in each.
 
-REQ/REP messaging pattern used to steam from Multiple RPis to one Mac
+REQ/REP messaging pattern used to stream from Multiple RPis to one Mac
 =====================================================================
 
 When using the **REQ/REP** (request/reply) pattern, every time a Raspberry Pi sends
@@ -139,7 +139,7 @@ connecting to this Mac in the REQ/REP messaging pattern. The way addresses are
 specified is an important difference between the REQ/REP messaging pattern and
 the PUB/SUB messaging pattern.
 
-PUB/SUB messaging pattern used to steam from Multiple RPis to one Mac
+PUB/SUB messaging pattern used to stream from Multiple RPis to one Mac
 =====================================================================
 
 The above example that uses REQ/REP pattern has one important feature that can
