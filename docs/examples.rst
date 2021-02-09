@@ -114,14 +114,16 @@ Example of using simplejpeg to improve jpg conversion speeds
 ===============================================================
 
 This example illustrates how to use the library ``simplejpeg`` to make
-the jpg conversion faster and to achieve better overall performance.
+the jpg conversion faster than what is normally achieved by OpenCV.
+Doing this will increase the overall performance.
 The example programs are:
 
 1. ``faster_jpg_send.py`` runs on the computer sending the images.
 2. ``faster_jpg_hub.py`` runs on the computer receiving the images.
 
-Using the ``simplejpeg`` library will improve speeds up to 30% depending
-on the frame sizes used.
+Using the ``simplejpeg`` library will improve speeds up to 30%, depending
+on the frame sizes used. This allow us to use even larger frame resolutions 
+with imageZMQ.
 
 A simple example program pair is also in the test folder
 ========================================================
