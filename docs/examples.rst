@@ -110,6 +110,19 @@ Using a ``with`` statement as a content manager can simplify programs
 and make sure that the ZMQ sockets and contexts are properly closed without
 expressly calling the imageZMQ ``close`` methods.
 
+Example of using simplejpeg to improve jpg conversion speeds
+===============================================================
+
+This example illustrates how to use the library ``simplejpeg`` to make
+the jpg conversion faster and to achieve better overall performance.
+The example programs are:
+
+1. ``faster_jpg_send.py`` runs on the computer sending the images.
+2. ``faster_jpg_hub.py`` runs on the computer receiving the images.
+
+Using the ``simplejpeg`` library will improve speeds up to 30% depending
+on the frame sizes used.
+
 A simple example program pair is also in the test folder
 ========================================================
 
