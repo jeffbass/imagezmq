@@ -98,7 +98,7 @@ alternatives. I chose ZMQ and its Python PyZMQ bindings for several reasons:
 - ZMQ and its PyZMQ bindings are easy to install.
 
 **imageZMQ** has been transporting images from a dozen Raspberry Pi computers
-scattered around my farm to 2 linux image hub servers for over 2
+scattered around my farm to 2 linux image hub servers for over 5
 years. The RPi's capture and send dozens to thousands of frames frames a day.
 **imageZMQ** has worked very reliably and is very fast. You can learn more about
 my "science experiment urban permaculture farm" project at
@@ -153,6 +153,8 @@ Dependencies and Installation
 - Numpy 1.13, 1.16 and 1.18
 - OpenCV 3.3, 4.0 and 4.1
 - Raspbian Buster, Raspbian Stretch and Raspbian Jessie
+  - NOT yet tested with Raspberry Pi OS Buster. Waiting for a production
+    replacement for the Python PiCamera module.
 - picamera 1.13 (used to capture images for the tests)
 - imutils 0.4.6, 0.5.2 and 0.5.3 (used to capture images from PiCamera)
 
