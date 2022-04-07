@@ -154,7 +154,7 @@ Dependencies and Installation
 - OpenCV 3.3, 4.0 and 4.1
 - Raspberry Pi OS Buster, Raspbian Stretch and Raspbian Jessie
 
-  - NOT yet tested with Raspberry Pi OS Buster. Waiting for a production
+  - NOT yet tested with Raspberry Pi OS Bullseye. Waiting for a production
     replacement for the Python PiCamera module.
 - picamera 1.13 (used to capture images for the tests)
 - imutils 0.4.6, 0.5.2 and 0.5.3 (used to capture images from PiCamera)
