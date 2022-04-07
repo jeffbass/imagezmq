@@ -152,7 +152,8 @@ Dependencies and Installation
 - PyZMQ 16.0, 17.1 and 19.0
 - Numpy 1.13, 1.16 and 1.18
 - OpenCV 3.3, 4.0 and 4.1
-- Raspbian Buster, Raspbian Stretch and Raspbian Jessie
+- Raspberry Pi OS Buster, Raspbian Stretch and Raspbian Jessie
+
   - NOT yet tested with Raspberry Pi OS Buster. Waiting for a production
     replacement for the Python PiCamera module.
 - picamera 1.13 (used to capture images for the tests)
