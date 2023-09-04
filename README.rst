@@ -17,7 +17,6 @@ Pi and with 8 lines of Python on the Mac.
 First, run this code on the Mac (or other display computer):
 
 .. code-block:: python
-  :number-lines:
 
     # run this program on the Mac to display image streams from multiple RPis
     import cv2
@@ -33,7 +32,6 @@ First, run this code on the Mac (or other display computer):
 Then, on each Raspberry Pi, run:
 
 .. code-block:: python
-  :number-lines:
 
     # run this program on each RPi to send a labelled image stream
     import socket
