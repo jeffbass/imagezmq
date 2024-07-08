@@ -8,4 +8,4 @@ security need to be handled in the programs(s) using imageZMQ. Code accordingly.
 ## Reporting a Vulnerability
 
 If you believe you have discovered a security vulnerability (or any other bug)
-in imageZMQ, open an issue and let's discuss it. 
+in imageZMQ, open an issue and let's discuss it. Thanks!

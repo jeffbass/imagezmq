@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Ongoing Development
 
+- Update test programs to Picamera2, new versions of Python & RPiOS
 - Improving documentation content, layout, arrangement.
 - Including additional Example programs and documentation.
 - Adding more questions to FAQs doc file.
