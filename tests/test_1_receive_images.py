@@ -26,7 +26,6 @@ first. Then press Ctrl-C in the terminal window of the receiving proram. You
 may have to press Ctrl-C in the display window as well.
 """
 
-import sys
 import cv2
 import imagezmq
 

@@ -60,18 +60,20 @@ Let's look at the Python code in the Raspberry Pi sending program:
   :number-lines:
 
     # run this program on each RPi to send a labelled image stream
+    # you can run it on multiple RPi's; 8 RPi's running in above example
     import socket
     import time
-    from imutils.video import VideoStream
+    from picamera2 import Picamera2
     import imagezmq
 
     sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
 
-    rpi_name = socket.gethostname() # send unique RPi hostname with each image
-    picam = VideoStream(usePiCamera=True).start()
-    time.sleep(2.0)  # allow camera sensor to warm up
+    rpi_name = socket.gethostname() # send RPi hostname with each image
+    picam = Picamera2()
+    picam.start()
+    time.sleep(2)  # allow camera sensor to warm up
     while True:  # send images as stream until Ctrl-C
-        image = picam.read()
+        image = picam.capture_array()
         sender.send_image(rpi_name, image)
 
 
