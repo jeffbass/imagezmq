@@ -205,6 +205,7 @@ that **imageZMQ** installed correctly and that you are able to specify and open
 ports for transferring OpenCV images between computers. 
 
 There are also test programs that send images from cameras:
+
 1. Raspberry Pi camera module using the PiCamera2 library with Raspberry Pi OS
 2. Webcam or USB camera using OpenCV's cv2.VideoCapture to capture images
 
