@@ -11,7 +11,8 @@ Raspberry Pis, ssh to each Raspberry Pi in a new terminal window. **imageZMQ**
 and its dependencies must be installed on the Mac and on each Raspberry Pi that
 will be sending images.
 
-There are 3 tests. Each of the tests uses 2 programs in matched pairs. One
+There are 3 tests using the REQ/REP ZMQ message pattern. Each of the tests uses 2 programs in matched pairs. In each
+test, one
 program sends images and the other program displays images. Because of the
 REQ/REP pattern that is being used, it is important that the receiving program
 be started before the sending program.
