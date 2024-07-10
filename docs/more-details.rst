@@ -30,7 +30,7 @@ consisting of an OpenCV image and the Raspberry Pi hostname. Each "reply" sent
 by the Mac message is an "OK" that tells the Raspberry Pi that it can send
 another image. It is a very important **imageZMQ** design element that each 
 message is a ``(text_message, image)`` tuple. If the **imageZMQ** messages were 
-images only, there would be now way to identify and distinguish multiple image 
+images only, there would be no way to identify and distinguish multiple image 
 streams.
 
 ZMQ is a powerful messaging library that allows many patterns for sending and
