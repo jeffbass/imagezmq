@@ -66,12 +66,12 @@ change:
 
 .. code-block:: python
 
-# uncomment only ONE ImageSender statement for each test; comment out the others
-sender = imagezmq.ImageSender()  # will send to localhost on THIS computer
+    # uncomment only ONE ImageSender statement for each test; comment out the others
+    sender = imagezmq.ImageSender()  # will send to localhost on THIS computer
 
-# 2 different ways to specify a different computer that will receive images
-# sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
-# sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
+    # 2 different ways to specify a different computer that will receive images
+    # sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
+    # sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
 
 Comment out the ``sender = imagezmq.ImageSender()`` line, since it will only
 work to send images to localhost on the SAME computer. Un-comment one of the 2
@@ -81,12 +81,12 @@ look like this:
 
 .. code-block:: python
 
-# uncomment only ONE ImageSender statement for each test; comment out the others
-# sender = imagezmq.ImageSender()  # will send to localhost on THIS computer
+    # uncomment only ONE ImageSender statement for each test; comment out the others
+    # sender = imagezmq.ImageSender()  # will send to localhost on THIS computer
 
-# 2 different ways to specify a different computer that will receive images
-# sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
-sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
+    # 2 different ways to specify a different computer that will receive images
+    # sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
+    sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
 
 First, run the ``test_receive_images.py`` program on the Mac where the images
 will be displayed. Then run the modified ``test_send_num_images.py`` program on
