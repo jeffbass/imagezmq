@@ -11,38 +11,41 @@ Raspberry Pis, ssh to each Raspberry Pi in a new terminal window. **imageZMQ**
 and its dependencies must be installed on the Mac and on each Raspberry Pi that
 will be sending images.
 
-There are 3 tests using the REQ/REP ZMQ message pattern. Each of the tests uses 2 programs in matched pairs. In each
-test, one
-program sends images and the other program displays images. Because of the
-REQ/REP pattern that is being used, it is important that the receiving program
-be started before the sending program.
+There are 3 tests using the REQ/REP ZMQ message pattern. In each test, one 
+program sends images and the other program receives and displays the sent images.
+Because of the REQ/REP pattern that is being used, it is important that the
+receiving program be started before the sending program.
 
-**imageZMQ** is in early development as part of a larger system. There are
-currently separate methods for sending and receiving images vs. jpg compressed
-images. Further development will refactor these into single methods for sending
-and receiving. ::
+Test 1: Simple generated images sent and displayed on the same Mac
+------------------------------------------------------------------
 
-Test 1: Simple generated images sent and displayed on Mac
----------------------------------------------------------
 **The first test** runs both the sending program and the receiving program on
 the Mac. This confirms that all the software is installed correctly and that
-``cv2.imshow()`` works on the Mac. No Raspberry Pi or camera is involved. The
-sending program generates test images and sends them to the receiving program.
+``cv2.imshow()`` works on the Mac. No camera is involved. The sending program 
+generates and sends a series of test images with a yellow number in a green
+rectangle on a black background. The yellow number in the first image sent is a
+"1", then "2", then "3", etc. The images are sent 1 second apart, so the numbers
+in the ``cv2.imshow()`` window change once each second. 
+
 First, in one terminal window, activate your virtual environment, then change to
 the tests directory and run the receiving program, which will receive and
-display images::
+display images:
 
-    workon py3cv3  # use your virtual environment name
+.. code-block:: bash
+
+    source ~/.venvs/py311cv4/bin/activate # use your virtual environment name
     cd imagezmq/tests
-    python test_1_receive_images.py
+    python test_receive_images.py
 
 Then, in a second terminal window on the same display computer (Mac), change to
 the tests directory and run the sending program, which will generate and send
-images::
+the test images:
 
-    workon py3cv3  # use your virtual environment name
+.. code-block:: bash
+
+    source ~/.venvs/py311cv4/bin/activate # use your virtual environment name
     cd imagezmq/tests
-    python test_1_send_images.py
+    python test_send_num_images.py
 
 After a few seconds, a ``cv2.imshow()`` window should open and display a green
 square on a black background. There will be a yellow number in the green square
@@ -51,8 +54,53 @@ programs by pressing Ctrl-C. It is normal to get a cascade of error messages
 when stopping the program with Ctrl-C. This simple test program has no
 try / except error trapping.
 
-Test 2: Sending stream of OpenCV images from RPi(s) to Mac
-----------------------------------------------------------
+Once you have run the Test 1 programs on a single computer, you should also run
+the Test 1 programs on 2 different computers. The Mac will receive and display 
+the test images as before. But a different computer, for example, a Raspberry Pi
+computer, will create and send the test images to the Mac. You will run the
+``test_receive_images.py`` program on the Mac without any changes and it will
+display the incoming images. On the computer that will be sending images,
+modify the ``test_send_num_images.py`` program to use one of ``connect_to``
+lines that specifies the Mac's tcp address. These are the relevant lines to
+change:
+
+.. code-block:: python
+
+    # uncomment only ONE ImageSender statement for each test; comment out the others
+    sender = imagezmq.ImageSender()  # will send to localhost on THIS computer
+
+    # 2 different ways to specify a different computer that will receive images
+    # sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
+    # sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
+
+Comment out the ``sender = imagezmq.ImageSender()`` line, since it will only
+work to send images to localhost on the SAME computer. Un-comment one of the 2
+lines that specifies the tcp address in the way you prefer. For example, to
+send images to the Mac using tcp address ``jeff-macbook``, the lines would 
+look like this:
+
+.. code-block:: python
+
+    # uncomment only ONE ImageSender statement for each test; comment out the others
+    # sender = imagezmq.ImageSender()  # will send to localhost on THIS computer
+
+    # 2 different ways to specify a different computer that will receive images
+    # sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
+    sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
+
+First, run the ``test_receive_images.py`` program on the Mac where the images
+will be displayed. Then run the modified ``test_send_num_images.py`` program on
+the RPi. The test images on the Mac will appear as they did before, but this
+time they are being sent by the RPi computer. Remember, in all of these test
+programs, you must start the image receiving program first, and then start the 
+image sending program. Press Ctrl-C in each terminal window to stop the programs.
+It is normal to get a cascade of error messages when stopping these programs
+with Ctrl-C. These simple test program have no try / except error trapping,
+since their only purpose is this simple test demonstration.
+
+Test 2: Sending stream of OpenCV camera images from RPi(s) to Mac
+-----------------------------------------------------------------
+
 **The second test** runs the sending program on a Raspberry Pi, capturing
 images from the PiCamera at up to 32 frames a second and sending them via
 **imageZMQ** to the Mac. The receiving program on the Mac displays a continuous

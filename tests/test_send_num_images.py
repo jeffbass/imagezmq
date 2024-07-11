@@ -28,7 +28,7 @@ sender = imagezmq.ImageSender()  # will send to localhost on THIS computer
 
 # 2 different ways to specify a different computer that will receive images
 # sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
-# sender = imagezmq.ImageSender(connect_to='tcp:jeff-mac-2022:5555')
+# sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
 
 i = 0
 image_window_name = 'Images from Sender'
