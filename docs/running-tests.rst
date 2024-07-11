@@ -54,6 +54,50 @@ programs by pressing Ctrl-C. It is normal to get a cascade of error messages
 when stopping the program with Ctrl-C. This simple test program has no
 try / except error trapping.
 
+Once you have run the Test 1 programs on a single computer, you should also run
+the Test 1 programs on 2 different computers. The Mac will receive and display 
+the test images as before. But a different computer, for example, a Raspberry Pi
+computer, will create and send the test images to the Mac. You will run the
+``test_receive_images.py`` program on the Mac without any changes and it will
+display the incoming images. On the computer that will be sending images,
+modify the ``test_send_num_images.py`` program to use one of ``connect_to``
+lines that specifies the Mac's tcp address. These are the relevant lines to
+change:
+
+.. code-block:: python
+
+# uncomment only ONE ImageSender statement for each test; comment out the others
+sender = imagezmq.ImageSender()  # will send to localhost on THIS computer
+
+# 2 different ways to specify a different computer that will receive images
+# sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
+# sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
+
+Comment out the ``sender = imagezmq.ImageSender()`` line, since it will only
+work to send images to localhost on the SAME computer. Un-comment one of the 2
+lines that specifies the tcp address in the way you prefer. For example, to
+send images to the Mac using tcp address ``jeff-macbook``, the lines would 
+look like this:
+
+.. code-block:: python
+
+# uncomment only ONE ImageSender statement for each test; comment out the others
+# sender = imagezmq.ImageSender()  # will send to localhost on THIS computer
+
+# 2 different ways to specify a different computer that will receive images
+# sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
+sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
+
+First, run the ``test_receive_images.py`` program on the Mac where the images
+will be displayed. Then run the modified ``test_send_num_images.py`` program on
+the RPi. The test images on the Mac will appear as they did before, but this
+time they are being sent by the RPi computer. Remember, in all of these test
+programs, you must start the image receiving program first, and then start the 
+image sending program. Press Ctrl-C in each terminal window to stop the programs.
+It is normal to get a cascade of error messages when stopping these programs
+with Ctrl-C. These simple test program have no try / except error trapping,
+since their only purpose is this simple test demonstration.
+
 Test 2: Sending stream of OpenCV camera images from RPi(s) to Mac
 -----------------------------------------------------------------
 
