@@ -13,7 +13,7 @@ import sys
 import socket
 import time
 import cv2
-from imutils.video import VideoStream
+from picamera2 import Picamera2
 import imagezmq
 
 # use either of the formats below to specifiy address of display computer
@@ -21,8 +21,9 @@ import imagezmq
 sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.190:5555')
 
 rpi_name = socket.gethostname()  # send RPi hostname with each image
-picam = VideoStream(usePiCamera=True).start()
+picam = Picamera2()
+picam.start()
 time.sleep(2.0)  # allow camera sensor to warm up
 while True:  # send images as stream until Ctrl-C
-    image = picam.read()
+    image = picam.capture_array()
     sender.send_image(rpi_name, image)
