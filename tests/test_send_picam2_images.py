@@ -1,4 +1,4 @@
-"""test_2_send_picam2_images.py -- send PiCamera image stream.
+"""test_send_picam2_images.py -- send PiCamera image stream.
 
 A Raspberry Pi test program that uses imagezmq to send image frames from the
 PiCamera continuously to a receiving program on a Mac that will display the
