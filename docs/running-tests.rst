@@ -104,26 +104,33 @@ Test 2: Sending stream of OpenCV camera images from RPi(s) to Mac
 **The second test** runs the sending program on a Raspberry Pi, capturing
 images from the PiCamera at up to 32 frames a second and sending them via
 **imageZMQ** to the Mac. The receiving program on the Mac displays a continuous
-video stream of the images captured by the Raspberry Pi. First, in one terminal
-window, activate your virtual environment, change to the tests directory and
-run the receiving program which will display the images::
+video stream of the images captured by the Raspberry Pi Picamera module. This
+test is run on the Mac (or other display computer). Open 2 terminal windows. One
+terminal window will be used to run the image receiving program to display
+images on the Mac. In the first terminalwindow, activate your virtual
+environment, change to the tests directory and run the receiving program which
+will display the images:
 
-    workon py3cv3  # use your virtual environment name
+.. code-block:: bash
+
+    source ~/.venvs/py311cv4/bin/activate # use your virtual environment name
     cd imagezmq/tests
-    python test_2_receive_images.py
+    python test_receive_images.py
 
 Then, in a second terminal window on the Mac, ssh into the Raspberry Pi that
 will be sending images. Activate your Python virtual environment, change to the
-tests directory and **edit the test_2_send_images.py program to specify the tcp
+tests directory and **edit the test_send_picam2_images.py program to specify the tcp
 address of your display computer.** There are 2 lines in the program that show
 different ways of specifying the tcp address: by hostname or by tcp numeric address.
 Pick one method, change the tcp address to that of your display computer and
 comment out the method you are not using. Finally, run the program, which will
-capture and send images::
+capture and send images:
 
-    workon py3cv3  # use your virtual environment name
+.. code-block:: bash
+
+    source ~/.venvs/py311cv4/bin/activate # use your virtual environment name
     cd imagezmq/tests
-    python test_2_send_images.py
+    python test_send_picam2_images.py
 
 In about 5 seconds, a ``cv2.imshow()`` window will appear on the Mac and display
 the video stream being sent by the Raspberry Pi.  You can repeat this step in
@@ -141,6 +148,24 @@ Ctrl-C in its terminal window. It is normal to get a cascade of error messages
 when stopping these programs with Ctrl-C. This simple test program has no try /
 except error trapping.
 
+There is a webcam version of the test_send_images program. Instead of using the 
+Picamera module on a Raspberry Pi, it uses a webcam (or USB cam) to capture
+images. The program uses the OpenCV ``VideoStream`` module to capture a stream 
+of images from a webcam or USB camera. It has been tested with a Mac webcamera, 
+a Linux webcamera and a USB camera plugged into one of the USB ports on a 
+Raspberry Pi computer. If you don't have a Picamera module, this programs shows
+a way to use ``cv2.VideoStream()`` to capture a stream of images. To run the
+webcam sending program:
+
+.. code-block:: bash
+
+    source ~/.venvs/py311cv4/bin/activate # use your virtual environment name
+    cd imagezmq/tests
+    python test_send_webcam_images.py
+
+You may need to adjust the ``src`` parameter from the default of 0. See the
+OpenCV docs for more details.
+
 Test 3: Sending stream of jpgs from RPi(s) to Mac
 -------------------------------------------------
 **The third test** runs a different pair of sending / receiving programs. The
@@ -156,7 +181,7 @@ the same way as the above pair of programs that send uncompressed images. Use
 the instructions above as a guide. The programs for Test 3 are::
 
     test_3_receive_jpg.py  # run on the Mac to receive & decompress images
-    test_3_send_jpg.py     # ron on each Raspberry Pi to compress & send images
+    test_3_send_jpg.py     # run on each Raspberry Pi to compress & send images
 
 As with the previous Test 2 program pair, you will need to edit the "connect_to"
 address in the sending program to the tcp address of your Mac (or other display
