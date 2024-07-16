@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Testing **imageZMQ** with newer versions of Python (through 3.11)
 - Modifying tests to use Picamera2 and latest Raspberry Pi OS
+
 - Improving documentation content, layout, arrangement.
 - Including additional Example programs and documentation.
 - Adding more questions to FAQs doc file.

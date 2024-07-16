@@ -11,7 +11,7 @@ Mac computer showing simultaneous video streams from 8 Raspberry Pi cameras:
 Using **imagezmq**, this is possible with 11 lines of Python on each Raspberry
 Pi and with 8 lines of Python on the Mac.
 
-First, run this code on the Mac (or other display computer):
+First, run this receiver program on the Mac (or other display computer):
 
 .. code-block:: python
 
@@ -26,23 +26,25 @@ First, run this code on the Mac (or other display computer):
         image_hub.send_reply(b'OK')
 
 
-Then, on each Raspberry Pi, run:
+Then, on each Raspberry Pi, run this sender program:
 
 .. code-block:: python
 
     # run this program on each RPi to send a labelled image stream
+    # you can run it on multiple RPi's; 8 RPi's running in above example
     import socket
     import time
-    from imutils.video import VideoStream
+    from picamera2 import Picamera2
     import imagezmq
 
     sender = imagezmq.ImageSender(connect_to='tcp://jeff-macbook:5555')
 
     rpi_name = socket.gethostname() # send RPi hostname with each image
-    picam = VideoStream(usePiCamera=True).start()
-    time.sleep(2.0)  # allow camera sensor to warm up
+    picam = Picamera2()
+    picam.start()
+    time.sleep(2)  # allow camera sensor to warm up
     while True:  # send images as stream until Ctrl-C
-        image = picam.read()
+        image = picam.capture_array()
         sender.send_image(rpi_name, image)
 
 
