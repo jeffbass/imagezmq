@@ -67,7 +67,7 @@ portion of the tuple identifies the source and other info about the image. In
 the example above, the ``text_message`` portion identifies which RPi is sending the
 the image so that the receiver can put each unique RPi image stream into a
 specific window. More details about the **imageZMQ** tuples in the above example
-are `here <docs/more-details.rst>`_.
+are `here <https://raw.githubusercontent.com/jeffbass/imagezmq/master/docs/more-details.rst>`_.
 
 Features
 ========
