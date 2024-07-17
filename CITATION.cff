@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Bass"
+  given-names: "Jeff"
+  orcid: "https://orcid.org/0009-0008-3287-1093"
+title: "imageZMQ: Transporting OpenCV Images"
+version: 1.1.1
+doi: 10.5281/zenodo.3840855
+date-released: 2020-05-22
+url: "https://github.com/jeffbass/imagezmq"
