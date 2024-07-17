@@ -303,3 +303,22 @@ Acknowledgements and Thank Yous
 - **Picamera2** is a well documented `library <https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf>_ for accessing the features and
   settings of the PiCamera modules for various Raspberry Pi single board
   computers. 
+
+Citing this Software
+====================
+To cite this software in publications, refer to the CITATION.cff file. Or use: 
+APA 
+
+Bass, J. (2020). imageZMQ: Transporting OpenCV Images (Version 1.1.1) [Computer software]. https://doi.org/10.5281/zenodo.3840855
+
+or BibTex:
+
+@software{Bass_imageZMQ_Transporting_OpenCV_2020,
+author = {Bass, Jeff},
+doi = {10.5281/zenodo.3840855},
+month = may,
+title = {{imageZMQ: Transporting OpenCV Images}},
+url = {https://github.com/jeffbass/imagezmq},
+version = {1.1.1},
+year = {2020}
+}
