@@ -299,6 +299,6 @@ Acknowledgements and Thank Yous
   `PyZMQ documentation <https://pyzmq.readthedocs.io/en/latest/index.html>`_.
 - **OpenCV** and its Python bindings provide great scaffolding for computer
   vision projects large or small: `OpenCV.org <https://opencv.org/>`_.
-- **Picamera2** is a well documented library for accessing the features and
+- **Picamera2** is a well documented `library <https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf>_ for accessing the features and
   settings of the PiCamera modules for various Raspberry Pi single board
   computers. 
