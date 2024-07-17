@@ -70,6 +70,7 @@ detection. Then the images are passed via **imageZMQ** to the central computer f
 more complex image processing like image tagging, text extraction, feature
 recognition, etc. An example of using **imageZMQ** can be found
 at `Using imageZMQ in distributed computer vision projects <docs/imagezmq-uses.rst>`_.
+
 Each **imageZMQ** message is a ``(text_message, image)`` tuple. The text 
 portion of the tuple identifies the source and other info about the image. In 
 the example above, the ``text_message`` portion identifies which RPi is sending the
