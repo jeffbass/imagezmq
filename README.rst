@@ -300,18 +300,19 @@ Acknowledgements and Thank Yous
   `PyZMQ documentation <https://pyzmq.readthedocs.io/en/latest/index.html>`_.
 - **OpenCV** and its Python bindings provide great scaffolding for computer
   vision projects large or small: `OpenCV.org <https://opencv.org/>`_.
-- **Picamera2** is a well documented `library <https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf>_ for accessing the features and
+- **Picamera2** is a well documented `library <https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf>`_ for accessing the features and
   settings of the PiCamera modules for various Raspberry Pi single board
   computers. 
 
 Citing this Software
 ====================
-To cite this software in publications, refer to the CITATION.cff file. Or use: 
-APA 
+To cite this software in publications, refer to the CITATION.cff file. Or use either of the following: 
+
+APA: 
 
 Bass, J. (2020). imageZMQ: Transporting OpenCV Images (Version 1.1.1) [Computer software]. https://doi.org/10.5281/zenodo.3840855
 
-or BibTex:
+BibTex:
 
 @software{Bass_imageZMQ_Transporting_OpenCV_2020,
 author = {Bass, Jeff},
