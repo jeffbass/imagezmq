@@ -62,6 +62,13 @@ detection. Then the images are passed via **imagezmq** to the central computer f
 more complex image processing like image tagging, text extraction, feature
 recognition, etc.
 
+Each **imageZMQ** message is a ``(text_message, image)`` tuple. The text 
+portion of the tuple identifies the source and other info about the image. In 
+the example above, the ``text_message`` portion identifies which RPi is sending the
+the image so that the receiver can put each unique RPi image stream into a
+specific window. More details about the **imageZMQ** tuples in the above example
+are `here <docs/more-details.rst>`_.
+
 Features
 ========
 
@@ -117,22 +124,23 @@ Dependencies and Installation
 
 **imagezmq** has been tested with:
 
-- Python 3.5, 3.6, 3.7 and 3.8
-- PyZMQ 16.0 and 17.1
-- Numpy 1.13 and 1.16
-- OpenCV 3.3 and 4.0
-- Raspbian Buster, Raspbian Stretch and Raspbian Jessie
-- picamera 1.13 (used to capture images for the tests)
-- imutils 0.4.6 and 0.5.2 (used to capture images from PiCamera)
+- Python 3.5, 3.6, 3.7, 3.8, 3.9, 3.10 and 3.11
+- PyZMQ 16.0, 17.1, 19.0 and 26.0
+- Numpy 1.13, 1.16, 1.18 and 1.24
+- OpenCV 3.3, 4.0, 4.1 and 4.6
+- Raspberry Pi OS Bookworm and Bullseye using PiCamera2
+- Raspbian OS Buster, Stretch and Raspbian Jessie using legacy PiCamera
 
 Install OpenCV, including Numpy, into a Python Virtual Environment. Then be sure
-to install **imagezmq** into the **same** virtual environment. For example, if
-the virtual environment is named **py3cv3**, you would install **imagezmq**
-using pip like this:
+to install **imagezmq** into the **same** virtual environment. For example,
+on a Raspberry Pi running Raspberry Pi OS Bookworm, my virtual 
+environment is named **py311cv4**.
+
+Install **imageZMQ** using pip:
 
 .. code-block:: bash
 
-    workon py3cv3  # use your virtual environment name
+    workon py311cv4  # use your virtual environment name
     pip install imagezmq
 
 **imagezmq** has a directory of tests organized into sender and receiver pairs.
