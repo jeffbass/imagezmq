@@ -145,7 +145,7 @@ Dependencies and Installation
    :target: https://pypi.org/project/imagezmq/
 
 .. |releasedate| image:: /docs/images/release_date.svg
-   :target: https://github.com/jeffbass/imagezmq/releases/tag/v1.1.1
+   :target: https://github.com/jeffbass/imagezmq/releases/tag/v1.2.0
 
 .. |license| image::  /docs/images/license.svg
    :target: LICENSE.txt
@@ -310,16 +310,16 @@ To cite this software in publications, refer to the CITATION.cff file. Or use ei
 
 APA: 
 
-Bass, J. (2020). imageZMQ: Transporting OpenCV Images (Version 1.1.1) [Computer software]. https://doi.org/10.5281/zenodo.3840855
+Bass, J. (2024). imageZMQ: Transporting OpenCV Images (Version 1.2.0) [Computer software]. https://doi.org/10.5281/zenodo.12770292
 
 BibTex:
 
-@software{Bass_imageZMQ_Transporting_OpenCV_2020,
+@software{Bass_imageZMQ_Transporting_OpenCV_2024,
 author = {Bass, Jeff},
-doi = {10.5281/zenodo.3840855},
-month = may,
+doi = {10.5281/zenodo.12770292},
+month = July,
 title = {{imageZMQ: Transporting OpenCV Images}},
 url = {https://github.com/jeffbass/imagezmq},
-version = {1.1.1},
-year = {2020}
+version = {1.2.0},
+year = {2024}
 }
