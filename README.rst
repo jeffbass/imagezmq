@@ -145,13 +145,13 @@ Dependencies and Installation
    :target: https://pypi.org/project/imagezmq/
 
 .. |releasedate| image:: /docs/images/release_date.svg
-   :target: https://github.com/jeffbass/imagezmq/releases/tag/v1.2.0
+   :target: https://github.com/jeffbass/imagezmq/tree/v.1.2.0
 
 .. |license| image::  /docs/images/license.svg
    :target: LICENSE.txt
 
 .. |doi| image::  /docs/images/doi.svg
-   :target: https://doi.org/10.5281/zenodo.3840855
+   :target: https://zenodo.org/records/12770292
 
 **imageZMQ** has been tested with:
 
