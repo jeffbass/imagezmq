@@ -66,7 +66,7 @@ finally:
     image_size = image.shape
     print('Size of last image received: ', image_size)
     uncompressed_size = image_size[0] * image_size[1] * image_size[2]
-    print('    = {:,g} bytes'.format(uncompressed_size))
+    print('    = {:,} bytes'.format(uncompressed_size))
     print('Elasped time: {:,.2f} seconds'.format(fps_elapsed))
     print('Approximate FPS: {:.2f}'.format(fps))
     cv2.destroyAllWindows()  # closes the windows opened by cv2.imshow()
