@@ -148,7 +148,7 @@ Ctrl-C in its terminal window. It is normal to get a cascade of error messages
 when stopping these programs with Ctrl-C. This simple test program has no try /
 except error trapping.
 
-There is a webcam version of the test_send_images program. Instead of using the 
+There is a **webcam version** of the test_send_images program. Instead of using the 
 Picamera module on a Raspberry Pi, it uses a webcam (or USB cam) to capture
 images. The program uses the OpenCV ``VideoStream`` module to capture a stream 
 of images from a webcam or USB camera. It has been tested with a Mac webcamera, 
@@ -180,8 +180,8 @@ The programs that send and receive the images using jpg compression are run in
 the same way as the above pair of programs that send uncompressed images. Use
 the instructions above as a guide. The programs for Test 3 are::
 
-    test_3_receive_jpg.py  # run on the Mac to receive & decompress images
-    test_3_send_jpg.py     # run on each Raspberry Pi to compress & send images
+    test_receive_jpgs.py       # run on the Mac to receive & decompress images
+    test_send_picam2_jpgs.py   # run on each Raspberry Pi to compress & send images
 
 As with the previous Test 2 program pair, you will need to edit the "connect_to"
 address in the sending program to the tcp address of your Mac (or other display
@@ -212,21 +212,22 @@ further differences, advantages and disadvantages of the REQ/REP versus PUB/SUB
 messaging patterns.
 
 The sending program generates test images and sends them to the receiving program.
+
 First, in one terminal window, activate your virtual environment, then change to
 the tests directory and run the receiving program, which will receive and
 display images::
 
-    workon py3cv3  # use your virtual environment name
+    workon py311cv4  # use your virtual environment name
     cd imagezmq/tests
-    python test_4_pub.py
+    python test_sub_receive_images.py
 
 Then, in a second terminal window on the same display computer (Mac), change to
-the tests directory and run the sending program, which will generate and send
-images::
+the tests directory and run the sending program on a RPi, which will generate
+and send images::
 
-    workon py3cv3  # use your virtual environment name
+    workon py311cv4  # use your virtual environment name
     cd imagezmq/tests
-    python test_4_sub.py
+    python test_pub_send_images.py
 
 After a few seconds, a ``cv2.imshow()`` window should open and display a green
 square on a black background. There will be a yellow number in the green square
@@ -252,16 +253,10 @@ compressed versus the non-compressed transfer methods. They also show how to
 capture the hub response in the sending program, which wasn't needed in the
 simple tests.
 
-One pair of programs transmits and receives **OpenCV images** and measures FPS::
+A pair of programs transmits and receives **OpenCV images** and measures FPS::
 
     timing_receive_images.py  # run on Mac to display images
     timing_send_images.py     # run on Raspberry Pi to send images
-
-Another pair of programs transmits and receives **jpg compressed images** and
-measures FPS::
-
-    timing_send_jpg_buf.py     # run on Raspberry Pi to send images
-    timing_receive_jpg_buf.py  # run on Mac to display images
 
 As with the other test program pairs, you will need to edit the "connect_to"
 address in the sending program to the tcp address of your Mac (or other display
@@ -270,3 +265,25 @@ Mac before you start the sending program on the Raspberry Pi. With these program
 the try / except blocks will end the programs cleanly with no errors when you
 press Ctrl-C. Be sure to activate your virtual environment before running these
 tests.
+
+Older Picamera & imutils tests in the old_tests folder
+======================================================
+
+Prior to Raspberry Pi OS Bullseye, the original Picamera Python module was used.
+The original **imageZMQ** test programs used the original PiCamera Python module
+by using an ``imutils`` Python module. However, both Picamera and imutils are 
+no longer working with the Raspberry Pi OS Bullseye or Bookworm or later versions. 
+The Picamera2 module is now the standard way to access the Raspberry Pi camera 
+module. All the **imageZMQ** test programs have been converted to the Picamera2
+module. However, if you are using an older Raspberry Pi OS (Buster or older), 
+the orignal Picamera / imutils test programs are in the old_tests folder.
+
+As of July 2024, these older **imageZMQ** test programs are still 
+working fine on several RPis we have running the older RPi OS versions. The older
+programs are not being updated, since Picamera2 has become standard. But if you 
+want to continue to use **imageZMQ** with the original Picamera module, you can
+run the test programs in the ``old_tests`` folder. The documentation for running 
+those test programs is `here. <docs/running-old-tests.rst>`_
+
+
+

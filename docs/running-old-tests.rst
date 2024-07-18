@@ -1,5 +1,20 @@
-Running the Tests
-=================
+Running the Older Picamera / imutils Tests
+==========================================
+
+Prior to Raspberry Pi OS Bullseye, the original Picamera Python module was used.
+The original **imageZMQ** test programs used the original PiCamera Python module
+by using an ``imutils`` Python module. However, both Picamera and imutils are 
+no longer working with the Raspberry Pi OS Bullseye or Bookworm or later versions. 
+The Picamera2 module is now the standard way to access the Raspberry Pi camera 
+module. All the **imageZMQ** test programs have been converted to the Picamera2
+module. However, if you are using an older Raspberry Pi OS (Buster or older), 
+the orignal Picamera / imutils test programs are in the old_tests folder.
+
+As of July 2024, these older **imageZMQ** test programs are still 
+working fine on several RPis we have running the older RPi OS versions. The older
+programs are not being updated, since Picamera2 has become standard. But if you 
+want to continue to use **imageZMQ** with the original Picamera module, you can
+run the test programs in the ``old_tests`` folder. 
 
 When running the tests, use multiple terminal windows on the computer that will
 be displaying the images (I used a Mac for these examples; in my descriptions
@@ -16,13 +31,9 @@ program sends images and the other program displays images. Because of the
 REQ/REP pattern that is being used, it is important that the receiving program
 be started before the sending program.
 
-**imageZMQ** is in early development as part of a larger system. There are
-currently separate methods for sending and receiving images vs. jpg compressed
-images. Further development will refactor these into single methods for sending
-and receiving. ::
-
 Test 1: Simple generated images sent and displayed on Mac
 ---------------------------------------------------------
+
 **The first test** runs both the sending program and the receiving program on
 the Mac. This confirms that all the software is installed correctly and that
 ``cv2.imshow()`` works on the Mac. No Raspberry Pi or camera is involved. The
@@ -52,6 +63,7 @@ try / except error trapping.
 
 Test 2: Sending stream of OpenCV images from RPi(s) to Mac
 ----------------------------------------------------------
+
 **The second test** runs the sending program on a Raspberry Pi, capturing
 images from the PiCamera at up to 32 frames a second and sending them via
 **imageZMQ** to the Mac. The receiving program on the Mac displays a continuous
@@ -94,6 +106,7 @@ except error trapping.
 
 Test 3: Sending stream of jpgs from RPi(s) to Mac
 -------------------------------------------------
+
 **The third test** runs a different pair of sending / receiving programs. The
 program on the Raspberry Pi captures images from the PiCamera at up to 32
 frames a second and **compresses them to jpeg form** before sending them via
@@ -121,6 +134,7 @@ tests.
 
 Test 4: Using PUB/SUB to send simple generated images and display them on Mac
 -----------------------------------------------------------------------------
+
 **The fourth test** is a repeat of Test 1, but uses the PUB/SUB messaging
 pattern instead of the REQ/REP messaging pattern. It shows the differences
 in running PUB/SUB versus REQ/REP in the simplest possible test program.
@@ -166,6 +180,7 @@ demonstration.
 
 Timing tests: Complete imageZMQ usage examples
 ==============================================
+
 The test programs above are short and simple. They test that the software and
 dependencies are installed correctly and that images transfer successfully between
 a Raspberry Pi computer and a display computer such as a Mac.  The tests
