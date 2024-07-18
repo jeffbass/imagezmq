@@ -53,6 +53,6 @@ finally:
     if use_led:
         GPIO.output(18, False)  # turn off LEDs
         GPIO.cleanup()  # close GPIO channel and release it
-    picam.stop()  # stop the camera thread
+    picam.close()   # close Picamera
     sender.close()  # close the ZMQ socket and context
     sys.exit()
