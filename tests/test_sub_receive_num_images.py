@@ -18,4 +18,4 @@ image_hub = imagezmq.ImageHub(open_port='tcp://192.168.86.33:5555', REQ_REP=Fals
 while True:  # press Ctrl-C to stop image display program
     image_name, image = image_hub.recv_image()
     cv2.imshow(image_name, image)
-    cv2.waitKey(1)  # wait until a key is pressed
+    cv2.waitKey(10)  # wait until a key is pressed
