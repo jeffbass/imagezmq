@@ -3,15 +3,6 @@
 A timing program that uses imagezmq to receive and display an image stream
 from one or more Raspberry Pi computers and print timing and FPS statistics.
 
-1. Run this program in its own terminal window on the mac:
-python timing_receive_images.py
-
-This "receive and display images" program must be running before starting
-the RPi image sending program.
-
-2. Run the image sending program on the RPi:
-python timing_send_images.py
-
 A cv2.imshow() window will appear on the Mac showing the tramsmitted images
 as a video stream. You can repeat Step 2 and start the timing_send_images.py
 on multiple RPis and each one will cause a new cv2.imshow() window to open.
