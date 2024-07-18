@@ -11,7 +11,7 @@ Dependencies and Installation
 
 .. |release| image:: https://img.shields.io/github/v/release/jeffbass/imagezmq
 
-.. |releasedate| image:: https://img.shields.io/badge/release%20date-may%202020-brightgreen
+.. |releasedate| image:: https://img.shields.io/badge/release%20date-July%202024-brightgreen
 
 .. |license| image:: https://img.shields.io/pypi/l/imagezmq
 
