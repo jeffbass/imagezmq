@@ -283,7 +283,7 @@ working fine on several RPis we have running the older RPi OS versions. The olde
 programs are not being updated, since Picamera2 has become standard. But if you 
 want to continue to use **imageZMQ** with the original Picamera module, you can
 run the test programs in the ``old_tests`` folder. The documentation for running 
-those test programs is `here. <docs/running-old-tests.rst>`_
+those test programs is `here. <running-old-tests.rst>`_
 
 
 
