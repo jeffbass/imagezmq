@@ -1,18 +1,18 @@
-"""test_4_pub.py -- basic send images test using PUB/SUB message pattern.
+"""test_pub_send_num_images.py -- basic send images test using PUB/SUB message pattern.
 
 A simple test program that uses imagezmq to send images to a receiving program
 that will display the images.
 
-Brief test instructions are in the receiving program: test_1_pub.py.
 """
 
-import sys
 import time
 import numpy as np
 import cv2
 import imagezmq
 
 # Create an image sender in PUB/SUB (non-blocking) mode
+# same address 'tcp://*:555' is used by all senders
+# addresses of each sender are specified in test_sub_receive_num_images.py 
 sender = imagezmq.ImageSender(connect_to='tcp://*:5555', REQ_REP=False)
 
 image_window_name = 'From Sender'
