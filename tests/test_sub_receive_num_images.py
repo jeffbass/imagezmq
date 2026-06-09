@@ -8,7 +8,7 @@ import cv2
 import imagezmq
 
 # use either of the formats below to specifiy address of display computer
-# sender = imagezmq.ImageSender(open_port='tcp://rpi32:5555',REQ_REP=False)
+# image_hub = imagezmq.ImageHub(open_port='tcp://rpi32:5555',REQ_REP=False)
 image_hub = imagezmq.ImageHub(open_port='tcp://192.168.86.33:5555', REQ_REP=False)
 
 # additional rpi publisher / ImageSenders can be added using the .connect() method
