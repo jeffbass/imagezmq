@@ -12,6 +12,11 @@ requires = [
     'numpy>=1.13',
 ]
 
+extras = {
+    'omq': ['pyomq>=0.20.3,<1'],
+    'pyomq': ['pyomq>=0.20.3,<1'],
+}
+
 # load the "about" fields like name, version, author, etc. from __version__.py
 about = {}
 with open(os.path.join(here, 'imagezmq', '__version__.py'), 'r') as f:
@@ -37,6 +42,7 @@ setup(
     package_dir={'imagezmq': 'imagezmq'},
     python_requires=">=3.5",
     install_requires=requires,
+    extras_require=extras,
     license=about['__license__'],
     zip_safe=False,
     classifiers=[

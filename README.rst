@@ -178,6 +178,16 @@ Install **imageZMQ** using pip:
     workon py311cv4  # use your virtual environment name
     pip install imagezmq
 
+To use the optional pyomq backend instead of PyZMQ:
+
+.. code-block:: bash
+
+    pip install "imagezmq[omq]"
+    IMAGEZMQ_ZMQ_BACKEND=pyomq python your_program.py
+
+The pyomq backend also supports pyomq transports such as ``lz4+tcp://`` and
+``zstd+tcp://`` in imageZMQ socket addresses.
+
 **imageZMQ** has a directory of tests organized into sender and receiver pairs.
 You will get the "tests" directory containing all the test programs by
 cloning the GitHub repository:

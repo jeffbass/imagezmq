@@ -9,8 +9,10 @@ Copyright (c) 2019 by Jeff Bass.
 License: MIT, see LICENSE for more details.
 """
 
-import zmq
+import json
+
 import numpy as np
+from ._zmq_backend import zmq
 
 class ImageSender():
     """Opens a zmq socket and sends images
@@ -342,6 +344,24 @@ class SerializingSocket(zmq.Socket):
     Also used for sending / receiving jpg compressed OpenCV images.
     """
 
+    def _metadata_bytes(self, cache_key, metadata):
+        cached = getattr(self, '_imagezmq_metadata_cache', None)
+        if cached is not None and cached[0] == cache_key:
+            return cached[1]
+        metadata_bytes = json.dumps(metadata).encode('utf-8')
+        object.__setattr__(self, '_imagezmq_metadata_cache',
+                           (cache_key, metadata_bytes))
+        return metadata_bytes
+
+    def _send_metadata_payload(self, metadata, cache_key, payload, flags=0,
+                               copy=True, track=False):
+        metadata_bytes = self._metadata_bytes(cache_key, metadata)
+        if flags & zmq.SNDMORE:
+            self.send(metadata_bytes, flags | zmq.SNDMORE)
+            return self.send(payload, flags, copy=copy, track=track)
+        return self.send_multipart([metadata_bytes, payload], flags=flags,
+                                   copy=copy, track=track)
+
     def send_array(self, A, msg='NoName', flags=0, copy=True, track=False):
         """Sends a numpy array with metadata and text message.
 
@@ -357,13 +377,17 @@ class SerializingSocket(zmq.Socket):
           track: (optional) zmq track flag.
         """
 
+        dtype = str(A.dtype)
+        shape = A.shape
         md = dict(
             msg=msg,
-            dtype=str(A.dtype),
-            shape=A.shape,
+            dtype=dtype,
+            shape=shape,
         )
-        self.send_json(md, flags | zmq.SNDMORE)
-        return self.send(A, flags, copy=copy, track=track)
+        cache_key = ('array', msg, dtype, shape)
+        payload = memoryview(A).cast('B')
+        return self._send_metadata_payload(md, cache_key, payload, flags,
+                                           copy, track)
 
     def send_jpg(self,
                  msg='NoName',
@@ -385,8 +409,9 @@ class SerializingSocket(zmq.Socket):
         """
 
         md = dict(msg=msg, )
-        self.send_json(md, flags | zmq.SNDMORE)
-        return self.send(jpg_buffer, flags, copy=copy, track=track)
+        cache_key = ('jpg', msg)
+        return self._send_metadata_payload(md, cache_key, jpg_buffer, flags,
+                                           copy, track)
 
     def recv_array(self, flags=0, copy=True, track=False):
         """Receives a numpy array with metadata and text message.
@@ -433,3 +458,37 @@ class SerializingSocket(zmq.Socket):
 
 class SerializingContext(zmq.Context):
     _socket_class = SerializingSocket
+
+    def socket(self, socket_type, socket_class=None, **kwargs):
+        """Return a socket with imagezmq serialization helpers."""
+
+        if socket_class is None:
+            socket_class = self._socket_class
+        try:
+            socket = super(SerializingContext, self).socket(
+                socket_type, socket_class=socket_class, **kwargs
+            )
+        except TypeError:
+            if kwargs or socket_class is not self._socket_class:
+                raise
+            socket = super(SerializingContext, self).socket(socket_type)
+        if hasattr(socket, 'send_array'):
+            return socket
+        return SerializingSocketWrapper(socket)
+
+
+class SerializingSocketWrapper(object):
+    """Add imagezmq serialization helpers to backends without socket_class."""
+
+    def __init__(self, socket):
+        self._socket = socket
+
+    def __getattr__(self, name):
+        return getattr(self._socket, name)
+
+    _metadata_bytes = SerializingSocket._metadata_bytes
+    _send_metadata_payload = SerializingSocket._send_metadata_payload
+    send_array = SerializingSocket.send_array
+    send_jpg = SerializingSocket.send_jpg
+    recv_array = SerializingSocket.recv_array
+    recv_jpg = SerializingSocket.recv_jpg
